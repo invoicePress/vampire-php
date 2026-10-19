@@ -1,0 +1,97 @@
+{
+  "schemaVersion": 1,
+  "id": "xpath-comparisons",
+  "title": "General and value comparisons, and the untypedAtomic rules that decide real findings",
+  "source": "tests/Unit/Xpath/Runtime/ComparisonsTest.php",
+  "namespaces": { "cac": "urn:cac", "cbc": "urn:cbc" },
+
+  "vectors": [
+
+    {
+      "id": "general-comparison-is-existential",
+      "xml": "<r/>",
+      "expr": "(1, 2) = (2, 3)",
+      "expect": { "ebv": true },
+      "note": "A general comparison is true as soon as ONE pair matches."
+    },
+    { "id": "general-comparison-no-pair", "xml": "<r/>", "expr": "(1, 2) = (3, 4)", "expect": { "ebv": false } },
+
+    {
+      "id": "general-comparison-empty-left",
+      "xml": "<cac:Root xmlns:cac=\"urn:cac\"/>",
+      "expr": "cac:Missing = 'x'",
+      "expect": { "ebv": false },
+      "note": "An empty operand makes a general comparison false - for every operator, including !=."
+    },
+    { "id": "general-comparison-empty-right", "xml": "<cac:Root xmlns:cac=\"urn:cac\"/>", "expr": "'x' = cac:Missing",            "expect": { "ebv": false } },
+    { "id": "general-comparison-both-empty",  "xml": "<cac:Root xmlns:cac=\"urn:cac\"/>", "expr": "cac:Missing != cac:AlsoMissing", "expect": { "ebv": false } },
+
+    {
+      "id": "untyped-vs-numeric-compares-numerically",
+      "xml": "<cac:Root xmlns:cac=\"urn:cac\"><cac:V>10</cac:V></cac:Root>",
+      "expr": "cac:V > xs:decimal(9)",
+      "expect": { "ebv": true },
+      "note": "⚠️ A node's text atomises to untypedAtomic. Against a NUMERIC operand it compares numerically ( 10 > 9 ), not lexically ( where \"10\" < \"9\" )."
+    },
+    {
+      "id": "untyped-vs-string-compares-lexically",
+      "xml": "<cac:Root xmlns:cac=\"urn:cac\"><cac:V>10</cac:V></cac:Root>",
+      "expr": "cac:V < '9'",
+      "expect": { "ebv": true },
+      "note": "The same node text against a STRING operand compares as a string: \"10\" < \"9\"."
+    },
+
+    { "id": "value-comparison-eq", "xml": "<r/>", "expr": "1 eq 1", "expect": { "ebv": true } },
+    { "id": "value-comparison-ne", "xml": "<r/>", "expr": "1 ne 2", "expect": { "ebv": true } },
+    { "id": "value-comparison-lt", "xml": "<r/>", "expr": "1 lt 2", "expect": { "ebv": true } },
+    { "id": "value-comparison-gt", "xml": "<r/>", "expr": "2 gt 1", "expect": { "ebv": true } },
+    { "id": "value-comparison-le", "xml": "<r/>", "expr": "1 le 1", "expect": { "ebv": true } },
+    { "id": "value-comparison-ge", "xml": "<r/>", "expr": "1 ge 1", "expect": { "ebv": true } },
+
+    {
+      "id": "value-comparison-empty-left",
+      "xml": "<cac:Root xmlns:cac=\"urn:cac\"/>",
+      "expr": "cac:Missing eq 1",
+      "expect": { "empty": true },
+      "note": "⚠️ XPath 2.0 §3.5.1: an empty operand makes a VALUE comparison the empty sequence. VAMPIRE PHP threw here until 09.10.2026, and a throwing official rule ends the whole validation ( source: InterpreterTest::testValueComparisonWithAnEmptyOperandIsTheEmptySequence )."
+    },
+    { "id": "value-comparison-empty-right", "xml": "<cac:Root xmlns:cac=\"urn:cac\"/>", "expr": "1 le cac:Missing",        "expect": { "empty": true } },
+    { "id": "value-comparison-empty-not",   "xml": "<cac:Root xmlns:cac=\"urn:cac\"/>", "expr": "not(cac:Missing ne 1)",   "expect": { "boolean": true } },
+    { "id": "value-comparison-multi-error", "xml": "<cac:Root xmlns:cac=\"urn:cac\"><cac:V>1</cac:V><cac:V>2</cac:V></cac:Root>", "expr": "cac:V eq 1", "expect": { "error": true } },
+
+    {
+      "id": "decimal-equality-ignores-trailing-zeros",
+      "xml": "<r/>",
+      "expr": "xs:decimal('1.10') eq xs:decimal('1.1')",
+      "expect": { "ebv": true },
+      "note": "Numeric equality, not lexical - 1.10 and 1.1 are the same decimal."
+    },
+
+    {
+      "id": "untyped-false-against-boolean-true",
+      "xml": "<cac:Root xmlns:cac=\"urn:cac\"><cac:ChargeIndicator>false</cac:ChargeIndicator></cac:Root>",
+      "expr": "cac:ChargeIndicator = true()",
+      "expect": { "ebv": false },
+      "note": "⚠️ Against a real xs:boolean, an untypedAtomic node value is cast by the XML Schema LEXICAL rule ( \"false\"/\"0\" -> false ), NOT by effective-boolean-value ( where \"false\" is a non-empty string and therefore true ). Conflating the two made BR-CL-20's context `cac:AllowanceCharge[cbc:ChargeIndicator = true()]` match a node whose own text was literally \"false\"."
+    },
+    {
+      "id": "untyped-true-against-boolean-true",
+      "xml": "<cac:Root xmlns:cac=\"urn:cac\"><cac:ChargeIndicator>true</cac:ChargeIndicator></cac:Root>",
+      "expr": "cac:ChargeIndicator = true()",
+      "expect": { "ebv": true }
+    },
+    {
+      "id": "untyped-zero-against-boolean-false",
+      "xml": "<cac:Root xmlns:cac=\"urn:cac\"><cac:Flag>0</cac:Flag></cac:Root>",
+      "expr": "cac:Flag = false()",
+      "expect": { "ebv": true }
+    },
+    {
+      "id": "untyped-one-against-boolean-true",
+      "xml": "<cac:Root xmlns:cac=\"urn:cac\"><cac:Flag>1</cac:Flag></cac:Root>",
+      "expr": "cac:Flag = true()",
+      "expect": { "ebv": true }
+    }
+
+  ]
+}

@@ -1,0 +1,7 @@
+{
+    "file": "invoices/zugferd-en16931/E06_01_Einfach_DueDate.xml",
+    "scenario": "EN16931 (CII)",
+    "accept": true,
+    "messages": [],
+    "engine": "KoSIT Validator 1.6.3"
+}

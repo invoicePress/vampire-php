@@ -1,0 +1,57 @@
+{
+    "name": "invoicepress/vampire-php",
+    "description": "Dependency-free, Java-free PHP validator for EN 16931 / XRechnung e-invoices (UBL + CII): native XSD, syntax-rule and business-rule pipeline, own XPath 2.0 subset interpreter.",
+    "type": "library",
+    "license": "GPL-2.0-or-later",
+    "authors": [
+        {
+            "name": "Ralf Fuhrmann",
+            "homepage": "https://www.specialpress.de"
+        }
+    ],
+    "require": {
+        "php": "^8.2",
+        "ext-dom": "*",
+        "ext-libxml": "*",
+        "ext-bcmath": "*"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "^11.0",
+        "phpstan/phpstan": "^2.0",
+        "squizlabs/php_codesniffer": "^3.10"
+    },
+    "autoload": {
+        "psr-4": {
+            "EinvoiceValidator\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "EinvoiceValidator\\Devkit\\": "devkit/",
+            "EinvoiceValidator\\Tests\\": "tests/"
+        }
+    },
+    "scripts": {
+        "test": "phpunit",
+        "stan": "phpstan analyse --level=8 src devkit",
+        "cs": "phpcs",
+        "qa": [
+            "@cs",
+            "@stan",
+            "@test"
+        ]
+    },
+    "config": {
+        "optimize-autoloader": true,
+        "sort-packages": true
+    },
+    "archive": {
+        "exclude": [
+            "/vendor",
+            "/vendor-sources",
+            "/.phpunit.cache",
+            "/composer.lock"
+        ]
+    },
+    "minimum-stability": "stable"
+}

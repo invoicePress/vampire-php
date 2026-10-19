@@ -1,0 +1,11 @@
+{
+    "file": "invoices/mutated/ubl-invalid-currency.xml",
+    "scenario": "EN16931 XRechnung (UBL Invoice)",
+    "accept": false,
+    "messages": {
+        "BR-CL-04": "error",
+        "BR-CO-15": "error",
+        "BR-DE-TMP-32": "information"
+    },
+    "engine": "KoSIT Validator 1.6.3"
+}

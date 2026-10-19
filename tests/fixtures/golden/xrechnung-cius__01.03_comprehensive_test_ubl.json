@@ -1,0 +1,7 @@
+{
+    "file": "invoices/xrechnung-cius/01.03_comprehensive_test_ubl.xml",
+    "scenario": "EN16931 XRechnung (UBL Invoice)",
+    "accept": true,
+    "messages": [],
+    "engine": "KoSIT Validator 1.6.3"
+}

@@ -1,0 +1,8 @@
+{
+    "file": "invoices/peppol-bis/vat-category-E.xml",
+    "scenario": "Peppol Billing BIS 3 - UBL Invoice",
+    "accept": true,
+    "rules": [],
+    "mustNotBlock": [],
+    "note": "Offizielle XRechnung-3.0.2-Testsuite, Gruppe peppol-bis - gueltiger Beleg, muss angenommen werden."
+}

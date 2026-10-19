@@ -1,0 +1,5 @@
+{
+    "id": "test-custom-rules",
+    "include": [ { "ruleset": "custom-haus-regeln@1.0", "rules": ["HAUS-01", "HAUS-02"] } ],
+    "note": "Testprofil (Aufgabe 5.5): schaltet die selbst geschriebenen Hausregeln zu."
+}

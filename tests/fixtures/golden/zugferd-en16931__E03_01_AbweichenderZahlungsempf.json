@@ -1,0 +1,10 @@
+{
+    "file": "invoices/zugferd-en16931/E03_01_AbweichenderZahlungsempf.xml",
+    "scenario": "EN16931 (CII)",
+    "accept": true,
+    "messages": {
+        "CII-SR-450": "warning",
+        "CII-SR-451": "warning"
+    },
+    "engine": "KoSIT Validator 1.6.3"
+}

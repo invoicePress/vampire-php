@@ -1,0 +1,13 @@
+{
+    "file": "invoices/mutated/cii-broken-tax-inclusive-amount.xml",
+    "scenario": "EN16931 XRechnung (CII)",
+    "accept": false,
+    "rules": [
+        {
+            "id": "BR-CO-15",
+            "flag": "fatal"
+        }
+    ],
+    "mustNotBlock": [],
+    "note": "Negativtest (Aufgabe 4.2), erzeugt aus 01.01a-INVOICE_uncefact.xml: Bruttobetrag (BT-112) passt nicht mehr zu Nettobetrag plus Steuer."
+}

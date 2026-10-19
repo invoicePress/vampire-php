@@ -1,0 +1,10 @@
+{
+    "file": "invoices/xrechnung-extension/04.05a-INVOICE_uncefact.xml",
+    "scenario": "EN16931 XRechnung Extension (CII)",
+    "accept": true,
+    "messages": {
+        "BR-CL-10": "error",
+        "BR-CL-21": "error"
+    },
+    "engine": "KoSIT Validator 1.6.3"
+}

@@ -1,0 +1,7 @@
+{
+    "file": "invoices/phive-peppol-billing/base-creditnote-correction.xml",
+    "scenario": "Peppol Billing BIS 3 - UBL CreditNote",
+    "accept": true,
+    "messages": [],
+    "engine": "KoSIT Validator 1.6.3"
+}

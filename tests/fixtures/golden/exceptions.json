@@ -1,0 +1,32 @@
+{
+    "_": [
+        "Aufgabe 4.6 - bewusste Abweichungen vom KoSIT-Referenzvalidator, je mit Begründung.",
+        "Alles, was hier NICHT steht, muss übereinstimmen: Szenario, Urteil, Menge der Regel-IDs,",
+        "Einstufung je Regel. Ein Eintrag hier ist eine Behauptung, die jemand belegen musste -",
+        "kein Ort, um einen unbequemen Test ruhigzustellen.",
+        "",
+        "Erzeugt wird der Vergleichsbestand mit devkit/Cli/kosit-golden.php (startet Java, läuft von",
+        "Hand, nie in composer test). Gemessen am 21.09.2026: Urteil und Szenario stimmen bei allen",
+        "312 Belegen überein - bei angenommenen wie bei abgelehnten. Ob ein Beleg durchfällt, ist für",
+        "diesen Vergleich gleichgültig; gleich sein müssen die Ergebnisse. Das schließt die 63",
+        "EU-CIUS-Belege ein, die beide Seiten ablehnen (docs/developer/eu-cius.md).",
+        "",
+        "Für Factur-X und die EU-CIUS läuft der Vergleich gegen unsere eigenen Konfigurationen unter",
+        "vendor-sources/ statt gegen eine eigene Installation des Validators - nur unsere kennen",
+        "diese Szenarien. Die EU-CIUS-Gruppen laufen dabei allein, weil die italienische AGID-Kennung",
+        "mit der Peppol-Kennung beginnt und der Validator zwei passende Szenerien als",
+        "noScenarioMatched verwirft."
+    ],
+    "onlyOurs": {
+        "CII-SR-475": {
+            "grund": "Regelversion. Unser EN16931-CII ist 1.3.16, die KoSIT-Konfiguration liefert 1.3.15 mit. Gemessen: deren kompilierte EN16931-CII-validation.xsl endet bei CII-SR-466, unsere geht bis CII-SR-479. Die Regel existiert dort schlicht noch nicht.",
+            "belege": ["01.01_comprehensive_test_uncefact.xml", "03.03a-INVOICE_uncefact.xml", "03.07a-INVOICE_uncefact.xml"]
+        },
+        "CII-SR-476": {
+            "grund": "Wie CII-SR-475 - erst ab EN16931-CII 1.3.16 vorhanden.",
+            "belege": ["01.01_comprehensive_test_uncefact.xml", "03.07a-INVOICE_uncefact.xml"]
+        }
+    },
+    "onlyKosit": {},
+    "level": {}
+}

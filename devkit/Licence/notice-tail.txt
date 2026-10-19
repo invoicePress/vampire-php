@@ -1,0 +1,26 @@
+A. Factur-X / ZUGFeRD code lists ( rulesets/codedb/FACTUR-X_*_codedb.xml )
+   Publisher: FNFE-MPE and FeRD, from the official release package ZUGFeRD
+              2.5.2
+   Licence:   Apache-2.0 according to FeRD for the ZUGFeRD Technical Artifacts
+   Used as:   shipped unchanged; the Factur-X rules load them at runtime
+              through fn:document(). The licence text is licences/Apache-2.0.txt.
+
+B. KoSIT Validator scenario configurations ( scenarios.xml )
+   Publisher: Koordinierungsstelle fuer IT-Standards (KoSIT)
+   Licence:   Apache-2.0
+   Used as:   source of the scenario definitions in rulesets/scenarios.json.
+              No KoSIT code is bundled; this library runs no Java at all.
+
+C. UBL 2.1, UN/CEFACT CII D16B and Factur-X 1.09.2 XML schemas
+   Publisher: OASIS / UN/CEFACT / FNFE-MPE and FeRD
+   Licence:   see the respective schema headers
+   Used as:   XSD validation input, shipped unchanged under rulesets/xsd/.
+
+D. Test material, only in the development tree, never in a runtime export
+   XRechnung test suite 3.0.2 (KoSIT, Apache-2.0) and the test files of
+   phive-rules (Philip Helger, Apache-2.0; the files themselves come from the
+   publishers named above) are used unchanged as test fixtures under
+   tests/fixtures. See docs/developer/sources.md and docs/notes/phive-import.md.
+
+Message texts reproduced in validation output are quoted verbatim from the rule
+sets above, as required to stay comparable with the reference validator.

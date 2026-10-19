@@ -1,0 +1,343 @@
+#!/usr/bin/env php
+<?php
+
+// SPDX-License-Identifier: GPL-2.0-or-later
+// ⚠️ The CLI belongs to the engine, and the engine is proprietary. Only the rule packages under
+// rulesets/ carry a licence of their own ( field `license` in each package head, see NOTICE ).
+
+/**
+ * Task 7.4 — the command line interface.
+ *
+ *   einvoice-validator validate <datei> [--format=text|json|html|xml] [--profile=<id>] [--scenario=<id>] [--rule-report] [--cascade|--matrix]
+ *   einvoice-validator profile:show <id>
+ *   einvoice-validator ruleset:list
+ *   einvoice-validator export:schematron <profil-id> <verzeichnis>
+ *   einvoice-validator selftest
+ *
+ * ⚠️ The exit code is the machine-readable part: 0 when the invoice is accepted, 1 when it is
+ * rejected, 2 when the call itself was wrong (unknown file, unknown profile). A script that pipes
+ * invoices through this must be able to tell "invalid invoice" from "you called me wrong" without
+ * parsing prose.
+ */
+
+declare(strict_types=1);
+
+namespace EinvoiceValidator\Cli;
+
+use EinvoiceValidator\Pipeline\ScenarioResolver;
+use EinvoiceValidator\Profile\ProfileLoader;
+use EinvoiceValidator\Report\HtmlReport;
+use EinvoiceValidator\Report\JsonReport;
+use EinvoiceValidator\Report\KositXmlReport;
+use EinvoiceValidator\Result\Result;
+use EinvoiceValidator\Ruleset\RuleCatalog;
+use EinvoiceValidator\Validator;
+
+const EXIT_ACCEPTED = 0;
+const EXIT_REJECTED = 1;
+const EXIT_USAGE = 2;
+
+$autoload = null;
+
+foreach ([__DIR__ . '/../vendor/autoload.php', __DIR__ . '/../../../autoload.php'] as $candidate) {
+    if (is_file($candidate)) {
+        $autoload = $candidate;
+        break;
+    }
+}
+
+if ($autoload === null) {
+    fwrite(STDERR, "Composer-Autoloader nicht gefunden - composer install ausführen.\n");
+    exit(EXIT_USAGE);
+}
+
+require $autoload;
+
+$root = dirname(__DIR__);
+$argv = $_SERVER['argv'] ?? [];
+$command = $argv[1] ?? 'help';
+$options = [];
+$positional = [];
+
+foreach (array_slice($argv, 2) as $arg) {
+    if (preg_match('/^--([a-z-]+)(?:=(.*))?$/', $arg, $m) === 1) {
+        $options[$m[1]] = $m[2] ?? '1';
+        continue;
+    }
+
+    $positional[] = $arg;
+}
+
+exit(match ($command) {
+    'validate' => cmd_validate($root, $positional, $options),
+    'profile:show' => cmd_profile_show($root, $positional),
+    'ruleset:list' => cmd_ruleset_list($root),
+    'export:schematron' => cmd_export($root, $positional),
+    'selftest' => cmd_selftest($root),
+    default => cmd_help(),
+});
+
+function profile_dir(string $root): string
+{
+    return is_dir($root . '/profiles') ? $root . '/profiles' : $root . '/tests/fixtures/profiles';
+}
+
+/**
+ * @param list<string>          $args
+ * @param array<string, string> $options
+ */
+function cmd_validate(string $root, array $args, array $options): int
+{
+    $file = $args[0] ?? null;
+
+    if ($file === null || !is_file($file)) {
+        fwrite(STDERR, "Beleg nicht gefunden. Aufruf: validate <datei> [--format=…] [--profile=…]\n");
+
+        return EXIT_USAGE;
+    }
+
+    /*
+     * P2.1 step 5 ( the VAMPIRE value of the open command line `einvoice-multicheck`, W7.1 ): `--cascade` runs the
+     * version cascade, `--matrix` every edition. ⚠️ THE EXIT CODE FOLLOWS THE CHOSEN EDITION, as for a single check:
+     * 0 accepted, 1 rejected or no verdict. A caller that wants the whole matrix reads `--format=json`.
+     */
+    if (isset($options['cascade']) || isset($options['matrix'])) {
+        $cascade = \EinvoiceValidator\Cascade\Cascade::fromPackage($root, ['lang' => 'de']);
+
+        if ($cascade === null) {
+            fwrite(STDERR, "Dieses Paket enthält keine Regelpakete je Fassung ( rulesets/versions/cascade.json ).\n");
+
+            return EXIT_USAGE;
+        }
+
+        $r = $cascade->validateFile($file, isset($options['matrix']));
+
+        if (($options['format'] ?? 'text') === 'json') {
+            echo json_encode($r, JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE | JSON_THROW_ON_ERROR), "\n";
+        } else {
+            echo ($r['accepted'] === true ? 'ANGENOMMEN' : ($r['accepted'] === null ? 'KEIN URTEIL' : 'ABGELEHNT'))
+                . ' nach Fassung ' . ($r['chosen']['version'] ?? '–') . "\n" . $r['chosen']['reason'] . "\n\n";
+
+            foreach ($r['steps'] as $s) {
+                printf("%-8s %-12s %s\n", (string) $s['version'], $s['verdict'], $s['ran'] ? implode(' ', array_slice(array_merge($s['rules']['fatal'], $s['rules']['warning']), 0, 6)) : '');
+            }
+        }
+
+        return $r['accepted'] === true ? EXIT_ACCEPTED : EXIT_REJECTED;
+    }
+
+    $profile = null;
+
+    if (isset($options['profile'])) {
+        $profile = (new ProfileLoader(profile_dir($root)))->load($options['profile']);
+    }
+
+    $validator = new Validator(
+        scenarioResolver: ScenarioResolver::fromJsonFile($root . '/rulesets/scenarios.json'),
+        baseDir: $root,
+        profile: $profile,
+        forceScenarioId: $options['scenario'] ?? null,
+        // P2.5 - the positive report: every rule with its result ( JSON: section `ruleReport` ).
+        ruleReport: isset($options['rule-report']),
+    );
+
+    $result = $validator->validateFile($file);
+
+    echo match ($options['format'] ?? 'text') {
+        'json' => (new JsonReport())->toJson($result),
+        'html' => (new HtmlReport())->render($result),
+        'xml' => (new KositXmlReport())->render($result, (string) file_get_contents($file)),
+        default => text_report($result),
+    }, "\n";
+
+    return $result->isAccepted() ? EXIT_ACCEPTED : EXIT_REJECTED;
+}
+
+function text_report(Result $result): string
+{
+    $lines = [];
+    // ⚠️ No verdict ( a rule set or an edition this package does not contain ) is not a rejection - the same
+    // three words as the cascade output above. Until 09.10.2026 this line said ABGELEHNT for it.
+    $lines[] = !$result->hasVerdict() ? 'KEIN URTEIL' : ($result->isAccepted() ? 'ANGENOMMEN' : 'ABGELEHNT');
+    $lines[] = 'Szenario:   ' . ($result->scenarioName() ?? 'keines');
+    $lines[] = 'Regelwerke: ' . (implode(', ', $result->rulesets()) ?: '–');
+    $lines[] = '';
+
+    foreach ($result->messages() as $message) {
+        $lines[] = sprintf(
+            '%-12s %-22s %s',
+            $message->flag->value,
+            $message->ruleId ?? '–',
+            preg_replace('/\s+/', ' ', $message->text)
+        );
+    }
+
+    if (count($lines) === 4) {
+        $lines[] = 'Keine Befunde.';
+    }
+
+    $ruleReport = $result->ruleReport();
+
+    if ($ruleReport !== null) {
+        // P2.5 - a count per result and the steps; the full list of rules is in --format=json.
+        // ⚠️ The German words are display texts; the keys in the JSON report stay English.
+        $words = ['passed' => 'erfüllt', 'failed' => 'verletzt', 'not-applicable' => 'nicht anwendbar', 'not-checked' => 'nicht geprüft'];
+        $data = $ruleReport->toArray($result);
+
+        $lines[] = '';
+        $lines[] = 'Geprüfte Regeln (Prüfsumme SHA-256 ' . ($data['document']['sha256'] ?? '–') . ', ' . $data['validatedAt'] . '):';
+
+        foreach ($data['counts'] as $key => $count) {
+            $lines[] = sprintf('  %-16s %5d', $words[$key], $count);
+        }
+
+        foreach ($data['steps'] as $step) {
+            $lines[] = sprintf('  Schritt %-10s %s%s', $step['step'], $words[$step['result']], $step['reason'] !== null ? ' (' . $step['reason'] . ')' : '');
+        }
+    }
+
+    return implode("\n", $lines);
+}
+
+/**
+ * @param list<string> $args
+ */
+function cmd_profile_show(string $root, array $args): int
+{
+    $id = $args[0] ?? null;
+
+    if ($id === null) {
+        fwrite(STDERR, "Aufruf: profile:show <id>\n");
+
+        return EXIT_USAGE;
+    }
+
+    $profile = (new ProfileLoader(profile_dir($root)))->load($id);
+
+    echo 'Profil:        ', $profile->id, "\n";
+    echo 'Titel:         ', $profile->title ?? '–', "\n";
+    echo 'Abgeschaltet:  ', implode(', ', $profile->disable) ?: '–', "\n";
+    echo "Umgestuft:\n";
+
+    foreach ($profile->severity as $ruleId => $flag) {
+        printf("  %-24s %s\n", $ruleId, $flag->value);
+    }
+
+    echo "Zugeschaltet:\n";
+
+    foreach ($profile->include as $ref => $rules) {
+        printf("  %-34s %s\n", $ref, $rules === [] ? '(alle)' : implode(', ', $rules));
+    }
+
+    if ($profile->note !== null) {
+        echo "\n", $profile->note, "\n";
+    }
+
+    return EXIT_ACCEPTED;
+}
+
+function cmd_ruleset_list(string $root): int
+{
+    $files = glob($root . '/rulesets/*@*.json') ?: [];
+    sort($files);
+
+    $catalog = RuleCatalog::fromFiles($files);
+    $perRuleset = [];
+
+    foreach ($catalog->all() as $entry) {
+        $perRuleset[$entry->ruleset] = ($perRuleset[$entry->ruleset] ?? 0) + 1;
+    }
+
+    foreach ($perRuleset as $ref => $count) {
+        printf("%-34s %5d Regeln\n", $ref, $count);
+    }
+
+    printf("\n%d Regelwerke, %d Regeln insgesamt\n", count($perRuleset), count($catalog->all()));
+
+    return EXIT_ACCEPTED;
+}
+
+/**
+ * @param list<string> $args
+ */
+function cmd_export(string $root, array $args): int
+{
+    if (count($args) < 2) {
+        fwrite(STDERR, "Aufruf: export:schematron <profil-id> <verzeichnis>\n");
+
+        return EXIT_USAGE;
+    }
+
+    // The exporter lives in devkit, which ships separately - so this command delegates instead of
+    // pulling devkit into the runtime package.
+    $script = $root . '/devkit/Cli/export-profile.php';
+
+    if (!is_file($script)) {
+        fwrite(STDERR, "Der Export gehört zum devkit und ist in dieser Installation nicht enthalten.\n");
+
+        return EXIT_USAGE;
+    }
+
+    $command = escapeshellarg(PHP_BINARY) . ' ' . escapeshellarg($script) . ' '
+        . escapeshellarg($args[0]) . ' ' . escapeshellarg($args[1]) . ' --apply';
+
+    passthru($command, $code);
+
+    return $code === 0 ? EXIT_ACCEPTED : EXIT_USAGE;
+}
+
+function cmd_selftest(string $root): int
+{
+    $checks = [];
+
+    $checks['rulesets'] = count(glob($root . '/rulesets/*@*.json') ?: []);
+    $checks['scenarios'] = is_file($root . '/rulesets/scenarios.json')
+        ? count((array) json_decode((string) file_get_contents($root . '/rulesets/scenarios.json'), true))
+        : 0;
+    $checks['xsd'] = count(glob($root . '/rulesets/xsd/*', GLOB_ONLYDIR) ?: []);
+
+    foreach (['dom', 'libxml', 'bcmath'] as $extension) {
+        $checks["ext-$extension"] = extension_loaded($extension) ? 1 : 0;
+    }
+
+    $ok = true;
+
+    foreach ($checks as $name => $value) {
+        printf("%-14s %s\n", $name, $value > 0 ? "ok ($value)" : 'FEHLT');
+        $ok = $ok && $value > 0;
+    }
+
+    // A self-test that only counts files proves nothing about whether validation works.
+    $sample = $root . '/tests/fixtures/invoices/valid-ubl-invoice.xml';
+
+    if (is_file($sample)) {
+        $validator = new Validator(
+            scenarioResolver: ScenarioResolver::fromJsonFile($root . '/rulesets/scenarios.json'),
+            baseDir: $root,
+        );
+
+        $accepted = $validator->validateFile($sample)->isAccepted();
+        printf("%-14s %s\n", 'Beispielbeleg', $accepted ? 'angenommen' : 'ABGELEHNT');
+        $ok = $ok && $accepted;
+    }
+
+    return $ok ? EXIT_ACCEPTED : EXIT_REJECTED;
+}
+
+function cmd_help(): int
+{
+    echo <<<'TEXT'
+        einvoice-validator - E-Rechnungen nach EN 16931 prüfen
+
+          validate <datei> [--format=text|json|html|xml] [--profile=<id>] [--scenario=<id>] [--rule-report] [--cascade|--matrix]
+          profile:show <id>
+          ruleset:list
+          export:schematron <profil-id> <verzeichnis>
+          selftest
+
+        Rückgabewerte: 0 angenommen, 1 abgelehnt, 2 Aufruffehler.
+
+        TEXT;
+
+    return EXIT_USAGE;
+}

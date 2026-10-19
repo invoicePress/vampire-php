@@ -1,0 +1,508 @@
+{
+	"_readme": [
+		"Where the official rule sets of VAMPIRE JS and VAMPIRE PHP come from, under which licence their publishers release them, and under which licence the derived rule packages are passed on.",
+		"Read by the build of the rule packages ( devkit: import-ruleset.php, export-runtime.php and write-notice.php write the licence into each rule package and generate NOTICE ) and by the builds that pass the rule packages on. This file is the only place where these facts stand.",
+		"An entry is found by the FIRST 'match' that occurs in the rule set's source.file ( slashes normalised to '/' ). More specific entries therefore come first.",
+		"status 'cleared': the licence allows passing the derived rule package on; the package carries 'packageLicence' as its SPDX identifier, and NOTICE reproduces every file in 'licenceTexts'.",
+		"status 'pending': the rights holder states no licence, and the rule set is shipped until the rights holder answers the request that has been made. NOTICE names origin and rights holder and NO licence; 'packageLicence' is NOASSERTION. Such an entry must carry 'separable', so that one build switch can drop it.",
+		"status 'open': the licence forbids the form we ship, or no licence is known and nothing was decided; every build STOPS. 'question' says why.",
+		"packageLicence: the SPDX identifier written into the head of the derived rule package. The engine files ( vampire.js, src/ of VAMPIRE PHP ) always carry LicenseRef-specialPress-Proprietary; this field never applies to them.",
+		"licenceTexts: files under build/licences/ that every package with such a rule set must contain in full. Apache-2.0 section 4(a) and EUPL-1.2 article 5 both require that recipients get a copy of the licence, not a link.",
+		"obligations: what a package has to do beyond carrying the licence text, one ASCII sentence each; NOTICE reproduces them.",
+		"visibleNotice: a sentence that the user must SEE in the product, not only find in NOTICE ( FeRD's condition for ZUGFeRD ). The rule packages carry it as 'notice', and both engines print it in the report of every check that ran such a rule set. The German text is written with JSON escapes so that this file stays ASCII.",
+		"separable: the name of a group that a build switch can drop as a whole ( build-vampire-addon.mjs --without=peppol, export-runtime.php --without=peppol ). Groups in use: peppol, france, cius ( the national CIUS ) and out-of-scope ( Serbia, Turkey, ZATCA ).",
+		"The explanation packages and the rule catalogue of einvoice-reference-data read this file too ( build/provenance.php there ): a rule set whose entry is not 'cleared' or 'pending', or which has no entry, is left out of every package and of the rule catalogue instead of stopping that build.",
+		"Every statement here was checked against the upstream files or repositories on 2026-10-08, the Factur-X, French and national CIUS entries on 2026-10-09. None of this is legal advice; it stands under the reservation of the legal review that is still recommended.",
+		"Keep this file ASCII: NOTICE is plain ASCII, and the builds refuse anything else."
+	],
+	"sources": [
+		{
+			"match": "vendor-sources/peppol-config/resources/peppol/billing-bis/3.0.21/CEN-EN16931-UBL.xslt",
+			"upstream": "EN 16931 validation artefacts for UBL, release 1.3.16 (CEN/TC 434), in the copy that OpenPeppol ships with Peppol BIS Billing 3.0.21",
+			"publisher": "European Commission, ConnectingEurope, on behalf of CEN/TC 434; obtained through the KoSIT validator configuration for Peppol BIS Billing 3.0",
+			"url": "https://github.com/ConnectingEurope/eInvoicing-EN16931",
+			"licence": "EUPL-1.2",
+			"licenceStatement": null,
+			"packageLicence": "EUPL-1.2",
+			"licenceTexts": [
+				"EUPL-1.2.txt"
+			],
+			"copyright": "From <xsl:stylesheet on, the file is character for character the CEN release EN16931-UBL-validation.xslt 1.3.16 (measured 2026-10-09); OpenPeppol removed only the two leading comments, one of which is the licence line 'Licensed under European Union Public Licence (EUPL) version 1.2.' The copyright of EN 16931:2017 is owned by CEN and its members.",
+			"upstreamNotice": "Licensed under European Union Public Licence (EUPL) version 1.2.",
+			"obligations": [
+				"This rule package is a derivative of EUPL-1.2 material and is distributed under EUPL-1.2 only, never under the proprietary licence of the engine.",
+				"Its source form is the rule package itself (readable JSON); the upstream Schematron is published at the address under Source."
+			],
+			"visibleNotice": null,
+			"separable": "peppol",
+			"status": "cleared",
+			"question": null
+		},
+		{
+			"match": "vendor-sources/peppol-config/resources/peppol/billing-bis/",
+			"upstream": "Peppol BIS Billing 3.0 validation artefacts (Schematron), the Peppol-specific rules",
+			"publisher": "OpenPeppol AISBL; obtained through the KoSIT validator configuration for Peppol BIS Billing 3.0",
+			"url": "https://github.com/OpenPEPPOL/peppol-bis-invoice-3",
+			"licence": null,
+			"licenceStatement": "None. OpenPeppol AISBL states no licence for these files. specialPress grants no licence to this rule package and claims none; the rule package is included until OpenPeppol AISBL answers a request for consent, and it will be removed with an update if OpenPeppol AISBL does not consent.",
+			"packageLicence": "NOASSERTION",
+			"licenceTexts": [],
+			"copyright": "Rights holder: OpenPeppol AISBL, Brussels, holds the copyright of Peppol BIS Billing 3.0. The OpenPeppol repository declares no licence, and the compiled XSLT carries no licence line. The BIS document says it 'may not be modified, re-distribute, sold or repackaged in any other way without the prior consent of OpenPeppol AISBL'. KoSIT redistributes the files in an Apache-2.0 repository, which grants no rights in OpenPeppol's material.",
+			"upstreamNotice": null,
+			"obligations": [],
+			"visibleNotice": null,
+			"separable": "peppol",
+			"status": "pending",
+			"question": "Consent of OpenPeppol AISBL to redistribute the translated Peppol rules has been requested."
+		},
+		{
+			"match": "vendor-sources/en16931-schematron/",
+			"upstream": "EN 16931 validation artefacts (Schematron), CEN/TC 434",
+			"publisher": "European Commission, ConnectingEurope, on behalf of CEN/TC 434; obtained through the phive-rules distribution, unchanged",
+			"url": "https://github.com/ConnectingEurope/eInvoicing-EN16931",
+			"licence": "EUPL-1.2",
+			"licenceStatement": null,
+			"packageLicence": "EUPL-1.2",
+			"licenceTexts": [
+				"EUPL-1.2.txt"
+			],
+			"copyright": "The upstream files carry no copyright line. The copyright of EN 16931:2017 is owned by CEN and its members. Up to release 1.2.3 the artefacts were Apache-2.0; since 1.3.0 they are EUPL-1.2.",
+			"upstreamNotice": "Licensed under European Union Public Licence (EUPL) version 1.2.",
+			"obligations": [
+				"This rule package is a derivative of EUPL-1.2 material and is distributed under EUPL-1.2 only, never under the proprietary licence of the engine.",
+				"Its source form is the rule package itself (readable JSON); the upstream Schematron is published at the address under Source."
+			],
+			"visibleNotice": null,
+			"separable": null,
+			"status": "cleared",
+			"question": null
+		},
+		{
+			"match": "vendor-sources/xrechnung-schematron/",
+			"upstream": "XRechnung Schematron (CIUS XRechnung and Extension XRechnung)",
+			"publisher": "Koordinierungsstelle fuer IT-Standards (KoSIT), Bremen",
+			"url": "https://github.com/itplr-kosit/xrechnung-schematron",
+			"licence": "Apache-2.0",
+			"licenceStatement": null,
+			"packageLicence": "Apache-2.0",
+			"licenceTexts": [
+				"Apache-2.0.txt"
+			],
+			"copyright": "Copyright Koordinierungsstelle fuer IT-Standards (KoSIT). The upstream files carry no copyright line, the repository LICENSE is the unmodified Apache License 2.0, and the repository has no NOTICE file. The same upstream files also contain rules with PEPPOL-EN16931 identifiers ( 21 in the UBL rule set, 22 in the CII rule set ), which KoSIT publishes there under the same licence.",
+			"upstreamNotice": null,
+			"obligations": [],
+			"visibleNotice": null,
+			"separable": null,
+			"status": "cleared",
+			"question": null
+		},
+		{
+			"match": "vendor-sources/zugferd-versions/",
+			"upstream": "ZUGFeRD 2.1, 2.2, 2.3.2, 2.3.3, 2.4, 2.5 and 2.5.2 ( Factur-X 1.0.05 to 1.09.2 ), profiles MINIMUM, BASIC WL, BASIC, EN 16931 and EXTENDED: prebuilt Schematron XSLT with their code databases, one folder per edition, staged by vampire-php/devkit/Cli/import-zugferd-versions.php from phive-rules-zugferd ( external/schematron/<edition>/ ). The rule packages per edition of the version cascade; they are not part of the default package of either engine. One change beyond the common ones: the file names passed to fn:document() are rewritten to zugferd-<edition>-<profile>_codedb.xml ( the code database is the same file under that name ).",
+			"publisher": "FNFE-MPE and FeRD ( Forum elektronische Rechnung Deutschland at AWV e.V. ); obtained through the phive-rules repository of Philip Helger ( Apache-2.0 ), which carries the publisher files unchanged",
+			"url": "https://www.ferd-net.de/en/ueber-uns/ressourcen-1/veroeffentlichungen/disclaimer-and-rights-of-use-zugferd",
+			"licence": "Apache-2.0",
+			"licenceStatement": "Apache-2.0 according to FeRD for the ZUGFeRD Technical Artifacts (Schemata and Schematron); the statement on the FeRD page names no edition and was read on 2026-10-09. Which BR-* assertions of the older editions carry tests of an EUPL-1.2 CEN release was NOT measured per edition; the rule packages are therefore distributed like the 2.5.2 packages under EUPL-1.2, and both licence texts are included.",
+			"packageLicence": "EUPL-1.2",
+			"licenceTexts": [
+				"Apache-2.0.txt",
+				"EUPL-1.2.txt"
+			],
+			"copyright": "Copyright FNFE-MPE and FeRD. The XSLT and code database files carry no copyright or licence line. The EN 16931 business rules (BR-*) restate EN 16931-1:2017, whose copyright is owned by CEN and its members.",
+			"upstreamNotice": null,
+			"obligations": [
+				"FeRD requires: 'Developed applications based on this publication or using information from this publication must contain a statement that visibly indicates to the users that this is an application of the publication.' Both engines print the visible notice of this entry in the report of every check that ran this rule package.",
+				"The parts that come from EUPL-1.2 material are distributed under EUPL-1.2 only, never under the proprietary licence of the engine."
+			],
+			"visibleNotice": {
+				"en": "This check applies the publication Factur-X / ZUGFeRD of FNFE-MPE and FeRD.",
+				"de": "Diese Prüfung wendet die Veröffentlichung Factur-X / ZUGFeRD von FNFE-MPE und FeRD an."
+			},
+			"separable": null,
+			"status": "cleared",
+			"question": null
+		},
+		{
+			"match": "rulesets/versions/xsd/zugferd-",
+			"kind": "schema",
+			"separable": null,
+			"status": "cleared",
+			"question": null,
+			"upstreamNotice": null,
+			"upstream": "ZUGFeRD 2.1 to 2.5.2 XML schemas of the profiles MINIMUM, BASIC WL, BASIC, EN 16931 and EXTENDED ( restrictions of UN/CEFACT CII D16B by FNFE-MPE and FeRD ), from phive-rules-zugferd ( external/schemas/<edition>/ ); compiled by build/compile-xsd.mjs into the structure models of the version cascade.",
+			"publisher": "FNFE-MPE and FeRD ( Forum elektronische Rechnung Deutschland at AWV e.V. )",
+			"url": "https://www.ferd-net.de/en/ueber-uns/ressourcen-1/veroeffentlichungen/disclaimer-and-rights-of-use-zugferd",
+			"licence": "Apache-2.0",
+			"licenceStatement": "Apache-2.0 according to FeRD for the ZUGFeRD Technical Artifacts ( Schemata and Schematron ). The XSD files carry no copyright or licence line. The structure model is a derivative work; the XSD files themselves are not shipped by VAMPIRE JS.",
+			"packageLicence": "Apache-2.0",
+			"licenceTexts": [
+				"Apache-2.0.txt"
+			],
+			"copyright": "Copyright FNFE-MPE and FeRD. The schemas restrict UN/CEFACT CII D16B ( Copyright UN/CEFACT ).",
+			"obligations": [
+				"FeRD requires a statement that visibly indicates to the users that the application applies the publication; the visible notice of the ZUGFeRD rule packages is printed in every report of a check that used them."
+			],
+			"visibleNotice": {
+				"en": "This check applies the publication Factur-X / ZUGFeRD of FNFE-MPE and FeRD.",
+				"de": "Diese Prüfung wendet die Veröffentlichung Factur-X / ZUGFeRD von FNFE-MPE und FeRD an."
+			}
+		},
+		{
+			"match": "vendor-sources/facturx-config/resources/en16931/",
+			"upstream": "Factur-X 1.09.2 / ZUGFeRD 2.5.2, profile EN 16931 (COMFORT): prebuilt Schematron XSLT FACTUR-X_EN16931.xslt with its code database FACTUR-X_EN16931_codedb.xml, byte-identical to the official FeRD release package ZUGFeRD 2.5.2",
+			"publisher": "FNFE-MPE (Forum National de la Facture Electronique et des Marches Publics Electroniques, Paris) and FeRD (Forum elektronische Rechnung Deutschland at AWV e.V., Berlin); obtained from the FeRD release package, not through phive-rules",
+			"url": "https://www.ferd-net.de/en/ueber-uns/ressourcen-1/veroeffentlichungen/disclaimer-and-rights-of-use-zugferd",
+			"licence": "Apache-2.0",
+			"licenceStatement": "Apache-2.0 according to FeRD for the ZUGFeRD Technical Artifacts (Schemata and Schematron). 48 of the 200 BR-* assertions have the test of the EUPL-1.2 CEN release 1.3.16 and not that of 1.2.3, the last Apache-2.0 release (measured 2026-10-09); this rule package is therefore distributed under EUPL-1.2, and both licence texts are included.",
+			"packageLicence": "EUPL-1.2",
+			"licenceTexts": [
+				"Apache-2.0.txt",
+				"EUPL-1.2.txt"
+			],
+			"copyright": "Copyright FNFE-MPE and FeRD. The XSLT, Schematron and code database files carry no copyright or licence line, and the package has no LICENSE or NOTICE file. The specification footer reads '(c)2026 FNFE-MPE | FeRD - All rights reserved'. The EN 16931 business rules (BR-*) restate EN 16931-1:2017, whose copyright is owned by CEN and its members.",
+			"upstreamNotice": null,
+			"obligations": [
+				"FeRD requires: 'Developed applications based on this publication or using information from this publication must contain a statement that visibly indicates to the users that this is an application of the publication.' Both engines print the visible notice of this entry in the report of every check that ran this rule package.",
+				"The parts that come from EUPL-1.2 material are distributed under EUPL-1.2 only, never under the proprietary licence of the engine."
+			],
+			"visibleNotice": {
+				"en": "This check applies the publication Factur-X / ZUGFeRD of FNFE-MPE and FeRD.",
+				"de": "Diese Prüfung wendet die Veröffentlichung Factur-X / ZUGFeRD von FNFE-MPE und FeRD an."
+			},
+			"separable": null,
+			"status": "cleared",
+			"question": null
+		},
+		{
+			"match": "vendor-sources/facturx-config/resources/extended/",
+			"upstream": "Factur-X 1.09.2 / ZUGFeRD 2.5.2, profile EXTENDED: prebuilt Schematron XSLT FACTUR-X_EXTENDED.xslt with its code database FACTUR-X_EXTENDED_codedb.xml, byte-identical to the official FeRD release package ZUGFeRD 2.5.2",
+			"publisher": "FNFE-MPE (Forum National de la Facture Electronique et des Marches Publics Electroniques, Paris) and FeRD (Forum elektronische Rechnung Deutschland at AWV e.V., Berlin); obtained from the FeRD release package, not through phive-rules",
+			"url": "https://www.ferd-net.de/en/ueber-uns/ressourcen-1/veroeffentlichungen/disclaimer-and-rights-of-use-zugferd",
+			"licence": "Apache-2.0",
+			"licenceStatement": "Apache-2.0 according to FeRD for the ZUGFeRD Technical Artifacts (Schemata and Schematron). 34 of the 211 BR-* assertions have the test of the EUPL-1.2 CEN release 1.3.16 and not that of 1.2.3, the last Apache-2.0 release (measured 2026-10-09); this rule package is therefore distributed under EUPL-1.2, and both licence texts are included.",
+			"packageLicence": "EUPL-1.2",
+			"licenceTexts": [
+				"Apache-2.0.txt",
+				"EUPL-1.2.txt"
+			],
+			"copyright": "Copyright FNFE-MPE and FeRD. The XSLT, Schematron and code database files carry no copyright or licence line, and the package has no LICENSE or NOTICE file. The specification footer reads '(c)2026 FNFE-MPE | FeRD - All rights reserved'. The EN 16931 business rules (BR-*) restate EN 16931-1:2017, whose copyright is owned by CEN and its members.",
+			"upstreamNotice": null,
+			"obligations": [
+				"FeRD requires: 'Developed applications based on this publication or using information from this publication must contain a statement that visibly indicates to the users that this is an application of the publication.' Both engines print the visible notice of this entry in the report of every check that ran this rule package.",
+				"The parts that come from EUPL-1.2 material are distributed under EUPL-1.2 only, never under the proprietary licence of the engine."
+			],
+			"visibleNotice": {
+				"en": "This check applies the publication Factur-X / ZUGFeRD of FNFE-MPE and FeRD.",
+				"de": "Diese Prüfung wendet die Veröffentlichung Factur-X / ZUGFeRD von FNFE-MPE und FeRD an."
+			},
+			"separable": null,
+			"status": "cleared",
+			"question": null
+		},
+		{
+			"match": "vendor-sources/facturx-config/",
+			"upstream": "Factur-X 1.09.2 / ZUGFeRD 2.5.2, profiles MINIMUM, BASIC WL and BASIC: prebuilt Schematron XSLT from the official FeRD release package ZUGFeRD 2.5.2. Not part of the default rule packages.",
+			"publisher": "FNFE-MPE and FeRD (Forum elektronische Rechnung Deutschland at AWV e.V.); obtained from the FeRD release package",
+			"url": "https://www.ferd-net.de/en/ueber-uns/ressourcen-1/veroeffentlichungen/disclaimer-and-rights-of-use-zugferd",
+			"licence": "Apache-2.0",
+			"licenceStatement": "Apache-2.0 according to FeRD for the ZUGFeRD Technical Artifacts (Schemata and Schematron). Some BR-* assertions have the test of the EUPL-1.2 CEN release 1.3.16 ( BASIC 47 of 198, BASIC WL 29 of 130, MINIMUM 1 of 18; measured 2026-10-09 ); this rule package is therefore distributed under EUPL-1.2, and both licence texts are included.",
+			"packageLicence": "EUPL-1.2",
+			"licenceTexts": [
+				"Apache-2.0.txt",
+				"EUPL-1.2.txt"
+			],
+			"copyright": "Copyright FNFE-MPE and FeRD. Same terms as the EN 16931 and EXTENDED profiles of the same package. The EN 16931 business rules (BR-*) restate EN 16931-1:2017, whose copyright is owned by CEN and its members.",
+			"upstreamNotice": null,
+			"obligations": [
+				"FeRD requires: 'Developed applications based on this publication or using information from this publication must contain a statement that visibly indicates to the users that this is an application of the publication.' Both engines print the visible notice of this entry in the report of every check that ran this rule package.",
+				"The parts that come from EUPL-1.2 material are distributed under EUPL-1.2 only, never under the proprietary licence of the engine."
+			],
+			"visibleNotice": {
+				"en": "This check applies the publication Factur-X / ZUGFeRD of FNFE-MPE and FeRD.",
+				"de": "Diese Prüfung wendet die Veröffentlichung Factur-X / ZUGFeRD von FNFE-MPE und FeRD an."
+			},
+			"separable": null,
+			"status": "cleared",
+			"question": null
+		},
+		{
+			"match": "/2xslt/EXTENDED-CTC-FR-",
+			"upstream": "France CTC e-invoicing reform, profile EXTENDED-CTC-FR, release 1.4.0.04 (2026-09-04): EXTENDED-CTC-FR-CII and EXTENDED-CTC-FR-UBL, Schematron and prebuilt XSLT 2.0. Expected under vendor-sources/france-rfe/ in the folder layout of the FNFE repository ( CII/EXTENDED-CTC-FR/2xslt/, UBL/EXTENDED-CTC-FR/2xslt/ ). Not shipped by VAMPIRE JS or VAMPIRE PHP on 2026-10-09; the protected rule packages of einvoice-reference-data carry the explanation texts.",
+			"publisher": "FNFE-MPE (Forum National de la Facture Electronique et des Marches Publics Electroniques, Paris); authors named in the file header: Quentin Houard and Cyrille Sautereau for FNFE-MPE",
+			"url": "https://github.com/fnfempe/France_RFE/releases/tag/v1.4.0.04",
+			"licence": "EUPL-1.2",
+			"licenceStatement": "Three statements, read on 2026-10-09. (1) The file header reads 'Schematron derive du schematron EN16931 preprocessed Licensed under European Union Public Licence (EUPL) version 1.4.0'; the second header line says 'based on Schematron EN16931 version 1.3.16'. An EUPL version 1.4.0 does not exist ( the versions are 1.0, 1.1 and 1.2 ); the number is the release number of the Schematron, and the CEN source it derives from is EUPL-1.2. (2) The FNFE explanatory note 1.4.0, page 8, in English and French, says that use of the Schematron schemas for standard XP Z12-012 is royalty-free, 'AS IS', and governed by the Apache 2.0 License. (3) The repository fnfempe/France_RFE carries the unmodified Apache License 2.0 as LICENSE ( initial commit 2026-06-10 ). Measured: 841 of 877 assertion identifiers in the CII file and 985 of 1047 in the UBL file are CEN identifiers ( BR-, CII-, UBL- ), only 36 and 62 are French ( BR-FR, BR-FREXT ). The file is therefore mainly EUPL-1.2 material of CEN with FNFE additions under Apache-2.0; the derived rule package is distributed under EUPL-1.2, and both licence texts are included.",
+			"packageLicence": "EUPL-1.2",
+			"licenceTexts": [
+				"Apache-2.0.txt",
+				"EUPL-1.2.txt"
+			],
+			"copyright": "FNFE-MPE for the French additions. The explanatory note carries '(c)2026 FNFE-MPE - All rights reserved' in its page footer; the Schematron files carry no copyright line. The EN 16931 rules restate EN 16931-1:2017, whose copyright is owned by CEN and its members.",
+			"upstreamNotice": "Schematron derive du schematron EN16931 preprocessed Licensed under European Union Public Licence (EUPL) version 1.4.0. Realise par Quentin Houard et Cyrille Sautereau pour le compte du FNFE-MPE.",
+			"obligations": [
+				"This rule package is a derivative of EUPL-1.2 material and is distributed under EUPL-1.2 only, never under the proprietary licence of the engine.",
+				"Apache-2.0 section 4(b): the package states that it is a translation of the FNFE Schematron into the rule format of the engine and not the original file.",
+				"Its source form is the rule package itself (readable JSON); the upstream Schematron is published at the address under Source."
+			],
+			"visibleNotice": null,
+			"separable": "france",
+			"status": "cleared",
+			"question": null
+		},
+		{
+			"match": "/2xslt/BR-FR-Flux2-Schematron-",
+			"upstream": "France CTC e-invoicing reform, French business rules BR-FR-Flux2 ( Flux 2, invoice ), release 1.4.0.04 (2026-09-04): BR-FR-Flux2-Schematron-CII and -UBL and their _WARNING variants, Schematron and prebuilt XSLT 2.0. One rule set for all French profiles ( EN16931, EXTENDED-CTC-FR, Factur-X BASIC WL, EN16931 and EXTENDED ); the copies in the profile folders are byte-identical ( SHA-256 measured for CII on 2026-10-09 ). Expected under vendor-sources/france-rfe/. Not shipped by VAMPIRE JS or VAMPIRE PHP on 2026-10-09; the open rule packages rules.{cii,ubl}.france-flux2-* of einvoice-reference-data carry the explanation texts.",
+			"publisher": "FNFE-MPE (Forum National de la Facture Electronique et des Marches Publics Electroniques, Paris); authors named in the file header: Quentin Houard and Cyrille Sautereau for FNFE-MPE",
+			"url": "https://github.com/fnfempe/France_RFE/releases/tag/v1.4.0.04",
+			"licence": "Apache-2.0",
+			"licenceStatement": "Three statements, read on 2026-10-09. (1) The FNFE explanatory note 1.4.0, page 8, in English: 'Use of the Schematron schemas for the XP Z12-012 Standard is royalty-free, on an AS IS basis, subject to the aforementioned limitations, and is governed by the terms of the Apache 2.0 License'; the French note says the same. (2) The repository fnfempe/France_RFE carries the unmodified Apache License 2.0 as LICENSE ( initial commit 2026-06-10 by csautereau ); GitHub reports the SPDX identifier Apache-2.0. (3) Contradicting this, the file header since release 1.4.0 reads 'Schematron Licensed under European Union Public Licence (EUPL) version 1.4.0'. An EUPL version 1.4.0 does not exist ( the versions are 1.0, 1.1 and 1.2 ); releases 0.1 to 1.3.1 of the same file carried no licence line at all. Measured: all 170 ( CII ) and 174 ( UBL ) assertion identifiers are French ( BR-FR- ); the file contains no CEN rules. The derived rule package is distributed under EUPL-1.2 with both licence texts, which is permitted under the Apache reading and required under the EUPL reading of the header.",
+			"packageLicence": "EUPL-1.2",
+			"licenceTexts": [
+				"Apache-2.0.txt",
+				"EUPL-1.2.txt"
+			],
+			"copyright": "FNFE-MPE. The Schematron files carry no copyright line; the explanatory note carries '(c)2026 FNFE-MPE - All rights reserved' in its page footer. phive-rules-france, which redistributes the same files, states only that its own Java code is Apache-2.0 and that 'the code of the validation artefacts used may use a different license'.",
+			"upstreamNotice": "Schematron Licensed under European Union Public Licence (EUPL) version 1.4.0. Realise par Quentin Houard et Cyrille Sautereau pour le compte du FNFE-MPE.",
+			"obligations": [
+				"Apache-2.0 section 4(b): the package states that it is a translation of the FNFE Schematron into the rule format of the engine and not the original file.",
+				"Its source form is the rule package itself (readable JSON); the upstream Schematron is published at the address under Source."
+			],
+			"visibleNotice": null,
+			"separable": "france",
+			"status": "cleared",
+			"question": null
+		},
+		{
+			"match": "vendor-sources/france-rfe/",
+			"upstream": "Every other file of the FNFE France_RFE package: the CDAR lifecycle rules BR-FR-CDV, the copies of the CEN EN 16931 artefacts, and the France-specific variant of Factur-X EXTENDED ( Factur-X_EXTENDED.xslt / FACTUR-X_EXTENDED.xslt, 'fix-FR04' ). Not shipped anywhere on 2026-10-09.",
+			"publisher": "FNFE-MPE; the EN 16931 copies come from CEN/TC 434, the Factur-X variant from FNFE-MPE and FeRD",
+			"url": "https://github.com/fnfempe/France_RFE",
+			"licence": null,
+			"licenceStatement": null,
+			"packageLicence": "NOASSERTION",
+			"licenceTexts": [],
+			"copyright": "Not examined file by file.",
+			"upstreamNotice": null,
+			"obligations": [],
+			"visibleNotice": null,
+			"separable": "france",
+			"status": "open",
+			"question": "No rule set from these files is planned. If one is imported, its own entry must be written first: the CEN copies belong under the EN 16931 entry, the Factur-X variant needs the FeRD visible notice, and CDAR is not an invoice."
+		},
+		{
+			"match": "EN16931-CIUS_RO-UBL-validation.",
+			"upstream": "CIUS-RO ( Romania, RO_CIUS 1.0.1 ), Schematron release 1.0.9 for UBL: the publisher's package ro16931-ubl-1.0.9 with the CEN EN 16931 UBL rules and the Romanian rules RO16931-rules.sch, compiled to EN16931-CIUS_RO-UBL-validation.xslt. VAMPIRE PHP imports it as CIUS-RO-UBL@1.0.9 from vendor-sources/eu-cius/; the explanation packages read phive-rules-cius-ro.",
+			"publisher": "Ministerul Finantelor ( Ministry of Finance of Romania ), ANAF e-Factura; obtained through phive-rules-cius-ro, whose docs/1.0.9/ro16931-ubl-1.0.9.zip is the publisher's package",
+			"url": "https://mfinante.gov.ro/web/efactura/informatii-tehnice",
+			"licence": "EUPL-1.2",
+			"licenceStatement": "Read on 2026-10-09. (1) The root file of the publisher's package, EN16931-CIUS_RO-UBL-validation.sch, carries as its only comment 'Licensed under European Union Public Licence (EUPL) version 1.2.'; so do the six CEN files in it ( abstract/, UBL/, codelist/, preprocessed/EN16931-UBL-validation-preprocessed.sch ). (2) RO16931-rules.sch, the Romanian part, carries a change log and no licence line; it is included by the root file and published in the same package. (3) The page of the Ministry named by phive could not be read on 2026-10-09 ( connection reset twice ), so no statement from the web page is recorded. Measured: 998 of the 1098 rule identifiers are CEN identifiers ( UBL-CR 679, BR-* and UBL-* ), 100 are Romanian ( BR-RO ). The derived rule package is distributed under EUPL-1.2.",
+			"packageLicence": "EUPL-1.2",
+			"licenceTexts": [
+				"EUPL-1.2.txt"
+			],
+			"copyright": "Ministerul Finantelor for the Romanian rules; the files carry no copyright line. The EN 16931 rules restate EN 16931-1:2017, whose copyright is owned by CEN and its members.",
+			"upstreamNotice": "Licensed under European Union Public Licence (EUPL) version 1.2.",
+			"obligations": [
+				"This rule package is a derivative of EUPL-1.2 material and is distributed under EUPL-1.2 only, never under the proprietary licence of the engine.",
+				"Its source form is the rule package itself (readable JSON); the upstream Schematron is published at the address under Source."
+			],
+			"visibleNotice": null,
+			"separable": "cius",
+			"status": "cleared",
+			"question": null
+		},
+		{
+			"match": "HR-CIUS-EXT-EN16931-UBL.",
+			"upstream": "CIUS-HR and EXT-HR ( Croatia, eRacun / Fiskalizacija 2.0 ), Schematron release 1.0.4 for UBL: HR-CIUS-EXT-EN16931-UBL.sch with its code list file, compiled to HR-CIUS-EXT-EN16931-UBL.xslt. Croatian rules only. VAMPIRE PHP imports it as CIUS-HR-UBL@1.0.4 from vendor-sources/eu-cius/; the explanation packages read phive-rules-eracun.",
+			"publisher": "Porezna uprava ( Tax Administration ), Ministarstvo financija, Republika Hrvatska; obtained through phive-rules-eracun",
+			"url": "https://porezna.gov.hr/fiskalizacija/bezgotovinski-racuni/eracun",
+			"licence": "LicenseRef-HR-PoreznaUprava-Reuse-With-Attribution",
+			"licenceStatement": "Read on 2026-10-09. (1) The Schematron files 1.0.4 and the publisher's archive HRUBLSchematron_13032026-2.zip carry no licence and no copyright line. (2) The footer of the publisher's page reads: 'Sva prava pridrzana (c) 2023 Republika Hrvatska, Ministarstvo financija, Porezna uprava. Sadrzaji s ovih stranica se mogu prenositi bez posebne dozvole uz navodjenje izvora' ( written here without diacritics, because NOTICE is plain ASCII ) ( all rights reserved; the contents of these pages may be passed on without special permission, provided the source is named ). The Schematron is published for download from these pages. Measured: all 62 rule identifiers are Croatian ( HR-BR- ); the file contains no CEN rules. There is no SPDX identifier for this permission, hence the LicenseRef.",
+			"packageLicence": "LicenseRef-HR-PoreznaUprava-Reuse-With-Attribution",
+			"licenceTexts": [],
+			"copyright": "Republika Hrvatska, Ministarstvo financija, Porezna uprava.",
+			"upstreamNotice": "Sadrzaji s ovih stranica se mogu prenositi bez posebne dozvole uz navodjenje izvora. ( Footer of porezna.gov.hr, written here without diacritics: the contents of these pages may be passed on without special permission, provided the source is named. )",
+			"obligations": [
+				"The publisher's condition is that the source is named: every package and every NOTICE names Porezna uprava, Ministarstvo financija, Republika Hrvatska, and the address under Source.",
+				"The package states that it is a translation of the Schematron into the rule format of the engine and not the original file; the message texts are reproduced unchanged."
+			],
+			"visibleNotice": null,
+			"separable": "cius",
+			"status": "cleared",
+			"question": null
+		},
+		{
+			"match": "GLOBALUBL.BE.",
+			"upstream": "UBL.BE ( Belgium ), GLOBALUBL.BE Schematron release 1.31, compiled to GLOBALUBL.BE.xslt. One file that combines the CEN EN 16931 UBL rules, Peppol BIS Billing rules of OpenPeppol ( PEPPOL-EN16931 and Peppol country rules such as DK-R, GR-R, SE-R ) and the Belgian rules. VAMPIRE PHP imports it as UBLBE-UBL@1.31; the explanation packages read phive-rules-ublbe.",
+			"publisher": "UBL.BE ASBL-VZW, Brussels; obtained through phive-rules-ublbe",
+			"url": "https://www.ubl.be/version-information/",
+			"licence": null,
+			"licenceStatement": null,
+			"packageLicence": "NOASSERTION",
+			"licenceTexts": [],
+			"copyright": "Read on 2026-10-09. GLOBALUBL.BE.sch 1.31 and the publisher's archive 'GLOBALUBL.BE V1.31.zip' carry no licence and no copyright line. The footer of ubl.be reads 'Copyright 2017 UBL.BE ASBL-VZW | All Rights Reserved'; the page says only that UBL.BE itself reuses EN 16931 information 'in line with guidelines and with permission of CEN and NBN'. Measured on the extraction: 1050 rules, of which 48 carry the origin PEPPOL and 53 the origin NATIONAL ( Peppol country rules ); the EN 16931 rules restate EN 16931-1:2017 ( CEN ).",
+			"upstreamNotice": null,
+			"obligations": [],
+			"visibleNotice": null,
+			"separable": "cius",
+			"status": "open",
+			"question": "No licence is granted: UBL.BE states 'All Rights Reserved' and nothing else, and the file also contains OpenPeppol rules. Not built into any package until UBL.BE grants a licence."
+		},
+		{
+			"match": "urn_feap.gov.pt_CIUS-PT_",
+			"upstream": "CIUS-PT ( Portugal ), Schematron release 2.1.1 of 2021-02-26 for UBL 2.1: urn_feap.gov.pt_CIUS-PT_2.1.1.sch with its abstract, UBL and datatype parts, compiled to urn_feap.gov.pt_CIUS-PT_2.1.1.xslt. VAMPIRE PHP imports it as CIUS-PT-UBL@2.1.1; the explanation packages read phive-rules-cius-pt.",
+			"publisher": "eSPap ( Entidade de Servicos Partilhados da Administracao Publica, I.P., Portugal ); obtained through phive-rules-cius-pt",
+			"url": "https://www.espap.gov.pt/spfin/normas/Paginas/normas.aspx",
+			"licence": null,
+			"licenceStatement": null,
+			"packageLicence": "NOASSERTION",
+			"licenceTexts": [],
+			"copyright": "Read on 2026-10-09. None of the Schematron files 2.1.1 and nothing in the publisher's archive urn_feap.gov.pt_CIUS-PT_2.1.1_schematron.zip carries a licence or copyright line. The page named by phive ends in a redirect loop, and the pages for terms and legal notes answered with an error page whose footer reads '(c) 2026 eSPap | Entidade de Servicos Partilhados da Administracao Publica, I.P.'. Measured on the extraction: 1154 rules, most of them restating CEN rules ( UBL-CR 644, BR-* ), 65 BR-CIUS and 290 DT-CIUS rules of eSPap.",
+			"upstreamNotice": null,
+			"obligations": [],
+			"visibleNotice": null,
+			"separable": "cius",
+			"status": "open",
+			"question": "No licence statement of eSPap was found in the files or on the site. Not built into any package until eSPap's terms are documented or eSPap is asked."
+		},
+		{
+			"match": "AGID-EN16931-UBL",
+			"upstream": "Peppol BIS Billing 3.0 with the Italian CIUS and extension of AGID ( Peppol Italy ), package AGID-PEPPOL-Schematron-Billing 3.2.1 ( phive 2026-08-17 snapshot; VAMPIRE PHP has 3.0.2 ): wrapper AGID-EN16931-UBL.sch with the CEN rules, the OpenPeppol rules and AGID/AGID-EN16931-*.inc, compiled to AGID-EN16931-UBL.xslt. VAMPIRE PHP imports it as AGID-EN16931-UBL@3.0.2; the explanation packages read phive-rules-peppol-italy.",
+			"publisher": "AGID ( Agenzia per l'Italia Digitale ) for the Italian rules, OpenPeppol AISBL for the Peppol rules, CEN/TC 434 for the EN 16931 rules; obtained through phive-rules-peppol-italy",
+			"url": "https://peppol-docs.agid.gov.it/docs/my_index_fatt-ENG.jsp",
+			"licence": null,
+			"licenceStatement": null,
+			"packageLicence": "NOASSERTION",
+			"licenceTexts": [],
+			"copyright": "Read on 2026-10-09. The wrapper AGID-EN16931-UBL.sch carries the header of the Peppol wrapper: 'Licensed under European Union Public Licence (EUPL) version 1.2.', 'This schematron uses business terms defined the CEN/EN16931-1 and is reproduced with permission from CEN.' and 'Peppol BIS Billing 3.0.14'. AGID's own files AGID/AGID-EN16931-CIUS-UBL.inc and AGID-EN16931-EXT-UBL.inc carry no licence line, and the package readme says only 'ISO Schematron business rules'. peppol-docs.agid.gov.it and peppol.agid.gov.it state no licence. The legal notes of www.agid.gov.it say 'i dati pubblicati sul presente sito sono messi a disposizione con licenza CC-BY 4.0', which covers that site and not the download site of the Schematron. Measured on the extraction: 1187 rules, 1136 with the origin PEPPOL and 51 NATIONAL; 123 are Italian ( BR-IT ).",
+			"upstreamNotice": "Licensed under European Union Public Licence (EUPL) version 1.2.",
+			"obligations": [],
+			"visibleNotice": null,
+			"separable": "cius",
+			"status": "open",
+			"question": "Three rights holders in one file. The EUPL line of the wrapper is inherited from the Peppol wrapper and does not grant OpenPeppol's rights; AGID's own rules carry no licence. Not built into any package until the rights are clear."
+		},
+		{
+			"match": "EN16931-UBL-srbdt-validation.",
+			"upstream": "SRBDT ( Serbia, SEF ), EN 16931 CIUS and extension for domestic trade, validation artefacts 1.0.0 from the community repository vasiljevic/en16931-srbdt-va, compiled to EN16931-UBL-srbdt-validation.xslt. VAMPIRE PHP imports it as CIUS-RS-UBL@1.0.0; the rule catalogue parked it.",
+			"publisher": "Community repository vasiljevic/en16931-srbdt-va, based on the specification of Ministarstvo finansija ( Serbia ); obtained through phive-rules-serbia",
+			"url": "https://github.com/vasiljevic/en16931-srbdt-va",
+			"licence": "EUPL-1.2",
+			"licenceStatement": "Read on 2026-10-09. phive-rules-serbia/docs/readme.md: 'licensed under EUPL v1.2'. The repository carries LICENSE.txt with the EUPL 1.2 ( GitHub reports NOASSERTION because the file starts with the line 'Licensed under European Union Public Licence (EUPL) version 1.2.' ), and its README calls it a 'Derivative work created from' the CEN release validation-1.2.3, which 'was Licensed under the Apache License, Version 2.0'. The README names no endorsement by the Ministry.",
+			"packageLicence": "EUPL-1.2",
+			"licenceTexts": [
+				"EUPL-1.2.txt"
+			],
+			"copyright": "The repository names no copyright holder. The EN 16931 rules restate EN 16931-1:2017, whose copyright is owned by CEN and its members.",
+			"upstreamNotice": "Licensed under European Union Public Licence (EUPL) version 1.2.",
+			"obligations": [],
+			"visibleNotice": null,
+			"separable": "out-of-scope",
+			"status": "open",
+			"question": "The licence would allow passing it on, but Serbia is outside the scope of this package, so no package carries it."
+		},
+		{
+			"match": "UBL-TR_Main_Schematron.",
+			"upstream": "UBL-TR 1.2.1 ( Turkey, e-Fatura ), the Schematron rules of the e-Fatura package, compiled to UBL-TR_Main_Schematron.xslt. A national format of its own and not a CIUS of EN 16931; all 484 rule identifiers are synthetic. VAMPIRE PHP imports it as UBL-TR@1.2.1; the rule catalogue parked it.",
+			"publisher": "Gelir Idaresi Baskanligi ( GIB, Revenue Administration of Turkey ); obtained through phive-rules-turkey",
+			"url": "https://ebelge.gib.gov.tr/dosyalar/kilavuzlar/UBL-TR1.2.1_Paketi.zip",
+			"licence": null,
+			"licenceStatement": null,
+			"packageLicence": "NOASSERTION",
+			"licenceTexts": [],
+			"copyright": "Read on 2026-10-09: neither the compiled XSLT nor the Schematron source in phive-rules-turkey carries a licence or copyright line; phive's readme names only the download addresses. The publisher's site was not examined further, because the rule set is outside the scope.",
+			"upstreamNotice": null,
+			"obligations": [],
+			"visibleNotice": null,
+			"separable": "out-of-scope",
+			"status": "open",
+			"question": "Outside the scope of this package and no licence known. No package may carry it."
+		},
+		{
+			"match": "_ZATCA_E-invoice_Validation_Rules.",
+			"upstream": "ZATCA e-invoicing SDK 3.4.6 ( Saudi Arabia ), validation rules 20210819_ZATCA_E-invoice_Validation_Rules.xsl, delivered as XSLT only. Not an EN 16931 format. Not imported by VAMPIRE; the rule catalogue parked it.",
+			"publisher": "Zakat, Tax and Customs Authority ( ZATCA ), Saudi Arabia; obtained through phive-rules-zatca",
+			"url": "https://sandbox.zatca.gov.sa/downloadSDK",
+			"licence": "LGPL-3.0-only",
+			"licenceStatement": "Read on 2026-10-09: the header of the XSL reads 'Copyright 2021 ZATCA licensed under the GNU LGPL v3.' and 'The License text is included within the LICENSE.txt file in the root folder.'; that LICENSE.txt is not part of phive. Whether 'v3' means LGPL-3.0-only or -or-later is not stated.",
+			"packageLicence": "NOASSERTION",
+			"licenceTexts": [],
+			"copyright": "Copyright 2021 ZATCA.",
+			"upstreamNotice": "Copyright 2021 ZATCA licensed under the GNU LGPL v3.",
+			"obligations": [],
+			"visibleNotice": null,
+			"separable": "out-of-scope",
+			"status": "open",
+			"question": "Outside the scope of this package. No package may carry it."
+		},
+		{
+			"match": "rulesets/xsd/ubl/",
+			"kind": "schema",
+			"separable": null,
+			"status": "cleared",
+			"question": null,
+			"upstreamNotice": null,
+			"upstream": "OASIS Universal Business Language (UBL) 2.1 OS, XML schemas UBL-Invoice-2.1.xsd and UBL-CreditNote-2.1.xsd with the common component libraries; compiled by build/compile-xsd.mjs into the structure model schemas/ubl-2.1.json.js of the schema stage. The XML Signature and XAdES schemas that UBL imports are not compiled.",
+			"publisher": "OASIS Open; the files are byte-identical with the copy in the KoSIT configuration for XRechnung ( compared 2026-10-09 )",
+			"url": "http://docs.oasis-open.org/ubl/os-UBL-2.1/",
+			"licence": "LicenseRef-OASIS-Notice",
+			"licenceStatement": "OASIS copyright notice: copies and derivative works that assist in the implementation may be prepared and distributed without restriction, provided that the copyright notice and the notice section are included ( licences/OASIS-UBL-2.1-Notice.txt ). The structure model is such a derivative work; the XSD files themselves are not shipped.",
+			"packageLicence": "LicenseRef-OASIS-Notice",
+			"licenceTexts": [
+				"OASIS-UBL-2.1-Notice.txt"
+			],
+			"copyright": "Copyright (c) OASIS Open 2013. All Rights Reserved.",
+			"obligations": [
+				"The copyright notice and the notice section of OASIS travel with every package that carries the model ( licences/OASIS-UBL-2.1-Notice.txt )."
+			],
+			"visibleNotice": null
+		},
+		{
+			"match": "rulesets/xsd/cii/",
+			"kind": "schema",
+			"separable": null,
+			"status": "cleared",
+			"question": null,
+			"upstreamNotice": null,
+			"upstream": "UN/CEFACT Cross Industry Invoice D16B ( CrossIndustryInvoice_100pD16B.xsd and its three modules ) in the subset that EN 16931 uses; compiled by build/compile-xsd.mjs into the structure model schemas/cii-d16b.json.js of the schema stage.",
+			"publisher": "UN/CEFACT; the files have the same content as the copy in the KoSIT configuration for XRechnung ( 2026-10-09; the line endings differ )",
+			"url": "https://unece.org/trade/uncefact/xml-schemas",
+			"licence": "LicenseRef-UNCEFACT-Notice",
+			"licenceStatement": "UN/CEFACT copyright notice in the head of every file: copies and derivative works that assist in the implementation may be prepared and distributed without restriction, provided that the copyright notice and the paragraph are included ( licences/UNCEFACT-D16B-Notice.txt ). The structure model is such a derivative work; the XSD files themselves are not shipped.",
+			"packageLicence": "LicenseRef-UNCEFACT-Notice",
+			"licenceTexts": [
+				"UNCEFACT-D16B-Notice.txt"
+			],
+			"copyright": "Copyright (C) UN/CEFACT (2016). All Rights Reserved.",
+			"obligations": [
+				"The copyright notice and the permission paragraph of UN/CEFACT travel with every package that carries the model ( licences/UNCEFACT-D16B-Notice.txt )."
+			],
+			"visibleNotice": null
+		},
+		{
+			"match": "rulesets/xsd/facturx/",
+			"kind": "schema",
+			"separable": null,
+			"status": "cleared",
+			"question": null,
+			"upstreamNotice": null,
+			"upstream": "Factur-X 1.09.2 / ZUGFeRD 2.5.2 XML schemas of the profiles EXTENDED, BASIC, BASIC WL and MINIMUM ( restrictions of UN/CEFACT CII D16B by FNFE-MPE and FeRD ); compiled by build/compile-xsd.mjs into the structure models schemas/facturx-1.09.2-*.json.js of the schema stage.",
+			"publisher": "FNFE-MPE and FeRD ( Forum elektronische Rechnung Deutschland at AWV e.V. )",
+			"url": "https://www.ferd-net.de/en/ueber-uns/ressourcen-1/veroeffentlichungen/disclaimer-and-rights-of-use-zugferd",
+			"licence": "Apache-2.0",
+			"licenceStatement": "Apache-2.0 according to FeRD for the ZUGFeRD Technical Artifacts ( Schemata and Schematron ). The XSD files carry no copyright or licence line. The structure model is a derivative work; the XSD files themselves are not shipped.",
+			"packageLicence": "Apache-2.0",
+			"licenceTexts": [
+				"Apache-2.0.txt"
+			],
+			"copyright": "Copyright FNFE-MPE and FeRD. The schemas restrict UN/CEFACT CII D16B ( Copyright UN/CEFACT ).",
+			"obligations": [
+				"FeRD requires a statement that visibly indicates to the users that the application applies the publication; the visible notice of the Factur-X rule packages is printed in every report of a check that used them."
+			],
+			"visibleNotice": {
+				"en": "This check applies the publication Factur-X / ZUGFeRD of FNFE-MPE and FeRD.",
+				"de": "Diese Prüfung wendet die Veröffentlichung Factur-X / ZUGFeRD von FNFE-MPE und FeRD an."
+			}
+		}
+	]
+}

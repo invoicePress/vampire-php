@@ -1,0 +1,11 @@
+{
+    "file": "invoices/mutated/ubl-broken-tax-inclusive-amount.xml",
+    "scenario": "EN16931 XRechnung (UBL Invoice)",
+    "accept": false,
+    "messages": {
+        "BR-CO-15": "error",
+        "BR-CO-16": "error",
+        "BR-DE-TMP-32": "information"
+    },
+    "engine": "KoSIT Validator 1.6.3"
+}

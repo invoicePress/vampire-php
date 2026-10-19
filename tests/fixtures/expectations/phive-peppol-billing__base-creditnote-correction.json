@@ -1,0 +1,8 @@
+{
+    "file": "invoices/phive-peppol-billing/base-creditnote-correction.xml",
+    "scenario": "Peppol Billing BIS 3 - UBL CreditNote",
+    "accept": true,
+    "rules": [],
+    "mustNotBlock": [],
+    "note": "phive-rules-Testbestand, Gruppe phive-peppol-billing - upstream als GoodCase gefuehrt, muss angenommen werden."
+}

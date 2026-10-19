@@ -1,0 +1,9 @@
+{
+    "file": "invoices/xrechnung-cvd/02.01a-cvd_INVOICE_uncefact.xml",
+    "scenario": "EN16931 XRechnung CVD (CII)",
+    "accept": true,
+    "messages": {
+        "BR-CL-13": "error"
+    },
+    "engine": "KoSIT Validator 1.6.3"
+}

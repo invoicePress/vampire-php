@@ -1,0 +1,9 @@
+{
+    "file": "invoices/mutated/peppol-bad-australian-abn.xml",
+    "scenario": "Peppol Billing BIS 3 - UBL Invoice",
+    "accept": false,
+    "messages": {
+        "PEPPOL-COMMON-R050": "error"
+    },
+    "engine": "KoSIT Validator 1.6.3"
+}

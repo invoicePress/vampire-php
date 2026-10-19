@@ -1,0 +1,9 @@
+{
+    "file": "invoices/xrechnung-standard/03.02a-INVOICE_uncefact.xml",
+    "scenario": "EN16931 XRechnung (CII)",
+    "accept": true,
+    "messages": {
+        "BR-DE-TMP-32": "information"
+    },
+    "engine": "KoSIT Validator 1.6.3"
+}

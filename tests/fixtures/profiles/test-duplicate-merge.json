@@ -1,0 +1,5 @@
+{
+    "id": "test-duplicate-merge",
+    "include": [ { "ruleset": "CEN-EN16931-UBL@3.0.21" } ],
+    "note": "Testprofil (Aufgabe 5.8a): schaltet Peppols eigene Fassung der CEN-Kernregeln zu einem XRechnung-Szenario dazu, das bereits EN16931-UBL@1.3.16 fährt. Gemessen teilen sich beide Regelwerke 975 von 979 duplicateKeys - dieselbe Regel, zweimal ausgeliefert. Ein verletzter Beleg muss dann EINEN Befund mit zwei Herkünften ergeben, nicht zwei Befunde."
+}

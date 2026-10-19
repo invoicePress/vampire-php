@@ -1,0 +1,1219 @@
+<!DOCTYPE html>
+<html lang="de" data-theme="light">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>VAMPIRE PHP – Handbuch</title>
+<style>/* Customer manual: Tool Kit A 1.7 ( spt-kit-a.css, then spt-kit.print.css ), followed by the manual layer. */
+/* ==========================================================
+   Tool Kit — A  ·  SAP-nah, sachlich
+   Für interne Werkzeuge und SAP-Umfeld
+   Version 1.6 · 17.10.2026
+   ----------------------------------------------------------
+   1.6    Zusammenführung: Die Änderungen aus dem Projektstand „1.3“ vom
+          15.10.2026 (der auf 1.2 aufsetzte) sind in 1.5 übernommen.
+          Panelkopf richtet Überschrift und Zusatztext an einer gemeinsamen
+          Grundlinie aus (align-items:baseline); alles Bedienbare im Kopf
+          (.panel-actions, .btn, .btn-group, .icon-btn, .inp, .sel, .chip,
+          .chip-btn, .badge, .status-chip) bleibt über align-self:center
+          mittig. Neu: .hero-lede.wide hebt die Lesebreite von 62 Zeichen
+          auf. Betrifft die Komponentenschicht, gilt also für Kit A und H.
+   1.5    Datei-Ablage nach O39, gestaltet wie im Viewer: mittige Spalte,
+          2 px gestrichelt auf --surface-2, mindestens 150 px hoch, Breite
+          über die neue Marke --drop-max (960 px). Neu: :focus, .drop.busy
+          mit Kreisel, Formatmarke .drop-sub code.
+   1.4.1  Masse der Belegansicht nach O38 (Fassung 2.18.0): Wertfeld in
+          --font 14 px statt --mono 13 px, Beschriftung 13 px, Fahne
+          7px 16px, Zwischenüberschrift 5px 12px, Blockkörper 12px 16px
+          16px, Belegnummer 26 px / 700, 8 px zwischen Feldzeilen. Breiter
+          Block ab 900 px mit zwei Feldspalten (Container docblock).
+   1.4    Belegansicht nach O37 (Fassung 2.19.1 des Viewers): eigene
+          Bausteine .doc-block, .doc-block-head (Fahne), .doc-subgroup,
+          .doc-subhead, .doc-field (zweispaltig, im schmalen Block
+          gestapelt), .doc-label, .doc-value. Dokumentkopf mit Verlauf
+          --accent-2 → --accent, 3 px Unterkante, gefülltem Betragsfeld.
+          Positionsgruppe auf --surface-2, Gesamtbetrag auf --accent-soft.
+          Kennung auf dunklem Grund. .panel, .panel-head, .field unverändert.
+   1.3.1  Auswahl an Schwere-Zeilen als Rahmen auf den Zellen statt als
+          outline auf <tr> — war in manchen Browsern unsichtbar. .blank
+          und .only-filled gelten zusätzlich für .tree-row. Jede
+          Selektorliste steht auf einer Zeile, wie im übrigen Kit.
+   1.3  Belegansicht nach O35: Dokumentkopf (.doc-head), Dokumentraster
+        (.doc-grid, .full), Positionsgruppe (.doc-group), Summenblock
+        (.totals, .grand, .due), dichte Codemarke (.badge.code).
+        Zustand „trägt keinen Wert" (.blank) an Feldzeile, Tabellenzeile
+        und Block, Schalter .only-filled am Behälter.
+        Korrektur: Die Auswahl überdeckt die Schwere nicht mehr — eigene
+        Schwere-Fläche, Tabelle und Baum mit vier Schweren, aktiver Befund
+        in seiner Schwerefarbe.
+        Druckregeln ausgelagert nach spt-kit.print.css.
+   1.2  Signalkante als Token (--sig-w, .edge-*), Zebra-Streifung
+        (--zebra), Tabellenvariante der Dokumentansicht (.tbl.tree),
+        Abbruchzeile (.truncated), --err-strong / --mark-strong,
+        Druckblock erweitert, Token zusätzlich als eigene Datei
+        (spt-kit-a.tokens.css) mit :root UND :host.
+   1.1  Toast-Komponente, gemeinsame Shell.
+
+   DUNKELMODUS: Er wirkt nur, solange ein Werkzeug ausschließlich
+   Tokens per var() verwendet. Ein richtiger Hex-Wert an der falschen
+   Stelle — #D5D8DE statt var(--border) — bleibt beim Umschalten
+   hell stehen und fällt keinem Audit auf, der nach falschen Farben
+   sucht. Prüfen mit:  node check-kit.mjs spt-kit-a.tokens.css <datei…>
+
+   Komponentenschicht identisch in beiden Kits — nur der
+   Token-Block unterscheidet sich.
+   ========================================================== */
+
+/* ============================================================
+   Tokens — Kit A  ·  SAP-nah, sachlich (Fiori Classic)
+   Für interne Werkzeuge und SAP-Umfeld
+   ============================================================ */
+:root{
+  /* Schrift */
+  --font:        "72","Segoe UI",Roboto,-apple-system,BlinkMacSystemFont,sans-serif;
+  --font-title:  var(--font);
+  --mono:        "JetBrains Mono",ui-monospace,"SF Mono",Menlo,Consolas,monospace;
+  --fs:          14px;
+  --fs-h1:       20px;
+  --fs-h2:       17px;
+  --fs-sm:       13.5px;
+  --fs-xs:       11.5px;
+  --lh:          1.5;
+
+  /* Maße */
+  --radius:      4px;
+  --radius-lg:   6px;
+  --ctl-h:       32px;
+  --pad:         12px;
+  --pad-lg:      18px;
+  --row-pad:     9px;
+  --top-h:       48px;
+  --nav-w:       214px;
+  --rail-w:      68px;
+  --doc-w:       1080px;
+  --drop-max:    960px;     /* Breite der Datei-Ablage, siehe .drop */
+
+  /* Flächen und Linien */
+  --bg:          #f5f6f7;
+  --surface:     #ffffff;
+  --surface-2:   #fafafa;
+  --border:      #d9d9d9;
+  --border-strong:#bcc3ca;
+  --field-border:#89919a;
+
+  /* Text */
+  --text:        #32363a;
+  --muted:       #5c6165;
+  --faint:       #6a7075;
+
+  /* Kopfzeile */
+  --top-bg:      #354a5f;
+  --top-fg:      #ffffff;
+  --top-sub:     #bac4ce;
+  --top-line:    rgba(255,255,255,.14);
+  --top-hover:   rgba(255,255,255,.14);
+  --mark-bg:     rgba(255,255,255,.18);
+  --top-accent:  #8ec5ff;   /* Akzent AUF der Kopfzeile — --accent trägt dort nicht */
+
+  /* Akzent und Signale */
+  --accent:      #0a6ed1;
+  --accent-2:    #0854a0;
+  --accent-soft: #e8f1fb;
+  --on-accent:   #ffffff;
+  --ok:          #107e3e;  --ok-soft:  #e6f3ea;
+  --warn:        #a34200;  --warn-soft:#fdf3e7;
+  --err:         #bb0000;  --err-soft: #fbeaea;
+  --info:        #0a5493;  --info-soft:#e8f1fb;
+  --mark:        #fef08a;
+  /* kräftigere Stufe derselben Rolle — für Text auf der weichen Fläche */
+  --err-strong:  #8c0000;
+  --mark-strong: #f5c518;
+  /* eigene Rolle: Streifung langer Listen, im Hellen nah an --surface-2,
+     im Dunkeln bewusst deutlicher */
+  --zebra:       #f3f5f7;
+
+  /* Charakter: was Kit A von Kit H unterscheidet */
+  --shadow:      0 1px 2px rgba(0,0,0,.08);
+  --shadow-lg:   0 2px 8px rgba(0,0,0,.12);
+  --badge-r:     var(--radius);
+  --badge-bd:    transparent;
+  --badge-tt:    none;
+  --badge-ls:    0;
+  --btn-fg:      var(--accent);
+  --btn-fw:      600;
+  --ph-ff:       var(--font);
+  --ph-tt:       none;
+  --ph-ls:       .01em;
+  --ph-fs:       13px;
+  --ph-bg:       var(--surface-2);
+  --ph-fw:       700;
+  --val-bd:      transparent;
+  --val-bg:      transparent;
+  --val-pad:     0;
+  --sig-w:       3px;       /* Breite der Signalkante, siehe .edge-* */
+  --sel-bar:     inset var(--sig-w) 0 0 var(--accent);
+  --crumb-ff:    var(--font);
+  --crumb-tt:    none;
+  --crumb-ls:    0;
+  --eyebrow-d:   none;      /* Rubrik-Zeile: nur Kit H */
+  --verdict-fg:  #ffffff;
+  --code-bg:     var(--surface-2);
+}
+
+/* ---- Dunkelmodus: <html data-theme="dark"> ---- */
+:root[data-theme="dark"]{
+  --bg:#12171c; --surface:#1b2228; --surface-2:#202830;
+  --border:#2c353d; --border-strong:#3b4650; --field-border:#3b4650;
+  --text:#e2e8ee; --muted:#93a0ad; --faint:#8a96a3;
+  --top-bg:#161c22; --top-fg:#e8edf2; --top-sub:#8b97a4; --top-line:#2b333b;
+  --top-hover:rgba(255,255,255,.10); --mark-bg:#4da3ff; --top-accent:#4da3ff;
+  --accent:#4da3ff; --accent-2:#7bbcff; --accent-soft:#16283c; --on-accent:#0c1116;
+  --ok:#4ec77f; --ok-soft:#142a1e; --warn:#e0a03c; --warn-soft:#2d2313;
+  --err:#ff6b6b; --err-soft:#33191b; --info:#4da3ff; --info-soft:#16283c;
+  --shadow:0 1px 2px rgba(0,0,0,.5); --shadow-lg:0 4px 14px rgba(0,0,0,.6);
+  --code-bg:#0e1318; --verdict-fg:#0c1116;
+  --zebra:#222b34; --err-strong:#ff9a9a; --mark-strong:#ffd76a;
+}
+
+/* ============================================================
+   Komponentenschicht — identisch in Kit A, H und S.
+   Alles Aussehen steckt in den Tokens oben; hier stehen nur
+   Struktur und Verhalten. Ein Tool wechselt das Kit, indem es
+   den Token-Block tauscht — die Klassen bleiben gleich.
+   ============================================================ */
+
+/* ---------- 01 Grundlagen ---------- */
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{height:100%}
+body{background:var(--bg);color:var(--text);font-family:var(--font);font-size:var(--fs);
+  line-height:var(--lh);-webkit-font-smoothing:antialiased}
+code,.mono{font-family:var(--mono)}
+button,input,select,textarea{font-family:inherit}
+a{color:var(--accent)}
+h1,h2,h3{font-family:var(--font-title);letter-spacing:-.018em;font-weight:600}
+.grow{flex:1}
+.row{display:flex;gap:8px;flex-wrap:wrap;align-items:center;min-width:0}
+.stack{display:flex;flex-direction:column;gap:8px}
+.muted{color:var(--muted)}
+.faint{color:var(--faint)}
+.right{margin-left:auto}
+.nowrap{white-space:nowrap}
+.hidden{display:none !important}
+:focus-visible{outline:2px solid var(--accent);outline-offset:1px}
+
+/* ---------- 02 Kopfzeile ---------- */
+.top{height:var(--top-h);flex:0 0 auto;background:var(--top-bg);color:var(--top-fg);
+  display:flex;align-items:center;gap:13px;padding:0 15px;border-bottom:1px solid var(--top-line)}
+.brand{display:flex;align-items:center;gap:9px}
+.brand-mark{width:26px;height:26px;border-radius:var(--radius);background:var(--mark-bg);
+  color:var(--on-accent);
+  display:grid;place-items:center;font-family:var(--mono);font-size:12px;font-weight:700;flex-shrink:0}
+.brand-text{font-family:var(--font-title);font-weight:700;letter-spacing:-.015em;font-size:15px}
+.brand-text em{font-style:normal;color:var(--top-accent)}
+.brand-tag{font-family:var(--mono);font-size:var(--fs-xs);color:var(--top-sub);text-transform:uppercase;
+  letter-spacing:.08em;border-left:1px solid var(--top-line);padding-left:12px;margin-left:4px}
+.top .sep{width:1px;height:23px;background:var(--top-line);flex-shrink:0}
+.top-title{font-weight:600;font-size:14px;line-height:1.25}
+.top-title small{display:block;font-weight:400;font-size:var(--fs-xs);color:var(--top-sub)}
+.top-actions{display:flex;align-items:center;gap:8px}
+.top-meta{display:flex;gap:18px;align-items:center;font-family:var(--mono);font-size:12px;
+  color:var(--top-sub);text-transform:uppercase;letter-spacing:.06em}
+.top-search{display:flex;align-items:center;gap:7px;height:31px;padding:0 11px;border-radius:var(--radius);
+  background:var(--top-hover);color:var(--top-fg);font-size:13px;min-width:200px;border:0}
+.icon-btn{width:32px;height:32px;border-radius:var(--radius);display:grid;place-items:center;
+  background:transparent;border:0;color:inherit;opacity:.85;font-size:14px;cursor:pointer}
+.icon-btn:hover{background:var(--top-hover);opacity:1}
+.panel .icon-btn,.panel-head .icon-btn{width:24px;height:24px;border:1px solid var(--border);
+  background:var(--surface);color:var(--muted)}
+.panel-head .icon-btn:hover{background:var(--surface-2);color:var(--text)}
+.avatar{width:30px;height:30px;border-radius:50%;background:var(--accent-soft);color:var(--accent-2);
+  display:grid;place-items:center;font-size:12px;font-weight:700;flex-shrink:0}
+kbd,.kbd{font-family:var(--font);font-size:11px;font-weight:700;padding:2px 6px;border-radius:4px;
+  border:1px solid var(--border-strong);background:var(--surface);color:var(--muted);line-height:1.3}
+
+/* Text auf --accent-soft steht durchgehend in --accent-2, nicht --accent:
+   der helle Akzent erreicht auf seiner eigenen weichen Fläche keine 4.5:1. */
+
+/* ---------- 03 Rahmen und Navigation ---------- */
+.app-shell{display:flex;flex-direction:column;height:100vh;overflow:hidden}
+.app-body{flex:1;display:flex;min-height:0}
+.main{flex:1;min-width:0;display:flex;flex-direction:column;min-height:0}
+
+.tool-nav{flex:0 0 var(--nav-w);background:var(--surface);border-right:1px solid var(--border);
+  padding:11px 9px;display:flex;flex-direction:column;gap:2px;overflow-y:auto}
+.nav-cap{font-family:var(--mono);font-size:var(--fs-xs);font-weight:700;letter-spacing:.08em;
+  text-transform:uppercase;color:var(--muted);padding:8px 10px 6px}
+.tool-nav a{display:flex;align-items:center;gap:10px;padding:8px 10px;border-radius:var(--radius);
+  color:var(--text);text-decoration:none;font-size:var(--fs-sm)}
+.tool-nav a .i{width:18px;text-align:center;opacity:.6;font-size:13px}
+.tool-nav a:hover{background:var(--surface-2)}
+.tool-nav a.on{background:var(--accent-soft);color:var(--accent-2);font-weight:650;box-shadow:var(--sel-bar)}
+.tool-nav a.on .i{opacity:1}
+
+.nav-rail{flex:0 0 var(--rail-w);background:var(--surface);border-right:1px solid var(--border);
+  padding:12px 0;display:flex;flex-direction:column;align-items:center;gap:6px}
+.nav-rail a{width:48px;height:48px;border-radius:var(--radius-lg);display:grid;place-items:center;
+  color:var(--muted);text-decoration:none;font-size:17px;position:relative}
+.nav-rail a:hover{background:var(--surface-2);color:var(--text)}
+.nav-rail a.on{background:var(--accent-soft);color:var(--accent-2)}
+.nav-rail .lbl{display:none;position:absolute;left:56px;top:50%;transform:translateY(-50%);
+  background:var(--top-bg);color:var(--top-fg);font-size:12px;padding:4px 8px;border-radius:var(--radius);
+  white-space:nowrap;z-index:5;border:1px solid var(--border)}
+.nav-rail a:hover .lbl{display:block}
+.nav-rail .spacer{flex:1}
+
+.nav-tabs{display:flex;gap:2px;padding:0 14px;background:var(--surface);
+  border-bottom:1px solid var(--border);overflow-x:auto}
+.nav-tabs a{padding:12px 13px 11px;font-size:var(--fs-sm);color:var(--muted);text-decoration:none;
+  border-bottom:2px solid transparent;white-space:nowrap}
+.nav-tabs a.on{color:var(--accent);border-bottom-color:var(--accent);font-weight:650}
+
+.tabs{display:flex;gap:2px;border-bottom:1px solid var(--border)}
+.tabs a,.tabs button{padding:9px 12px;font-size:13px;color:var(--muted);text-decoration:none;
+  border:0;border-bottom:2px solid transparent;background:transparent;cursor:pointer}
+.tabs a.on,.tabs button.on{color:var(--accent);border-bottom-color:var(--accent);font-weight:650}
+
+/* ---------- 04 Seitenkopf und Rubriken ---------- */
+.pagehead{padding:var(--pad) var(--pad-lg);background:var(--surface);border-bottom:1px solid var(--border);
+  display:flex;align-items:flex-end;gap:14px;flex-wrap:wrap}
+.pagehead h1{font-size:var(--fs-h1);margin:0}
+.crumb{font-size:12px;color:var(--muted);margin-bottom:4px;font-family:var(--crumb-ff);
+  text-transform:var(--crumb-tt);letter-spacing:var(--crumb-ls)}
+.page-actions{display:flex;gap:8px;align-items:center;margin-left:auto}
+.eyebrow{display:var(--eyebrow-d);align-items:center;gap:10px;font-family:var(--mono);font-size:var(--fs-xs);
+  text-transform:uppercase;letter-spacing:.14em;color:var(--accent);margin-bottom:8px}
+.eyebrow::before{content:'';display:block;width:24px;height:1px;background:var(--accent)}
+.hero{display:grid;grid-template-columns:1.1fr .9fr;gap:48px;align-items:end;margin-bottom:24px}
+.hero h1{font-size:var(--fs-h1);line-height:1.14;margin:0 0 10px}
+.hero h1 em{font-style:normal;color:var(--accent)}
+.hero-lede{font-size:var(--fs-sm);color:var(--muted);line-height:1.6;max-width:62ch}
+.hero-lede strong{color:var(--text);font-weight:600}
+/* Volle Spaltenbreite statt der Lesebreite von 62 Zeichen (v1.6) — für Werkzeuge,
+   deren Einleitung über der ganzen Arbeitsfläche steht. */
+.hero-lede.wide{max-width:none}
+@media (max-width:900px){.hero{grid-template-columns:1fr;gap:20px}}
+
+/* ---------- 05 Schaltflächen und Eingaben ---------- */
+.btn{height:var(--ctl-h);padding:0 13px;border-radius:var(--radius);border:1px solid var(--border-strong);
+  background:var(--surface);color:var(--btn-fg);font-size:var(--fs-sm);font-weight:var(--btn-fw);
+  cursor:pointer;display:inline-flex;align-items:center;gap:7px;white-space:nowrap;
+  transition:background .12s,border-color .12s}
+.btn:hover{background:var(--surface-2);border-color:var(--faint)}
+.btn.primary{background:var(--accent);border-color:var(--accent);color:var(--on-accent)}
+.btn.primary:hover{background:var(--accent-2);border-color:var(--accent-2)}
+.btn.ghost{border-color:transparent;background:transparent;color:var(--muted)}
+.btn.ghost:hover{background:var(--surface-2);color:var(--text)}
+.btn.danger{color:var(--err)}
+.btn.danger:hover{background:var(--err-soft);border-color:var(--err)}
+.btn.small{height:26px;padding:0 10px;font-size:12px}
+.btn:disabled{opacity:.4;cursor:not-allowed}
+.btn-group{display:flex}
+.btn-group .btn{border-radius:0}
+.btn-group .btn+.btn{border-left:0}
+.btn-group .btn:first-child{border-radius:var(--radius) 0 0 var(--radius)}
+.btn-group .btn:last-child{border-radius:0 var(--radius) var(--radius) 0}
+.btn-group .btn.on{background:var(--accent);border-color:var(--accent);color:var(--on-accent)}
+
+.inp,.sel,textarea.inp{height:var(--ctl-h);padding:0 10px;border:1px solid var(--field-border);
+  border-radius:var(--radius);background:var(--surface);color:var(--text);font-size:var(--fs-sm);width:100%}
+textarea.inp{height:auto;padding:8px 10px;line-height:1.5;font-family:var(--mono);font-size:12.5px}
+.inp:focus,.sel:focus{outline:none;border-color:var(--accent);box-shadow:0 0 0 2px var(--accent-soft)}
+.inp::placeholder{color:var(--faint)}
+.field{display:flex;flex-direction:column;gap:5px;min-width:0}
+.field label{font-size:var(--fs-xs);color:var(--muted);font-weight:650}
+.field.auto{flex:0 0 auto}
+.ro{height:var(--ctl-h);display:flex;align-items:center;padding:0 10px;border-radius:var(--radius);
+  background:var(--surface-2);border:1px solid var(--border);color:var(--muted);font-size:var(--fs-sm)}
+.form-grid{display:grid;grid-template-columns:1fr 1fr;gap:13px 15px}
+.form-grid .full{grid-column:1/-1}
+.group-title{font-family:var(--mono);font-size:var(--fs-xs);font-weight:700;text-transform:uppercase;
+  letter-spacing:.06em;color:var(--muted);padding-top:7px;border-top:1px solid var(--border);
+  grid-column:1/-1;margin-top:4px}
+@media (max-width:640px){.form-grid{grid-template-columns:1fr}}
+
+.filterbar{display:flex;gap:9px;align-items:flex-end;padding:10px var(--pad-lg);
+  background:var(--surface-2);border-bottom:1px solid var(--border);flex-wrap:wrap}
+.chip{height:27px;padding:0 10px;border-radius:999px;border:1px solid var(--border-strong);
+  background:var(--surface);font-size:12.5px;color:var(--muted);display:inline-flex;align-items:center;
+  gap:6px;cursor:pointer}
+.chip.on{background:var(--accent-soft);border-color:var(--accent);color:var(--accent-2);font-weight:650}
+.chip-btn{font-family:var(--mono);font-size:12px;padding:6px 10px;background:var(--surface);
+  border:1px solid var(--border);border-radius:var(--radius);color:var(--text);cursor:pointer;
+  display:inline-flex;align-items:center;gap:6px}
+.chip-btn:hover{background:var(--surface-2);border-color:var(--faint)}
+
+/* ---------- 06 Panels ---------- */
+.panel{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius-lg);
+  box-shadow:var(--shadow);display:flex;flex-direction:column;min-width:0;overflow:hidden}
+/* Grundlinie statt Mitte (v1.6): Überschrift (13,5px) und Zusatztext (13px)
+   stehen nebeneinander und sollen auf einer Linie sitzen. */
+.panel-head{display:flex;align-items:baseline;gap:10px;padding:10px 14px;border-bottom:1px solid var(--border);
+  background:var(--ph-bg);font-family:var(--ph-ff);font-size:var(--ph-fs);font-weight:var(--ph-fw);
+  text-transform:var(--ph-tt);letter-spacing:var(--ph-ls);color:var(--text);flex-shrink:0}
+.panel-head h2{font-family:var(--font-title);font-size:13.5px;text-transform:none;letter-spacing:-.01em;
+  font-weight:600;margin:0}
+.panel-head .count{font-weight:400;color:var(--muted);text-transform:none;letter-spacing:0}
+.panel-actions{display:flex;gap:4px;margin-left:auto;align-self:center;align-items:center}
+/* Der Kopf richtet Text an der Grundlinie aus; alles Bedienbare steht mittig. */
+.panel-head>.btn,.panel-head>.btn-group,.panel-head>.icon-btn,.panel-head>.inp,.panel-head>.sel,.panel-head>.chip,.panel-head>.chip-btn,.panel-head>.badge,.panel-head>.status-chip{align-self:center}
+.panel-search{padding:10px 14px;border-bottom:1px solid var(--border);flex-shrink:0}
+.panel-search .inp{font-family:var(--mono);font-size:12px;background:var(--surface-2)}
+.panel-body{flex:1;overflow:auto;min-height:0}
+.panel-body.pad{padding:15px}
+.panel-foot{display:flex;gap:8px;padding:12px 14px;border-top:1px solid var(--border);
+  background:var(--surface-2);flex-shrink:0}
+.panel-foot .btn{flex:1;justify-content:center}
+
+.workarea{flex:1;min-height:0;display:flex}
+.workarea>.panel{border-radius:0;border:0;border-right:1px solid var(--border);box-shadow:none}
+.workarea>.panel:last-child{border-right:0}
+.split2{display:grid;grid-template-columns:420px 1fr;gap:18px;align-items:start}
+.split3{display:grid;grid-template-columns:380px 1fr 380px;gap:18px;align-items:start}
+@media (max-width:1100px){.split2,.split3{grid-template-columns:1fr}}
+
+/* ---------- 07 Tabellen und Baumzeilen ---------- */
+table.tbl{width:100%;border-collapse:collapse;font-size:var(--fs-sm)}
+.tbl thead th{text-align:left;padding:8px 14px;font-family:var(--ph-ff);font-size:var(--fs-xs);
+  text-transform:uppercase;letter-spacing:.05em;color:var(--muted);background:var(--surface-2);
+  border-bottom:1px solid var(--border);font-weight:700;white-space:nowrap;position:sticky;top:0;z-index:1}
+.tbl tbody td{padding:var(--row-pad) 14px;border-bottom:1px solid var(--border);vertical-align:top}
+.tbl tbody tr:hover{background:var(--surface-2)}
+.tbl tbody tr.selected{background:var(--accent-soft)}
+.tbl tbody tr.selected td:first-child{box-shadow:var(--sel-bar)}
+.tbl .num{text-align:right;font-family:var(--mono)}
+.val{font-family:var(--mono);font-size:12.5px;border:1px solid var(--val-bd);background:var(--val-bg);
+  padding:var(--val-pad)}
+.sub{display:block;color:var(--muted);font-size:var(--fs-xs);margin-top:2px}
+
+/* Zebra-Streifung: trägt das Auge bei langen Listen, wo Hover nicht reicht.
+   Eigenes Token, weil --surface-2 im Dunkeln zu nah an --surface liegt. */
+.tbl.zebra tbody tr:nth-child(even){background:var(--zebra)}
+.tbl.zebra tbody tr:hover{background:var(--surface-2)}
+.tbl.zebra tbody tr.selected{background:var(--accent-soft)}
+
+/* Dokumentansicht als Tabelle — dieselbe Rolle wie .tree-row, aber für lange
+   Listen (Hunderte Zeilen): echter <thead> mit sticky, Zebra, td-Raster.
+   .tree-row bleibt für kleine, aufklappbare Bäume in Panels. */
+.tbl.tree tbody td{padding:4px 10px;font-family:var(--mono);font-size:12.5px;line-height:1.4;
+  vertical-align:top;border-bottom:1px solid var(--border)}
+.tbl.tree tbody td.pos{width:1%;white-space:nowrap;font-size:10px;color:var(--faint);
+  padding-top:6px;user-select:none}
+.tbl.tree tbody td.name{color:var(--muted)}
+.tbl.tree tbody td.value{color:var(--text);width:50%}
+.tbl.tree .val{word-break:break-word}
+
+.tree-row{display:grid;grid-template-columns:auto 1fr;gap:10px;padding:5px 14px 5px 8px;
+  border-bottom:1px solid var(--border);font-size:12.5px;line-height:1.4}
+.tree-row:hover{background:var(--surface-2)}
+.tree-row.clickable{cursor:pointer}
+.tree-row.selected{background:var(--accent-soft);box-shadow:var(--sel-bar)}
+.row-toggle{width:16px;height:16px;display:grid;place-items:center;color:var(--faint);cursor:pointer;
+  user-select:none;flex-shrink:0}
+.row-toggle.leaf{visibility:hidden}
+.tree-pos{font-family:var(--mono);font-size:10px;color:var(--faint)}
+.lvl-0{padding-left:0}.lvl-1{padding-left:14px}.lvl-2{padding-left:28px}.lvl-3{padding-left:42px}
+.lvl-4{padding-left:56px}.lvl-5{padding-left:70px}.lvl-6{padding-left:84px}.lvl-7{padding-left:98px}
+.lvl-8{padding-left:112px}
+
+/* ---------- 08 Kennzeichen ---------- */
+.badge{display:inline-flex;align-items:center;gap:5px;height:21px;padding:0 8px;border-radius:var(--badge-r);
+  font-size:var(--fs-xs);font-weight:700;border:1px solid var(--badge-bd);
+  text-transform:var(--badge-tt);letter-spacing:var(--badge-ls)}
+.badge.ok{background:var(--ok-soft);color:var(--ok)}
+.badge.warn{background:var(--warn-soft);color:var(--warn)}
+.badge.err{background:var(--err-soft);color:var(--err)}
+.badge.info{background:var(--info-soft);color:var(--info)}
+.badge.mute{background:var(--surface-2);color:var(--muted);border-color:var(--border)}
+.dot{width:7px;height:7px;border-radius:50%;background:currentColor;flex-shrink:0}
+.status-chip{font-family:var(--mono);font-size:var(--fs-xs);text-transform:uppercase;letter-spacing:.06em;
+  padding:6px 12px;border:1px solid var(--border);border-radius:var(--radius);color:var(--muted);
+  background:var(--surface-2);display:inline-flex;align-items:center;gap:6px}
+.status-chip .dot{background:var(--faint)}
+.status-chip.ok .dot{background:var(--ok)}
+.status-chip.warn .dot{background:var(--warn)}
+.status-chip.err .dot{background:var(--err)}
+/* Dreistufige Schwere für Berichte */
+.sev{display:inline-flex;align-items:center;gap:6px;font-family:var(--mono);font-size:10px;
+  text-transform:uppercase;letter-spacing:.08em;padding:3px 8px;border:1px solid currentColor;
+  border-radius:var(--badge-r)}
+.sev.error{color:var(--err);background:var(--err-soft)}
+.sev.warn{color:var(--warn);background:var(--warn-soft)}
+.sev.info{color:var(--info);background:var(--info-soft)}
+/* Kardinalität und Pflichtgrad */
+.card-mark{font-family:var(--mono);font-size:9.5px;padding:1px 5px;border:1px solid var(--border);
+  color:var(--muted);border-radius:var(--badge-r)}
+.lv-badge{display:inline-grid;place-items:center;width:15px;height:15px;border-radius:var(--badge-r);
+  font-family:var(--mono);font-size:9px;font-weight:700;flex-shrink:0}
+.lv-badge.pflicht{background:var(--err-soft);color:var(--err)}
+.lv-badge.normal{background:var(--info-soft);color:var(--info)}
+.lv-badge.optional{background:var(--surface-2);color:var(--faint)}
+.mark{background:var(--mark);color:#3f2d00;padding:0 2px}
+
+
+/* ---------- 08b Signalkante ---------- */
+/* „Linien statt Schatten" ist das Kernmittel des Kits — hier ist es einstellbar.
+   Zwei Mechaniken unter denselben Namen, weil eine allein nicht überall trägt:
+   · Block (Karte, Meldung, Befund): border-left — überlebt Graustufendruck.
+   · Tabellenzeile: box-shadow inset auf der ersten Zelle — überschreibt die
+     Zebra-Streifung, die ein border-left auf <tr> nicht überdeckt. */
+.edge{border-left:var(--sig-w) solid var(--border-strong)}
+.edge-ok{border-left:var(--sig-w) solid var(--ok)}
+.edge-warn{border-left:var(--sig-w) solid var(--warn)}
+.edge-err{border-left:var(--sig-w) solid var(--err)}
+.edge-info{border-left:var(--sig-w) solid var(--accent)}
+.tbl tr.edge-ok td:first-child{box-shadow:inset var(--sig-w) 0 0 var(--ok)}
+.tbl tr.edge-warn td:first-child{box-shadow:inset var(--sig-w) 0 0 var(--warn)}
+.tbl tr.edge-err td:first-child{box-shadow:inset var(--sig-w) 0 0 var(--err)}
+.tbl tr.edge-info td:first-child{box-shadow:inset var(--sig-w) 0 0 var(--accent)}
+.tbl tr.edge-ok,.tbl tr.edge-warn,.tbl tr.edge-err,.tbl tr.edge-info{border-left:0}
+
+/* ---------- 09 Urteilsbanner ---------- */
+.verdict{display:flex;align-items:center;justify-content:space-between;gap:20px;padding:15px 20px;
+  background:var(--text);color:var(--verdict-fg)}
+.verdict.pass{background:var(--ok)}
+.verdict.warn{background:var(--warn)}
+.verdict.fail{background:var(--err)}
+.verdict-title{font-family:var(--font-title);font-weight:600;font-size:17px;letter-spacing:-.01em}
+.verdict-desc{font-size:13px;opacity:.92;margin-top:3px;max-width:78ch}
+.verdict-stamp{font-family:var(--mono);font-size:11.5px;text-transform:uppercase;letter-spacing:.1em;
+  padding:6px 11px;border:1px solid currentColor;flex-shrink:0;opacity:.85}
+
+/* ---------- 10 Befunde und Regeln ---------- */
+.findings{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius-lg);
+  box-shadow:var(--shadow);overflow:hidden}
+.finding{padding:15px 18px;border-top:1px solid var(--border);cursor:pointer}
+.finding:first-child{border-top:none}
+.finding:hover{background:var(--surface-2)}
+.finding.active{background:var(--accent-soft);border-left:var(--sig-w) solid var(--accent);
+  padding-left:15px}
+.finding-head{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:7px}
+.finding-rule{font-family:var(--mono);font-size:11.5px;color:var(--muted);font-weight:500}
+.finding-title{font-family:var(--font-title);font-weight:600;font-size:14.5px;margin-bottom:6px;
+  line-height:1.35}
+.finding-bt{display:inline-block;font-family:var(--mono);font-size:11px;color:var(--accent-2);
+  background:var(--accent-soft);padding:2px 8px;margin-bottom:7px;border:1px solid var(--border);
+  border-radius:var(--badge-r)}
+.finding-explain{font-size:13px;color:var(--muted);line-height:1.5;margin-bottom:9px}
+.finding-fix{background:var(--surface-2);border-left:var(--sig-w) solid var(--accent);
+  padding:9px 13px;font-size:13px}
+.fix-label{font-family:var(--mono);font-size:10px;text-transform:uppercase;letter-spacing:.08em;
+  color:var(--muted);margin-bottom:4px}
+.rule-list{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius-lg);
+  box-shadow:var(--shadow);overflow:hidden}
+.rule-item{padding:11px 15px;border-top:1px solid var(--border);display:flex;gap:10px;align-items:baseline}
+.rule-item:first-child{border-top:none}
+.rule-id{font-family:var(--mono);font-size:11.5px;font-weight:700;color:var(--accent-2);flex-shrink:0}
+.rule-text{font-size:12.5px;color:var(--muted);line-height:1.45}
+
+/* ---------- 11 Kennzahlenband ---------- */
+.meta-card{display:grid;grid-template-columns:repeat(4,1fr);background:var(--surface);
+  border:1px solid var(--border);border-radius:var(--radius-lg);box-shadow:var(--shadow);
+  margin:18px 0;overflow:hidden}
+.meta-item{padding:12px 16px;border-right:1px solid var(--border)}
+.meta-item:last-child{border-right:none}
+.meta-label{font-family:var(--mono);font-size:10.5px;text-transform:uppercase;letter-spacing:.08em;
+  color:var(--muted);margin-bottom:4px}
+.meta-value{font-size:var(--fs-sm);font-weight:600}
+@media (max-width:820px){.meta-card{grid-template-columns:repeat(2,1fr)}
+  .meta-item{border-bottom:1px solid var(--border)}}
+
+/* ---------- 12 Dialog, Befehlspalette, Meldung, Leerzustand ---------- */
+.modal-backdrop{position:fixed;inset:0;background:rgba(11,18,32,.45);display:grid;place-items:center;
+  padding:20px;z-index:100}
+.modal{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius-lg);
+  box-shadow:var(--shadow-lg);max-width:560px;width:100%;max-height:86vh;display:flex;flex-direction:column}
+.modal-head{padding:13px 15px;border-bottom:1px solid var(--border);font-family:var(--font-title);
+  font-weight:600;font-size:14.5px;display:flex;align-items:center;gap:10px}
+.modal-body{padding:15px;font-size:var(--fs-sm);overflow:auto}
+.modal-foot{padding:11px 15px;border-top:1px solid var(--border);display:flex;justify-content:flex-end;
+  gap:8px;background:var(--surface-2)}
+.cmdpal{border:1px solid var(--border);border-radius:var(--radius-lg);background:var(--surface);
+  box-shadow:var(--shadow-lg);overflow:hidden;max-width:520px;width:100%}
+.cmdpal-input{padding:11px 14px;border-bottom:1px solid var(--border);color:var(--muted);
+  font-size:var(--fs-sm);display:flex;align-items:center;gap:9px}
+.cmdpal-row{padding:10px 14px;display:flex;align-items:center;gap:10px;font-size:var(--fs-sm);
+  border-bottom:1px solid var(--border);cursor:pointer}
+.cmdpal-row:last-child{border-bottom:none}
+.cmdpal-row.on{background:var(--accent-soft);color:var(--accent-2);font-weight:650}
+.note{display:flex;align-items:flex-start;gap:10px;padding:11px 13px;border-radius:var(--radius);
+  font-size:var(--fs-sm);border:1px solid;border-left-width:var(--sig-w)}
+.note.ok{background:var(--ok-soft);color:var(--ok);border-color:var(--ok)}
+.note.warn{background:var(--warn-soft);color:var(--warn);border-color:var(--warn)}
+.note.err{background:var(--err-soft);color:var(--err);border-color:var(--err)}
+.note.info{background:var(--info-soft);color:var(--info);border-color:var(--info)}
+.note-mark{font-family:var(--mono);font-size:10px;font-weight:700;text-transform:uppercase;
+  letter-spacing:.06em;padding:2px 6px;background:currentColor;flex-shrink:0}
+.note-mark span{color:var(--surface)}
+.empty{text-align:center;padding:30px 18px;color:var(--muted)}
+.empty-icon{font-size:28px;opacity:.35}
+.empty-title{font-family:var(--font-title);font-weight:600;font-size:14.5px;color:var(--text);
+  margin:9px 0 4px}
+.empty p{font-size:13px;margin-bottom:13px}
+/* Gegenstück zu .empty: nicht „nichts da", sondern „hier geht es weiter".
+   Immer mit Zahl — die Grenze ist eine Aussage über die Daten, keine Fehlermeldung. */
+.truncated{font-family:var(--mono);font-size:var(--fs-xs);text-transform:uppercase;letter-spacing:.08em;
+  color:var(--muted);background:var(--surface-2);border-top:1px solid var(--border);padding:9px 14px}
+.truncated::before{content:'';display:inline-block;width:18px;height:1px;vertical-align:middle;
+  background:var(--border-strong);margin-right:10px}
+.truncated b{color:var(--text);font-weight:700}
+.tbl .truncated td,td.truncated{display:table-cell}
+
+/* ---------- 13 Datei-Ablage (v1.5, nach O39) ---------- */
+/* Eine Fläche für die ganze Reihe, gestaltet nach dem Viewer: eine mittige
+   Spalte mit gestricheltem 2-px-Rahmen auf --surface-2. Die Breite steht in
+   der Marke --drop-max; ein Werkzeug, das die Fläche anders braucht, setzt nur
+   die Marke um. Zustände: :hover und :focus (Tastatur), .drag beim
+   Darüberziehen einer Datei, .busy während der Verarbeitung.
+   <div class="drop" tabindex="0" role="button" aria-label="Datei wählen">
+     <div class="drop-title">Rechnung hier ablegen</div>
+     <div class="drop-sub">oder klicken, um eine <code>PDF</code>- oder <code>XML</code>-Datei zu wählen</div>
+   </div> */
+.drop{position:relative;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:5px;text-align:center;min-height:150px;max-width:var(--drop-max);margin:0 auto;padding:28px;background:var(--surface-2);border:2px dashed var(--border-strong);border-radius:var(--radius-lg);cursor:pointer;transition:background .12s,border-color .12s}
+.drop:hover,.drop:focus{border-color:var(--accent);background:var(--accent-soft)}
+.drop.drag{border-color:var(--accent-2);background:var(--accent-soft)}
+.drop.busy{opacity:.6;pointer-events:none}
+.drop.busy::after{content:'';position:absolute;top:50%;left:50%;width:26px;height:26px;margin:-13px 0 0 -13px;box-sizing:border-box;border:3px solid var(--accent-soft);border-top-color:var(--accent-2);border-radius:50%;animation:drop-spin .8s linear infinite}
+@keyframes drop-spin{to{transform:rotate(360deg)}}
+@media (prefers-reduced-motion:reduce){.drop.busy::after{animation-duration:2.4s}}
+/* Symbol über dem Titel (bisher nur in der Vergleichsprüfung) */
+.drop-icon{width:52px;height:52px;margin-bottom:6px;border:1px solid var(--border);border-radius:var(--radius);display:grid;place-items:center;background:var(--surface);color:var(--accent);font-size:20px}
+.drop-title{font-family:var(--font-title);font-weight:600;font-size:16px}
+.drop-sub{color:var(--muted);font-size:13px}
+/* Formatmarke im Satz: PDF, XML — Dateiformate, die in keiner Sprache übersetzt werden */
+.drop-sub code{font-family:var(--mono);font-size:.92em;font-weight:600;letter-spacing:.04em;padding:1px 5px;border:1px solid var(--border-strong);border-radius:0;background:var(--surface);color:var(--text)}
+.drop:hover .drop-sub code,.drop:focus .drop-sub code{border-color:var(--accent);color:var(--accent)}
+.drop.drag .drop-sub code{border-color:var(--accent-2);color:var(--accent-2)}
+.samples{margin-top:16px;display:flex;gap:8px;align-items:center;justify-content:center;flex-wrap:wrap}
+.samples-label{font-family:var(--mono);font-size:var(--fs-xs);text-transform:uppercase;letter-spacing:.08em;color:var(--faint)}
+
+/* ---------- 14 Code, Statusleiste, Fußzeile ---------- */
+.codeblock{font-family:var(--mono);font-size:12.5px;line-height:1.55;background:var(--code-bg);
+  border:1px solid var(--border);border-radius:var(--radius);padding:10px 12px;white-space:pre;
+  overflow:auto;color:var(--text)}
+.codeblock .k{color:var(--accent)}
+.codeblock .s{color:var(--ok)}
+.codeblock .c{color:var(--muted)}
+.statusbar{flex:0 0 auto;height:35px;display:flex;align-items:center;gap:15px;padding:0 var(--pad-lg);
+  background:var(--surface);border-top:1px solid var(--border);font-size:12.5px;color:var(--muted)}
+.statusbar b{color:var(--text)}
+.kbd-hints{display:flex;gap:12px}
+.kbd-hints span{display:inline-flex;align-items:center;gap:5px}
+.docfoot{margin-top:18px;padding-top:14px;border-top:1px solid var(--border);font-family:var(--mono);
+  font-size:10.5px;text-transform:uppercase;letter-spacing:.08em;color:var(--muted);
+  display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap}
+
+/* ---------- 15 Layout-Typ 2: Bericht / Dokument ---------- */
+.doc{flex:1;overflow:auto;background:var(--bg)}
+.doc-inner{max-width:var(--doc-w);margin:0 auto;padding:26px 24px 60px}
+.doc-inner h1{font-size:var(--fs-h1);line-height:1.14;margin:0 0 10px}
+.doc-inner h1 em{font-style:normal;color:var(--accent)}
+.doc-inner h2{font-size:var(--fs-h2);margin:26px 0 10px}
+.doc-cols{display:grid;grid-template-columns:1.5fr 1fr;gap:18px;align-items:start}
+@media (max-width:900px){.doc-cols{grid-template-columns:1fr}}
+
+/* ---------- 16 Schmale Fenster ---------- */
+@media (max-width:820px){
+  .tool-nav{display:none}
+  .app-shell{height:auto;min-height:100vh;overflow:visible}
+  .workarea{flex-direction:column}
+  .workarea>.panel{border-right:0;border-bottom:1px solid var(--border)}
+  .pagehead{align-items:flex-start;flex-direction:column;gap:10px}
+  .page-actions{margin-left:0}
+}
+
+
+/* ---------- 17 Toast: kurze Rückmeldung unten mittig ---------- */
+/* Markup einmal vor </body>: <div class="toast" id="toast"></div> · JS: toast('Gespeichert') */
+.toast{position:fixed;left:50%;bottom:46px;transform:translate(-50%,10px);z-index:200;
+  max-width:min(70ch,90vw);padding:9px 15px;border-radius:var(--radius);background:var(--top-bg);
+  color:var(--top-fg);font-size:var(--fs-sm);box-shadow:var(--shadow-lg);opacity:0;pointer-events:none;
+  transition:opacity .16s,transform .16s}
+.toast.show{opacity:1;transform:translate(-50%,0)}
+/* Schriftfarbe wie beim Urteilsbanner: im Dunkelmodus sind --warn und --err
+   aufgehellt, weiß darauf fällt unter 3:1. --verdict-fg dreht im Dunkeln auf
+   dunkle Schrift. */
+.toast.warn{background:var(--warn);color:var(--verdict-fg)}
+.toast.err{background:var(--err);color:var(--verdict-fg)}
+
+/* ---------- 17b Belegansicht (v1.4.1, nach O35, O37 und O38) ---------- */
+/* Grundsatz: Jedes BG und jedes BT wird gezeigt, belegt oder nicht.
+   Was ausgeblendet wird, entscheidet der Leser (Schalter .only-filled).
+   Seit 1.4 hat die Belegansicht eigene Namen für Block, Blockkopf,
+   Zwischenüberschrift, Feldzeile und Wertfeld (.doc-block, .doc-block-head,
+   .doc-subhead, .doc-field, .doc-value). .panel, .panel-head und .field
+   bleiben unverändert: Validatoren, Explorer und Technische Angaben benutzen
+   sie, und eine dunkle Fahne gehört in einen Beleg, nicht in einen Prüfbericht. */
+
+/* Dokumentkopf: Rechnungsart, Nummer und Datum links, Betrag rechts in einem
+   gefüllten Feld. Verlauf von --accent-2 nach --accent, 3 px Unterkante.
+   <div class="doc-head">
+     <div class="doc-head-main">
+       <div class="doc-head-type">Handelsrechnung · 380</div>
+       <div class="doc-head-title">RE-2026-0815</div>
+       <div class="doc-head-meta">Rechnungsdatum 07.10.2026</div></div>
+     <div class="doc-head-amount">
+       <div class="doc-head-label">Zahlbetrag</div>
+       <div class="doc-head-value">1.190,00 EUR</div></div>
+   </div> */
+.doc-head{display:flex;justify-content:space-between;align-items:flex-end;gap:20px;flex-wrap:wrap;padding:16px 20px;background:linear-gradient(135deg,var(--accent-2),var(--accent));color:var(--on-accent);border-radius:var(--radius-lg);border-bottom:3px solid var(--accent-2)}
+.doc-head-main{min-width:0}
+.doc-head-type{font-family:var(--mono);font-size:var(--fs-xs);text-transform:uppercase;letter-spacing:.1em;opacity:.9}
+.doc-head-title{font-family:var(--font-title);font-size:26px;font-weight:700;letter-spacing:-.015em;line-height:1.25;margin-top:3px}
+.doc-head-meta{font-size:var(--fs-sm);opacity:.92;margin-top:3px}
+.doc-head-amount{margin-left:auto;text-align:right;padding:8px 14px;background:var(--accent-2);border-radius:var(--radius)}
+.doc-head-label{font-family:var(--mono);font-size:var(--fs-xs);text-transform:uppercase;letter-spacing:.1em;opacity:.9}
+.doc-head-value{font-family:var(--mono);font-size:21px;font-weight:600;white-space:nowrap}
+
+/* Dokumentraster: zwei gleich breite Spalten; .full läuft über alle Spalten.
+   minmax(0,1fr) statt 1fr, damit eine breite Tabelle die Spalte nicht aufzieht. */
+.doc-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px;align-items:start}
+.doc-grid>.full{grid-column:1/-1}
+@media (max-width:760px){.doc-grid{grid-template-columns:minmax(0,1fr)}}
+
+/* Block der Belegansicht (ein BG). Der Blockkopf ist eine Fahne: nur so breit
+   wie ihr Text, oben links auf dem Rahmen. Der Körper ist ein Container, an
+   dessen Breite die Feldzeile ihre Form wählt.
+   <section class="doc-block">
+     <h3 class="doc-block-head">Verkäufer <span class="badge code">BG-4</span></h3>
+     <div class="doc-block-body"> … .doc-field … .doc-subhead … </div>
+   </section> */
+.doc-block{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius-lg);box-shadow:var(--shadow);overflow:hidden;min-width:0;container-type:inline-size;container-name:docblock}
+.doc-block-head{display:inline-flex;align-items:center;gap:8px;margin:0;padding:7px 16px;background:var(--accent-2);color:var(--on-accent);font-family:var(--font-title);font-size:14px;font-weight:700;letter-spacing:-.005em;line-height:1.35;border-radius:0 0 var(--radius) 0}
+.doc-block-body{container-type:inline-size;padding:12px 16px 16px}
+
+/* Zwischenüberschrift: eine Gruppe in einer Gruppe (etwa BG-12 in BG-11).
+   Dieselbe Fahnenform, kleiner und hell. */
+.doc-subhead{display:inline-flex;align-items:center;gap:8px;margin:10px 0 8px;padding:5px 12px;background:var(--surface-2);color:var(--accent-2);font-family:var(--font-title);font-size:13.5px;font-weight:700;line-height:1.35;border-radius:var(--radius)}
+.doc-subgroup{margin-top:4px}
+
+/* Feldzeile: zwei Spalten (Beschriftung 42 %, Wert), solange der Block breit
+   genug ist; gestapelt, sobald der Block schmaler als 420 px ist. Die Abfrage
+   richtet sich nach dem Block, nicht nach dem Fenster — derselbe Block kann
+   im breiten Raster neben einem anderen oder allein über volle Breite stehen.
+   <div class="doc-field">
+     <div class="doc-label">Name <span class="badge code">BT-27</span></div>
+     <div class="doc-value">Beispiel Handel GmbH</div></div> */
+.doc-field{display:grid;grid-template-columns:42% minmax(0,1fr);gap:4px 12px;align-items:start;margin-bottom:8px}
+.doc-field:last-child{margin-bottom:0}
+.doc-label{font-size:13px;color:var(--muted);padding-top:7px;min-width:0;overflow-wrap:anywhere}
+/* Wertfeld in der Lauftextschrift, 14 px — nicht in --mono (O38): ein Beleg
+   besteht zu neun Zehnteln aus Wertfeldern und soll sich nicht wie eine
+   Protokolldatei lesen. Eine Feldzeile ist so 33 px hoch, mit 8 px Abstand. */
+.doc-value{min-height:32px;padding:6px 10px;background:var(--accent-soft);color:var(--text);border-radius:var(--radius);font-family:var(--font);font-size:14px;line-height:1.5;min-width:0;overflow-wrap:anywhere}
+@container (max-width:420px){.doc-field{grid-template-columns:minmax(0,1fr)}.doc-label{padding-top:0}}
+
+/* Breiter Block (ab 900 px, nach O38): die Feldzeilen laufen in zwei Spalten
+   nebeneinander, also vier Spalten in einer Reihe. Die Abfrage misst den
+   Block (docblock) eine Ebene über dem Körper; die Feldzeile darin misst
+   weiter den Körper und bleibt bei je 42 % Beschriftung. 900 px statt
+   420 px, weil jede Hälfte wieder Platz für Beschriftung und Wert braucht.
+   Eine Untergruppe läuft über beide Spalten: ihre Fahne gehört über ihre
+   Felder und nicht neben ein fremdes Feld. Ihre eigenen Felder stehen
+   darunter im selben Zweierraster wie die Felder des Blocks. */
+@container docblock (min-width:900px){.doc-block-body{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);column-gap:28px;row-gap:8px;align-items:start}.doc-block-body>.doc-field{margin-bottom:0}.doc-block-body>.doc-subgroup{grid-column:1/-1;display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);column-gap:28px;row-gap:8px;align-items:start}.doc-block-body>.doc-subgroup>.doc-subhead{grid-column:1/-1;justify-self:start;margin-bottom:0}.doc-block-body>.doc-subgroup>.doc-field{margin-bottom:0}}
+
+/* Kennung auf dunklem Grund (Dokumentkopf, Blockkopf): Schrift in der Farbe
+   des Grundes, Fläche als durchscheinende Stufe davon. */
+.doc-head .badge.code,.doc-block-head .badge.code{color:var(--on-accent);background:color-mix(in srgb,var(--on-accent) 25%,transparent);border-color:transparent}
+
+/* Positionsgruppe: hellgraue Fläche, 4 px Kante aus --accent, Überschrift in
+   der Titelschrift; darin wieder ein .doc-grid mit .doc-block. */
+.doc-group{background:var(--surface-2);border:1px solid var(--border);border-left:4px solid var(--accent);border-radius:var(--radius-lg);overflow:hidden}
+.doc-group+.doc-group{margin-top:14px}
+.doc-group-head{display:flex;align-items:center;gap:10px;flex-wrap:wrap;padding:12px 14px 0;color:var(--accent-2)}
+.doc-group-head h2{font-family:var(--font-title);font-size:15px;font-weight:700;letter-spacing:-.01em;margin:0;color:var(--accent-2)}
+.doc-group>.doc-grid{padding:12px 14px 14px}
+
+/* Summenblock: senkrechte Liste aus Beschriftung und Betrag. Zwei Hervor-
+   hebungen auf --accent-soft: .grand (Gesamtbetrag, 16 px) und .due (Zahlbetrag). */
+.totals{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius-lg);box-shadow:var(--shadow);overflow:hidden}
+.totals-row{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:16px;align-items:baseline;padding:7px 14px;border-top:1px solid var(--border);font-size:var(--fs-sm)}
+.totals-row:first-child{border-top:0}
+.totals-label{color:var(--muted)}
+.totals-amount{font-family:var(--mono);text-align:right;white-space:nowrap}
+.totals-row.grand{background:var(--accent-soft);color:var(--accent-2);font-size:16px;font-weight:700;border-top-color:var(--border-strong)}
+.totals-row.grand .totals-label{color:var(--accent-2)}
+.totals-row.due{background:var(--accent-soft);color:var(--accent-2);font-weight:700;border-top-color:var(--border-strong)}
+.totals-row.due .totals-label{color:var(--accent-2)}
+
+/* Dichte Codemarke für BT/BG hinter einer Beschriftung. Passt in die Zeile,
+   ohne sie höher zu machen (.badge ist 21 px hoch). */
+.badge.code{height:auto;padding:1px 6px;font-family:var(--mono);font-size:var(--fs-xs);font-weight:600;line-height:1.15;text-transform:none;letter-spacing:0;vertical-align:baseline;color:var(--muted);background:var(--surface-2);border-color:var(--border)}
+
+/* ---------- 17c Zustand „trägt keinen Wert" (v1.3, erweitert in v1.4) ---------- */
+/* .blank steht immer neben dem Baustein selbst, nie allein: an einer Feld-
+   zeile, an einer Tabellenzeile oder an einem ganzen Block. Sichtbar bleibt
+   sie: der Leser soll sehen, welches Feld die Norm vorsieht und dieser Beleg
+   weglässt. Eine Tabelle kann belegte und leere Zeilen mischen — die Marke
+   gehört deshalb an jede Zeile. Ein Block, dessen Zeilen alle leer sind,
+   bekommt selbst .blank, sonst bliebe seine Überschrift über nichts stehen.
+   Platzhalter für den fehlenden Wert: <span class="val faint">—</span>. */
+.field.blank .val,.tree-row.blank,.tbl tbody tr.blank td,.panel.blank .panel-body{color:var(--faint)}
+.panel.blank>.panel-head{color:var(--faint)}
+.tree-row.blank .val{background:transparent}
+/* Belegansicht (v1.4): ein leeres Wertfeld steht kursiv in der blassen Farbe;
+   ein leerer Block trägt eine helle Fahne statt der dunklen; eine leere
+   Untergruppe blasst ihre Zwischenüberschrift ab. */
+.doc-field.blank .doc-value{font-style:italic;color:var(--faint)}
+.doc-block.blank>.doc-block-head{background:var(--accent-soft);color:var(--accent-2)}
+.doc-block.blank>.doc-block-head .badge.code{color:var(--accent-2);background:color-mix(in srgb,var(--accent-2) 12%,transparent)}
+.doc-subgroup.blank>.doc-subhead{color:var(--faint)}
+
+/* „Nur gefüllte Felder anzeigen": der Schalter setzt allein diese Klasse am
+   Behälter. Nichts wird neu gezeichnet und nichts aus dem Dokument entfernt. */
+.only-filled .field.blank,.only-filled .tree-row.blank,.only-filled .tbl tbody tr.blank,.only-filled .panel.blank,.only-filled .doc-field.blank,.only-filled .doc-subgroup.blank,.only-filled .doc-block.blank{display:none}
+
+/* ---------- 17d Schwere vor Auswahl (v1.3, nach O35) ---------- */
+/* 1  Die Schwere bekommt eine eigene Fläche, nicht nur eine Kante. Blau bleibt
+      dem Hinweis (.edge-info) und hat keine Fläche. */
+.edge-ok{background:var(--ok-soft)}
+.edge-warn{background:var(--warn-soft)}
+.edge-err{background:var(--err-soft)}
+
+/* 2  Tabelle: Fläche und Kante der Schwere stehen mit derselben Spezifität wie
+      Auswahl, Zebra und Hover, aber später — und gewinnen deshalb. Die Auswahl
+      zeigt sich an einer Schwere-Zeile als Rahmen innen. Kein !important.
+      Der Rahmen liegt als innerer Schatten auf den Zellen, nicht als outline
+      auf <tr>: outline an Tabellenzeilen zeichnen nicht alle Browser, und die
+      Zeile wäre dann nicht als ausgewählt erkennbar (v1.3.1). */
+.tbl tbody tr.edge-ok,.tbl.zebra tbody tr.edge-ok{background:var(--ok-soft)}
+.tbl tbody tr.edge-warn,.tbl.zebra tbody tr.edge-warn{background:var(--warn-soft)}
+.tbl tbody tr.edge-err,.tbl.zebra tbody tr.edge-err{background:var(--err-soft)}
+.tbl tbody tr.edge-ok td:first-child{box-shadow:inset var(--sig-w) 0 0 var(--ok)}
+.tbl tbody tr.edge-warn td:first-child{box-shadow:inset var(--sig-w) 0 0 var(--warn)}
+.tbl tbody tr.edge-err td:first-child{box-shadow:inset var(--sig-w) 0 0 var(--err)}
+.tbl tbody tr.edge-info td:first-child{box-shadow:inset var(--sig-w) 0 0 var(--accent)}
+.tbl tbody tr.selected.edge-ok td,.tbl tbody tr.selected.edge-warn td,.tbl tbody tr.selected.edge-err td,.tbl tbody tr.selected.edge-info td{
+  box-shadow:inset 0 2px 0 var(--accent),inset 0 -2px 0 var(--accent)}
+.tbl tbody tr.selected.edge-ok td:last-child,.tbl tbody tr.selected.edge-warn td:last-child,.tbl tbody tr.selected.edge-err td:last-child,.tbl tbody tr.selected.edge-info td:last-child{
+  box-shadow:inset -2px 0 0 var(--accent),inset 0 2px 0 var(--accent),inset 0 -2px 0 var(--accent)}
+.tbl tbody tr.selected.edge-ok td:first-child{box-shadow:inset var(--sig-w) 0 0 var(--ok),
+  inset 0 2px 0 var(--accent),inset 0 -2px 0 var(--accent)}
+.tbl tbody tr.selected.edge-warn td:first-child{box-shadow:inset var(--sig-w) 0 0 var(--warn),
+  inset 0 2px 0 var(--accent),inset 0 -2px 0 var(--accent)}
+.tbl tbody tr.selected.edge-err td:first-child{box-shadow:inset var(--sig-w) 0 0 var(--err),
+  inset 0 2px 0 var(--accent),inset 0 -2px 0 var(--accent)}
+.tbl tbody tr.selected.edge-info td:first-child{box-shadow:inset var(--sig-w) 0 0 var(--accent),
+  inset 0 2px 0 var(--accent),inset 0 -2px 0 var(--accent)}
+
+/* 3  Baumansicht: dieselben vier Schweren wie die Tabellenzeile, mit innerem
+      Schatten statt border-left, damit der Inhalt nicht springt. */
+.tree-row.edge-ok{border-left:0;background:var(--ok-soft);box-shadow:inset var(--sig-w) 0 0 var(--ok)}
+.tree-row.edge-warn{border-left:0;background:var(--warn-soft);box-shadow:inset var(--sig-w) 0 0 var(--warn)}
+.tree-row.edge-err{border-left:0;background:var(--err-soft);box-shadow:inset var(--sig-w) 0 0 var(--err)}
+.tree-row.edge-info{border-left:0;box-shadow:inset var(--sig-w) 0 0 var(--accent)}
+.tree-row.selected.edge-ok{box-shadow:inset var(--sig-w) 0 0 var(--ok),inset 0 0 0 2px var(--accent)}
+.tree-row.selected.edge-warn{box-shadow:inset var(--sig-w) 0 0 var(--warn),inset 0 0 0 2px var(--accent)}
+.tree-row.selected.edge-err{box-shadow:inset var(--sig-w) 0 0 var(--err),inset 0 0 0 2px var(--accent)}
+.tree-row.selected.edge-info{box-shadow:inset var(--sig-w) 0 0 var(--accent),inset 0 0 0 2px var(--accent)}
+
+/* 4  Aktiver Befund in der Farbe seiner Schwere. Blau bleibt dem Hinweis. */
+.finding.active.error{background:var(--err-soft);border-left-color:var(--err)}
+.finding.active.warn{background:var(--warn-soft);border-left-color:var(--warn)}
+
+/* spt-kit.print.css — Druckregeln, identisch für Kit A und Kit H (v1.6).
+   Getrennt von den Kits, damit Druck eigenständig gepflegt und eingebunden wird:
+   <link rel="stylesheet" href="spt-kit.print.css" media="print">
+   Immer NACH dem Kit-Stylesheet einbinden. */
+
+/* ---------- 18 Druck ---------- */
+/* ACHTUNG Shadow DOM: Dieser Block gehört zum Dokument und überschreitet keine
+   Shadow-Grenze. Ein Werkzeug, das seine Ausgabe in einem Shadow Root rendert,
+   braucht einen eigenen @media print-Block IN seinem Shadow-Stylesheet —
+   sonst druckt es ungefiltert. Das gilt für alles hier Folgende. */
+@media print{
+  body{background:#fff}  /* literal-ok: Druck ist immer weiß, unabhängig vom Theme */
+  .top,.tool-nav,.nav-rail,.nav-tabs,.filterbar,.statusbar,.page-actions,.toast{display:none !important}
+  .panel,.findings,.rule-list,.meta-card,.finding{box-shadow:none;break-inside:avoid}
+  .verdict,.sev,.badge{-webkit-print-color-adjust:exact;print-color-adjust:exact}
+  /* Kanten in Tabellen von box-shadow auf border umstellen: Schatten drucken
+     Browser unzuverlässig, eine Linie kommt immer mit. */
+  .tbl tr.edge-ok td:first-child{box-shadow:none;border-left:var(--sig-w) solid var(--ok)}
+  .tbl tr.edge-warn td:first-child{box-shadow:none;border-left:var(--sig-w) solid var(--warn)}
+  .tbl tr.edge-err td:first-child{box-shadow:none;border-left:var(--sig-w) solid var(--err)}
+  .tbl tr.edge-info td:first-child{box-shadow:none;border-left:var(--sig-w) solid var(--accent)}
+  .tbl.zebra tbody tr:nth-child(even){background:transparent}
+  .doc-inner{max-width:none;padding:0}
+}
+
+/* ---------- 18b Druck für Belegansicht und Schwere (v1.5) ---------- */
+@media print{
+  .doc-head,.doc-head-amount,.doc-block-head,.doc-subhead,.doc-value,.totals-row.grand,.totals-row.due,.doc-group,.badge.code,.edge-ok,.edge-warn,.edge-err,.tree-row{-webkit-print-color-adjust:exact;print-color-adjust:exact}
+  .doc-group,.doc-block,.totals{box-shadow:none;break-inside:avoid}
+  /* Kanten auch hier von box-shadow auf border — mit der Spezifität der
+     Bildschirmregeln aus 17d, sonst setzen sich diese im Druck durch. */
+  .tbl tbody tr.edge-ok td:first-child{box-shadow:none;border-left:var(--sig-w) solid var(--ok)}
+  .tbl tbody tr.edge-warn td:first-child{box-shadow:none;border-left:var(--sig-w) solid var(--warn)}
+  .tbl tbody tr.edge-err td:first-child{box-shadow:none;border-left:var(--sig-w) solid var(--err)}
+  .tbl tbody tr.edge-info td:first-child{box-shadow:none;border-left:var(--sig-w) solid var(--accent)}
+  .tree-row.edge-ok{box-shadow:none;border-left:var(--sig-w) solid var(--ok)}
+  .tree-row.edge-warn{box-shadow:none;border-left:var(--sig-w) solid var(--warn)}
+  .tree-row.edge-err{box-shadow:none;border-left:var(--sig-w) solid var(--err)}
+  .tree-row.edge-info{box-shadow:none;border-left:var(--sig-w) solid var(--accent)}
+  /* Zebra fällt im Druck weg, die Schwere-Fläche bleibt */
+  .tbl.zebra tbody tr.edge-ok:nth-child(even){background:var(--ok-soft)}
+  .tbl.zebra tbody tr.edge-warn:nth-child(even){background:var(--warn-soft)}
+  .tbl.zebra tbody tr.edge-err:nth-child(even){background:var(--err-soft)}
+}
+
+/* ---- Anleitungs-Schicht auf Kit A ---- */
+:root{--fs:14.5px}
+.doc-inner{max-width:var(--doc-w);padding:22px 24px 60px}
+.doc-inner h2{font-size:var(--fs-h2);margin:30px 0 8px;scroll-margin-top:12px}
+.doc-inner h3{font-size:14.5px;margin:16px 0 8px}
+.doc-inner h4{font-family:var(--mono);font-size:var(--fs-xs);font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:var(--muted);margin:16px 0 6px}
+.doc-inner p{margin:0 0 10px;max-width:78ch}
+.lede{color:var(--muted);max-width:78ch;margin-bottom:10px}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin:0 0 14px}
+@media (max-width:760px){.two{grid-template-columns:1fr}}
+.card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius-lg);box-shadow:var(--shadow);padding:14px 16px;margin:0 0 14px}
+.two .card{margin:0;border-top:3px solid var(--accent)}
+.two .card.p{border-top-color:var(--warn)}
+.card h3{margin:0 0 8px}
+.tblw{overflow-x:auto;margin:0 0 12px;border:1px solid var(--border);border-radius:var(--radius);background:var(--surface)}
+.tblw table{width:100%;border-collapse:collapse;font-size:var(--fs-sm);min-width:420px}
+.tblw thead th{text-align:left;padding:7px 12px;font-size:var(--fs-xs);text-transform:uppercase;letter-spacing:.05em;color:var(--muted);background:var(--surface-2);border-bottom:1px solid var(--border);font-weight:700;white-space:nowrap}
+.tblw tbody td{padding:7px 12px;border-bottom:1px solid var(--border);vertical-align:top}
+.tblw tbody tr:last-child td{border-bottom:0}
+.tblw.f td:nth-child(2),.tblw.bk td:nth-child(3){font-family:var(--mono);font-size:12.5px;white-space:nowrap}
+.tblw.bk td:nth-child(3){text-align:right}
+.tblw.err td:first-child,.tblw.tr td:first-child{font-weight:600;min-width:200px}
+.tblw.chain td:nth-child(3){font-family:var(--mono);font-size:12.5px;white-space:nowrap}
+.legend{display:flex;flex-wrap:wrap;gap:8px 14px;margin:16px 0 8px;font-size:var(--fs-sm);color:var(--muted);align-items:center}
+/* Schritte */
+.step{margin:0 0 10px}
+.step[hidden]{display:none}
+details.panel{overflow:visible}
+summary.panel-head{cursor:pointer;list-style:none;gap:10px}
+summary.panel-head::-webkit-details-marker{display:none}
+.stepno{width:24px;height:24px;border-radius:50%;border:1px solid var(--border-strong);display:grid;place-items:center;font-family:var(--mono);font-size:11px;font-weight:700;color:var(--muted);flex:none;background:var(--surface)}
+.step.is-done .stepno{background:var(--ok);border-color:var(--ok);color:#fff}
+.step.is-done .stepno::before{content:"✓"}
+.step.is-done .stepno span{display:none}
+.stitle{font-weight:600;font-size:14px;flex:1 1 200px;min-width:0}
+.step.is-done .stitle{color:var(--muted)}
+.chev{margin-left:auto;color:var(--faint);transition:transform .15s;font-size:12px}
+details[open] .chev{transform:rotate(90deg)}
+.panel-body.pad{padding:14px 16px}
+.why{margin:0 0 8px}.why b{color:var(--muted);font-weight:600}
+.meta{display:flex;flex-wrap:wrap;gap:6px 16px;font-size:var(--fs-sm);color:var(--muted);margin:0 0 8px}.meta b{color:var(--text);font-weight:600}
+.menu{font-size:12.5px;color:var(--muted);background:var(--surface-2);border:1px solid var(--border);border-radius:var(--radius);padding:6px 10px;margin:0 0 10px;font-family:var(--mono);overflow-x:auto;white-space:nowrap}
+ol.how{margin:0 0 12px;padding-left:22px;max-width:78ch}ol.how li{margin:0 0 6px;padding-left:2px}
+.note{margin:0 0 10px}.note .note-mark{margin-top:2px}.note div{flex:1;min-width:0}.note b{display:block;margin-bottom:2px}
+.note.info.dash{border-style:dashed}
+.fig{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);overflow:hidden;margin:0 0 12px}
+.fig img{display:block;max-width:100%;height:auto;margin:0 auto;background:#fff}
+.fig figcaption{font-size:var(--fs-xs);color:var(--muted);padding:6px 10px;border-top:1px solid var(--border);background:var(--surface-2)}
+.shot{border:1px dashed var(--border-strong);border-radius:var(--radius);padding:12px;text-align:center;color:var(--faint);font-size:var(--fs-xs);font-family:var(--mono);margin:0 0 12px}
+.codeblock{margin:0 0 12px}
+.donebox{display:flex;align-items:center;gap:8px;font-size:var(--fs-sm);font-weight:600;cursor:pointer;margin-top:4px}
+.donebox input{width:16px;height:16px;accent-color:var(--ok)}
+.heroimg{float:right;width:130px;max-width:28%;margin:0 0 8px 16px;mix-blend-mode:multiply}
+:root[data-theme="dark"] .heroimg{mix-blend-mode:screen;filter:invert(1) hue-rotate(180deg)}
+.gl{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:8px}
+.gl div{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:8px 11px;font-size:13px;color:var(--muted)}
+.gl b{display:block;color:var(--text)}
+.keys{margin:0;padding-left:20px}.keys li{margin:0 0 6px;max-width:78ch}
+.rule-item.pre{cursor:pointer;gap:12px;align-items:flex-start}
+.rule-item.pre input{width:16px;height:16px;margin-top:3px;accent-color:var(--ok);flex:none}
+.rule-item.pre b{display:block;font-size:13.5px}.prew{display:block;color:var(--muted);font-size:12.5px}.pref{display:block;font-family:var(--mono);font-size:12px;margin-top:2px;color:var(--accent-2)}
+.rule-item.pre:has(input:checked) b{color:var(--muted);text-decoration:line-through}
+.filterbar{position:sticky;top:0;z-index:5;gap:10px}
+.prog{display:flex;align-items:center;gap:8px;font-size:12.5px;color:var(--muted);flex:1 1 180px}
+.prog .track{flex:1;height:6px;background:var(--border);border-radius:3px;overflow:hidden}.prog .fill{height:100%;width:0;background:var(--ok);transition:width .3s}
+.tool-nav a.on{font-weight:650}
+.tool-nav a .no{font-family:var(--mono);font-size:10.5px;color:var(--faint);width:18px;text-align:right}
+.recgrid{display:grid;grid-template-columns:1fr 1fr;gap:10px 14px;margin:0 0 10px}
+@media (max-width:640px){.recgrid{grid-template-columns:1fr}}
+.recgrid .field label{display:flex;justify-content:space-between}
+.recgrid .field label span{font-family:var(--mono);font-weight:400;color:var(--faint);font-size:10.5px}
+.recgrid .inp{font-family:var(--mono);font-size:13px}
+.recgrid .full{grid-column:1/-1}
+textarea.inp.note{font-family:var(--font);font-size:13.5px;min-height:60px}
+.usebox{display:flex;flex-wrap:wrap;gap:6px 14px;font-size:var(--fs-sm);color:var(--muted);background:var(--accent-soft);border:1px solid var(--border);border-radius:var(--radius);padding:7px 10px;margin:0 0 10px}
+.usebox b{font-family:var(--mono);color:var(--accent-2);font-weight:600}
+.runhead{display:grid;grid-template-columns:repeat(4,1fr);gap:10px 14px;margin:0 0 14px}
+@media (max-width:760px){.runhead{grid-template-columns:1fr 1fr}}
+.res td:nth-child(3){font-family:var(--mono);font-size:12.5px}
+.res td.empty{color:var(--faint);font-style:italic;font-family:var(--font)}
+.actions{display:flex;flex-wrap:wrap;gap:8px;margin:0 0 14px}
+@media print{.recgrid .inp{border:0;border-bottom:1px solid #999;border-radius:0;background:transparent}.actions{display:none}}
+.emptyv{color:var(--muted);font-style:italic;font-size:var(--fs-sm)}
+.docnote{color:var(--muted);font-size:12.5px;max-width:none;margin-top:26px}
+.navsel{display:none}
+@media (max-width:820px){.filterbar{position:static}.top-title,.brand-tag,.top .sep{display:none}.navsel{display:block;width:100%}.navsel select{width:100%}
+ .pagehead h1{font-size:18px}.doc-inner{padding:16px 14px 50px}.panel-body.pad{padding:12px}.two{grid-template-columns:1fr}}
+@media print{
+  .filterbar,.donebox,.shot,.tool-nav,.top,.page-actions{display:none!important}
+  .doc{overflow:visible}.app-shell{height:auto}.doc-inner{max-width:none}
+  .step,.card,.fig,.note{break-inside:avoid}
+  details.panel{box-shadow:none}
+}
+
+.dia{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:14px;margin:0 0 6px;overflow-x:auto}
+.dia svg{max-width:100%;height:auto;display:block;margin:0 auto}
+.dia .dia-d{display:none}[data-theme="dark"] .dia .dia-l{display:none}[data-theme="dark"] .dia .dia-d{display:block}
+.dia svg .edgeLabel,.dia svg .edgeLabel text{paint-order:stroke;stroke:var(--surface);stroke-width:5px;stroke-linejoin:round}
+.lkrow{display:grid;grid-template-columns:repeat(5,1fr);gap:10px}.lkc,.lkbase{border:1px solid var(--border-strong);border-radius:var(--radius);background:var(--surface-2);padding:10px 11px}
+.lkc{border-top:3px solid var(--accent)}.lkc b,.lkbase b{display:block;margin-bottom:6px}.lkc span{display:block;background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:5px 8px;margin-top:5px;font-size:var(--fs-sm)}
+.lkarrow{text-align:center;color:var(--muted);font-size:var(--fs-sm);padding:9px 0}.lkbase{border-top:3px solid var(--ok);display:flex;flex-wrap:wrap;gap:6px 8px;align-items:center}.lkbase b{flex:1 1 100%;margin:0 0 2px}.lkbase span{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:5px 9px;font-size:var(--fs-sm)}
+@media (max-width:980px){.lkrow{grid-template-columns:1fr 1fr}}@media (max-width:520px){.lkrow{grid-template-columns:1fr}}
+.diacap{font-size:var(--fs-sm);color:var(--muted);margin:0 0 14px}
+.lesen{border-left:3px solid var(--accent);background:var(--accent-soft);padding:9px 13px;margin:0 0 16px;border-radius:0 var(--radius) var(--radius) 0}
+.lesen b{display:block;margin-bottom:2px}
+.st{display:inline-block;font-size:var(--fs-xs);padding:1px 7px;border-radius:var(--radius);font-weight:600;white-space:nowrap}
+.st.ok{background:var(--ok-soft);color:var(--ok)}.st.warn{background:var(--warn-soft);color:var(--warn)}.st.info{background:var(--info-soft);color:var(--info)}.st.no{background:var(--surface-2);color:var(--muted);border:1px solid var(--border)}
+.doc-inner p,.doc-inner li{max-width:900px}
+.doc-inner td,.doc-inner li,.doc-inner p,.doc-inner summary{overflow-wrap:anywhere}
+.tblw{overflow-x:auto;margin:0 0 14px}.tblw table{margin:0}
+.doc-inner section{margin-bottom:34px}
+.doc-inner h3{margin-top:22px}
+details.fold{border:1px solid var(--border);border-radius:var(--radius);background:var(--surface);margin:0 0 8px}
+details.fold>summary{cursor:pointer;padding:9px 13px;font-weight:600;list-style:none;display:flex;gap:9px;align-items:baseline}
+details.fold>summary::-webkit-details-marker{display:none}
+details.fold>summary::before{content:"+";font-family:var(--mono);color:var(--accent);width:1ch;flex:none}
+details.fold[open]>summary::before{content:"–"}
+details.fold[open]>summary{border-bottom:1px solid var(--border);background:var(--surface-2)}
+details.fold>.foldbody{padding:12px 15px 4px}
+details.fold .foldbody h4{margin:16px 0 6px;font-size:var(--fs-md, 15px)}
+details.fold .foldbody h5{margin:12px 0 4px;font-size:var(--fs-sm);text-transform:none;letter-spacing:0;color:var(--text)}
+details.fold .foldbody table{font-size:var(--fs-sm)}
+details.fold .foldbody .wide table{min-width:1250px}
+.steps{display:grid;gap:6px;margin:0 0 14px}
+.stp{display:grid;grid-template-columns:34px 1fr auto;gap:10px;align-items:center;border:1px solid var(--border);border-radius:var(--radius);background:var(--surface);padding:8px 12px}
+.stp .n{font-family:var(--mono);font-weight:700;color:var(--muted)}
+.stp small{display:block;color:var(--muted)}
+.stp.done{border-left:3px solid var(--ok)}.stp.now{border-left:3px solid var(--warn);background:var(--warn-soft)}.stp.next{border-left:3px solid var(--border-strong)}
+pre{overflow-x:auto}
+.srch{flex:1 1 220px;max-width:340px}
+mark{background:var(--warn-soft);color:inherit}
+@media (max-width:820px){.filterbar{flex-wrap:wrap}.page-actions{flex-wrap:wrap}.stp{grid-template-columns:28px 1fr}.stp .st{grid-column:2}}
+@media print{.tool-nav,.top,.filterbar,.page-actions{display:none!important}details.fold>.foldbody{display:block!important}.app-shell,.app-body,.main,.doc{display:block!important;height:auto!important;overflow:visible!important}}
+
+.shot{margin:0 0 16px}.shot img{max-width:100%;height:auto;border:1px solid var(--border);border-radius:var(--radius);display:block;cursor:zoom-in}
+.shot figcaption{font-size:var(--fs-sm);color:var(--muted);margin-top:5px}
+.shot-ph{border:2px dashed var(--border-strong);border-radius:var(--radius);background:var(--surface-2);padding:18px 16px;display:grid;gap:5px;justify-items:start}
+.shot-ph b{color:var(--muted)}.shot-ph small{color:var(--muted)}
+.shot.has .shot-ph{display:none}.shot:not(.has) figcaption{display:none}
+.codebox{position:relative;margin:0 0 14px}.codebox pre{margin:0;padding-right:96px}.codebox .copy{position:absolute;top:6px;right:6px;font-size:var(--fs-xs);padding:3px 9px}
+ol.chk{list-style:none;padding:0;margin:0 0 14px;counter-reset:s}ol.chk li{counter-increment:s;border:1px solid var(--border);border-radius:var(--radius);background:var(--surface);margin-bottom:6px}
+ol.chk label{display:flex;gap:10px;align-items:flex-start;padding:9px 12px;cursor:pointer}ol.chk label::before{content:counter(s);font-family:var(--mono);font-weight:700;color:var(--muted);min-width:1.4em}
+ol.chk input{margin-top:4px;order:3;margin-left:auto;flex:none}ol.chk span{flex:1}ol.chk li:has(input:checked){border-left:3px solid var(--ok)}ol.chk li:has(input:checked) span{color:var(--muted)}
+.chips{display:flex;gap:6px;flex-wrap:wrap;align-items:center}.chips>span{font-size:var(--fs-xs);color:var(--muted);margin-right:2px}
+[data-v][hidden]{display:none!important}
+td:first-child code{white-space:nowrap}
+.sst.ok{color:var(--ok);font-weight:600}.sst.no{color:var(--warn);font-weight:600}
+#zoom{position:fixed;inset:0;background:rgba(0,0,0,.82);display:none;align-items:center;justify-content:center;z-index:99;cursor:zoom-out;padding:20px}#zoom img{max-width:100%;max-height:100%}#zoom.on{display:flex}
+.hbnote{display:block}.hbnote p{margin:0 0 6px}.hbnote p:last-child{margin:0}.doc-inner pre{background:var(--surface-2);border:1px solid var(--border);border-radius:var(--radius);padding:10px 12px;overflow-x:auto;font-size:var(--fs-sm)}.doc-inner .tblw{overflow-x:auto;margin:0 0 14px}.doc-inner li>ol,.doc-inner li>ul{padding-left:30px}.top .brand-logo{height:30px;width:auto;display:block}
+</style>
+</head>
+<body>
+<div class="app-shell">
+<header class="top"><div class="brand"><img class="brand-logo" src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNjMwIDIwOCIgd2lkdGg9IjI2MzAiIGhlaWdodD0iMjA4IiByb2xlPSJpbWciIGFyaWEtbGFiZWw9IihlKWludm9pY2VQcmVzcyDigJMgRS1JbnZvaWNpbmcgV2Vya3pldWdlIj4KPHRpdGxlPihlKWludm9pY2VQcmVzcyDigJMgRS1JbnZvaWNpbmcgV2Vya3pldWdlPC90aXRsZT4KPHJlY3QgeD0iMCIgeT0iMCIgd2lkdGg9IjIwOCIgaGVpZ2h0PSIyMDgiIGZpbGw9IiM1RjhGQTgiLz4KPHBhdGggZmlsbD0iI0ZGRkZGRiIgZD0iTTUzLjkzMTUwNjg0OTMxNTA3IDE0MC40MjE5MTc4MDgyMTkxOFYxMzEuMjkzMTUwNjg0OTMxNUg3MS45MDk1ODkwNDEwOTU5Vjk4LjMxNzgwODIxOTE3ODA5SDU2LjI2MDI3Mzk3MjYwMjc1Vjg5LjE4OTA0MTA5NTg5MDQySDgxLjY5MDQxMDk1ODkwNDExVjEzMS4yOTMxNTA2ODQ5MzE1SDk4LjE3ODA4MjE5MTc4MDgyVjE0MC40MjE5MTc4MDgyMTkxOFpNNzUuODIxOTE3ODA4MjE5MTggODAuMzM5NzI2MDI3Mzk3MjZRNzIuNTYxNjQzODM1NjE2NDQgODAuMzM5NzI2MDI3Mzk3MjYgNzAuNjA1NDc5NDUyMDU0OCA3OC42MTY0MzgzNTYxNjQ0UTY4LjY0OTMxNTA2ODQ5MzE1IDc2Ljg5MzE1MDY4NDkzMTUxIDY4LjY0OTMxNTA2ODQ5MzE1IDc0LjAwNTQ3OTQ1MjA1NDhRNjguNjQ5MzE1MDY4NDkzMTUgNzEuMDI0NjU3NTM0MjQ2NTkgNzAuNjA1NDc5NDUyMDU0OCA2OS4zMDEzNjk4NjMwMTM3UTcyLjU2MTY0MzgzNTYxNjQ0IDY3LjU3ODA4MjE5MTc4MDgyIDc1LjgyMTkxNzgwODIxOTE4IDY3LjU3ODA4MjE5MTc4MDgyUTc5LjA4MjE5MTc4MDgyMTkyIDY3LjU3ODA4MjE5MTc4MDgyIDgxLjAzODM1NjE2NDM4MzU2IDY5LjMwMTM2OTg2MzAxMzdRODIuOTk0NTIwNTQ3OTQ1MiA3MS4wMjQ2NTc1MzQyNDY1OSA4Mi45OTQ1MjA1NDc5NDUyIDc0LjAwNTQ3OTQ1MjA1NDhRODIuOTk0NTIwNTQ3OTQ1MiA3Ni44OTMxNTA2ODQ5MzE1MSA4MS4wMzgzNTYxNjQzODM1NiA3OC42MTY0MzgzNTYxNjQ0UTc5LjA4MjE5MTc4MDgyMTkyIDgwLjMzOTcyNjAyNzM5NzI2IDc1LjgyMTkxNzgwODIxOTE4IDgwLjMzOTcyNjAyNzM5NzI2WiBNMTEwLjEwMTM2OTg2MzAxMzcgMTQwLjQyMTkxNzgwODIxOTE4VjcyLjQyMTkxNzgwODIxOTE4SDEzMi4zNjQzODM1NjE2NDM4NVExMzguOTc4MDgyMTkxNzgwODMgNzIuNDIxOTE3ODA4MjE5MTggMTQzLjg2ODQ5MzE1MDY4NDk0IDc0LjkzNjk4NjMwMTM2OTg3UTE0OC43NTg5MDQxMDk1ODkwNSA3Ny40NTIwNTQ3OTQ1MjA1NSAxNTEuNDEzNjk4NjMwMTM3IDgyLjA2MzAxMzY5ODYzMDEzUTE1NC4wNjg0OTMxNTA2ODQ5MyA4Ni42NzM5NzI2MDI3Mzk3MiAxNTQuMDY4NDkzMTUwNjg0OTMgOTIuOTE1MDY4NDkzMTUwN1ExNTQuMDY4NDkzMTUwNjg0OTMgOTkuMDYzMDEzNjk4NjMwMTMgMTUxLjM2NzEyMzI4NzY3MTIzIDEwMy43MjA1NDc5NDUyMDU0OFExNDguNjY1NzUzNDI0NjU3NTQgMTA4LjM3ODA4MjE5MTc4MDgzIDE0My44MjE5MTc4MDgyMTkxOCAxMTAuODkzMTUwNjg0OTMxNTFRMTM4Ljk3ODA4MjE5MTc4MDgzIDExMy40MDgyMTkxNzgwODIxOSAxMzIuMzY0MzgzNTYxNjQzODUgMTEzLjQwODIxOTE3ODA4MjE5SDEyMC4xNjE2NDM4MzU2MTY0NVYxNDAuNDIxOTE3ODA4MjE5MThaTTEyMC4xNjE2NDM4MzU2MTY0NSAxMDQuMzcyNjAyNzM5NzI2MDNIMTMyLjM2NDM4MzU2MTY0Mzg1UTEzNy41ODA4MjE5MTc4MDgyNCAxMDQuMzcyNjAyNzM5NzI2MDMgMTQwLjcwMTM2OTg2MzAxMzcyIDEwMS4yNTIwNTQ3OTQ1MjA1NVExNDMuODIxOTE3ODA4MjE5MTggOTguMTMxNTA2ODQ5MzE1MDcgMTQzLjgyMTkxNzgwODIxOTE4IDkyLjkxNTA2ODQ5MzE1MDdRMTQzLjgyMTkxNzgwODIxOTE4IDg3LjYwNTQ3OTQ1MjA1NDggMTQwLjcwMTM2OTg2MzAxMzcyIDg0LjUzMTUwNjg0OTMxNTA2UTEzNy41ODA4MjE5MTc4MDgyNCA4MS40NTc1MzQyNDY1NzUzNSAxMzIuMzY0MzgzNTYxNjQzODUgODEuNDU3NTM0MjQ2NTc1MzVIMTIwLjE2MTY0MzgzNTYxNjQ1WiIvPgo8cGF0aCBmaWxsPSIjRkY4ODNFIiBkPSJNMzAyLjAgMTE4LjUwNDMwMTA3NTI2ODgxUTMwMi4wIDEwNy4xNjk4OTI0NzMxMTgyNyAzMDQuNTU3NzI4MTE5MTgwNjQgOTQuOTQ3ODQ5NDYyMzY1NThRMzA3LjExNTQ1NjIzODM2MTIgODIuNzI1ODA2NDUxNjEyODggMzExLjU0Mzc2MTYzODczMzcgNzEuNDU5Njc3NDE5MzU0ODJRMzE1Ljk3MjA2NzAzOTEwNjE1IDYwLjE5MzU0ODM4NzA5Njc1NCAzMjEuNjk4MzI0MDIyMzQ2MzYgNTEuOTk5OTk5OTk5OTk5OTg2SDM0My4wUTMzNy41MDI3OTMyOTYwODkzNSA2Mi41ODMzMzMzMzMzMzMzMTQgMzMzLjUzMjU4ODQ1NDM3NjE0IDc0LjA4ODQ0MDg2MDIxNTAzUTMyOS41NjIzODM2MTI2NjI5IDg1LjU5MzU0ODM4NzA5Njc2IDMyNy40NjI3NTYwNTIxNDE1IDk2LjkyNzk1Njk4OTI0NzI5UTMyNS4zNjMxMjg0OTE2MjAxIDEwOC4yNjIzNjU1OTEzOTc4NCAzMjUuMzYzMTI4NDkxNjIwMSAxMTguNTA0MzAxMDc1MjY4ODFRMzI1LjM2MzEyODQ5MTYyMDEgMTI3LjQ0ODkyNDczMTE4Mjc5IDMyNy4xNTczNTU2Nzk3MDIwNSAxMzYuNDk1OTY3NzQxOTM1NVEzMjguOTUxNTgyODY3NzgzOTQgMTQ1LjU0MzAxMDc1MjY4ODE2IDMzMi44NDU0Mzc2MTYzODczIDE1NS44NTMyMjU4MDY0NTE2UTMzNi43MzkyOTIzNjQ5OTA2NiAxNjYuMTYzNDQwODYwMjE1MDUgMzQzLjAgMTc5LjBIMzIxLjY5ODMyNDAyMjM0NjM2UTMxMi4wMDE4NjIxOTczOTI5IDE2NC41OTMwMTA3NTI2ODgxNyAzMDcuMDAwOTMxMDk4Njk2NDcgMTQ5LjE5NTk2Nzc0MTkzNTQ4UTMwMi4wIDEzMy43OTg5MjQ3MzExODI3OCAzMDIuMCAxMTguNTA0MzAxMDc1MjY4ODFaIE0zODAuNzkzODY3MTg3NSAxNDguMzA3MDAxOTUzMTI1UTM3MC42MzQ4OTc0NjA5Mzc1IDE0OC4zMDcwMDE5NTMxMjUgMzYzLjI2ODE1OTE3OTY4NzUgMTQ0LjE0ODM1OTM3NDk5OTk4UTM1NS45MDE0MjA4OTg0Mzc1IDEzOS45ODk3MTY3OTY4NzUgMzUxLjk1MDcxMDQ0OTIxODcgMTMyLjMyNTkzMjYxNzE4NzVRMzQ4LjAgMTI0LjY2MjE0ODQzNzUwMDAxIDM0OC4wIDExNC4xNDY3MjM2MzI4MTI1UTM0OC4wIDEwMy44Njg5MzU1NDY4NzUwMSAzNTEuOTIxMDA1ODU5Mzc1IDk2LjE0NTc0MjE4NzVRMzU1Ljg0MjAxMTcxODc1IDg4LjQyMjU0ODgyODEyNSAzNjMuMDMwNTIyNDYwOTM3NSA4NC4wODU2Nzg3MTA5Mzc1UTM3MC4yMTkwMzMyMDMxMjUgNzkuNzQ4ODA4NTkzNzUgMzc5LjkwMjcyOTQ5MjE4NzUgNzkuNzQ4ODA4NTkzNzVRMzg2LjQzNzczOTI1NzgxMjUgNzkuNzQ4ODA4NTkzNzUgMzkyLjA4MTYxMTMyODEyNSA4MS44MjgxMjk4ODI4MTI1UTM5Ny43MjU0ODMzOTg0Mzc1IDgzLjkwNzQ1MTE3MTg3NSA0MDIuMDAyOTQ0MzM1OTM3NSA4OC4wOTU3OTgzMzk4NDM3NVE0MDYuMjgwNDA1MjczNDM3NSA5Mi4yODQxNDU1MDc4MTI1IDQwOC42ODY0NzcwNTA3ODEyNiA5OC41ODE1MTg1NTQ2ODc1UTQxMS4wOTI1NDg4MjgxMjUgMTA0Ljg3ODg5MTYwMTU2MjUgNDExLjA5MjU0ODgyODEyNSAxMTMuNDMzODEzNDc2NTYyNVYxMTguNDI0MTg0NTcwMzEyNDlIMzU1LjMwNzMyOTEwMTU2MjVWMTA3LjI1NTI1ODc4OTA2MjUxSDQwMi4zNTkzOTk0MTQwNjI1TDM5NC4wNDIxMTQyNTc4MTI1IDExMC4yMjU3MTc3NzM0Mzc1MVEzOTQuMDQyMTE0MjU3ODEyNSAxMDUuMDU3MTE5MTQwNjI0OTkgMzkyLjQ2Nzc3MDk5NjA5Mzc1IDEwMS4yMjUyMjcwNTA3ODEyNFEzOTAuODkzNDI3NzM0Mzc1IDk3LjM5MzMzNDk2MDkzNzUgMzg3Ljc3NDQ0NTgwMDc4MTIgOTUuMjg0MzA5MDgyMDMxMjRRMzg0LjY1NTQ2Mzg2NzE4NzUgOTMuMTc1MjgzMjAzMTI0OTkgMzgwLjA4MDk1NzAzMTI1IDkzLjE3NTI4MzIwMzEyNDk5UTM3NS40NDcwNDEwMTU2MjUgOTMuMTc1MjgzMjAzMTI0OTkgMzcyLjIwOTI0MDcyMjY1NjI2IDk1LjMxNDAxMzY3MTg3NDk5UTM2OC45NzE0NDA0Mjk2ODc1IDk3LjQ1Mjc0NDE0MDYyNSAzNjcuMzA3OTgzMzk4NDM3NSAxMDEuMTA2NDA4NjkxNDA2MjRRMzY1LjY0NDUyNjM2NzE4NzUgMTA0Ljc2MDA3MzI0MjE4NzUgMzY1LjY0NDUyNjM2NzE4NzUgMTA5LjQ1MzM5ODQzNzVWMTE3LjM1NDgxOTMzNTkzNzQ5UTM2NS42NDQ1MjYzNjcxODc1IDEyMy4xMTc1MDk3NjU2MjUgMzY3LjU3NTMyNDcwNzAzMTI2IDEyNy4wMzg1MTU2MjVRMzY5LjUwNjEyMzA0Njg3NSAxMzAuOTU5NTIxNDg0Mzc1IDM3Mi45ODE1NjAwNTg1OTM3NCAxMzIuOTIwMDI0NDE0MDYyNDhRMzc2LjQ1Njk5NzA3MDMxMjQ3IDEzNC44ODA1MjczNDM3NSAzODEuMDkwOTEzMDg1OTM3NSAxMzQuODgwNTI3MzQzNzVRMzg0LjIzOTU5OTYwOTM3NSAxMzQuODgwNTI3MzQzNzUgMzg2Ljc5NDE5NDMzNTkzNzUgMTMzLjk4OTM4OTY0ODQzNzVRMzg5LjM0ODc4OTA2MjUgMTMzLjA5ODI1MTk1MzEyNSAzOTEuMTYwNzY5MDQyOTY4NyAxMzEuMzQ1NjgxMTUyMzQzNzNRMzkyLjk3Mjc0OTAyMzQzNzUgMTI5LjU5MzExMDM1MTU2MjUgMzkzLjkyMzI5NTg5ODQzNzUgMTI3LjAzODUxNTYyNUw0MTAuMDgyNTkyNzczNDM3NSAxMzAuMDY4MzgzNzg5MDYyNVE0MDguNDc4NTQ0OTIxODc1IDEzNS41MzQwMjgzMjAzMTI1IDQwNC40OTgxMjk4ODI4MTI1IDEzOS42NjI5NjYzMDg1OTM3NVE0MDAuNTE3NzE0ODQzNzUgMTQzLjc5MTkwNDI5Njg3NSAzOTQuNTQ3MDkyMjg1MTU2MyAxNDYuMDQ5NDUzMTI1UTM4OC41NzY0Njk3MjY1NjI1IDE0OC4zMDcwMDE5NTMxMjUgMzgwLjc5Mzg2NzE4NzUgMTQ4LjMwNzAwMTk1MzEyNVogTTQxMy4wIDE3OS4wUTQxOS4zNDg4ODA1OTcwMTQ5NSAxNjYuMDI2ODgxNzIwNDMwMDggNDIzLjIxMTc1MzczMTM0MzI2IDE1NS42ODI1MjY4ODE3MjA0UTQyNy4wNzQ2MjY4NjU2NzE2MyAxNDUuMzM4MTcyMDQzMDEwNzMgNDI4LjgzMzk1NTIyMzg4MDYgMTM2LjMyNTI2ODgxNzIwNDNRNDMwLjU5MzI4MzU4MjA4OTU1IDEyNy4zMTIzNjU1OTEzOTc4NCA0MzAuNTkzMjgzNTgyMDg5NTUgMTE4LjUwNDMwMTA3NTI2ODgxUTQzMC41OTMyODM1ODIwODk1NSAxMDguMjYyMzY1NTkxMzk3ODQgNDI4LjQ4OTczODgwNTk3MDE1IDk2LjkyNzk1Njk4OTI0NzI5UTQyNi4zODYxOTQwMjk4NTA3NCA4NS41OTM1NDgzODcwOTY3NiA0MjIuNDQ2ODI4MzU4MjA4OTYgNzQuMDg4NDQwODYwMjE1MDNRNDE4LjUwNzQ2MjY4NjU2NzIgNjIuNTgzMzMzMzMzMzMzMzE0IDQxMy4wIDUxLjk5OTk5OTk5OTk5OTk4Nkg0MzQuMjY0OTI1MzczMTM0M1E0NDAuMDc4MzU4MjA4OTU1MjUgNjAuMTkzNTQ4Mzg3MDk2NzU0IDQ0NC41MTQ5MjUzNzMxMzQzNiA3MS40NTk2Nzc0MTkzNTQ4MlE0NDguOTUxNDkyNTM3MzEzNCA4Mi43MjU4MDY0NTE2MTI4OCA0NTEuNDc1NzQ2MjY4NjU2NzQgOTQuOTgxOTg5MjQ3MzExODJRNDU0LjAgMTA3LjIzODE3MjA0MzAxMDc0IDQ1NC4wIDExOC41MDQzMDEwNzUyNjg4MVE0NTQuMCAxMzMuOTM1NDgzODcwOTY3NzQgNDQ4Ljk1MTQ5MjUzNzMxMzQ3IDE0OS4zMzI1MjY4ODE3MjA0UTQ0My45MDI5ODUwNzQ2MjY5IDE2NC43Mjk1Njk4OTI0NzMxIDQzNC4yNjQ5MjUzNzMxMzQzIDE3OS4wWiIvPgo8cGF0aCBmaWxsPSIjRkZGRkZGIiBkPSJNNDY4LjgzMTcyODUxNTYyNSAxNDcuMFY4MC41ODA1MzcxMDkzNzVINDg2LjY1NDQ4MjQyMTg3NVYxNDcuMFpNNDc3Ljc0MzEwNTQ2ODc1IDcxLjkwNjc5Njg3NVE0NzMuNzAzMjgxMjUwMDAwMDMgNzEuOTA2Nzk2ODc1IDQ3MC44NTE2NDA2MjUgNjkuMjMzMzgzNzg5MDYyNVE0NjguMCA2Ni41NTk5NzA3MDMxMjUgNDY4LjAgNjIuNzU3NzgzMjAzMTI1UTQ2OC4wIDU4Ljk1NTU5NTcwMzEyNSA0NzAuODUxNjQwNjI1IDU2LjI4MjE4MjYxNzE4NzVRNDczLjcwMzI4MTI1MDAwMDAzIDUzLjYwODc2OTUzMTI1MDAwNSA0NzcuNzQzMTA1NDY4NzUgNTMuNjA4NzY5NTMxMjUwMDA1UTQ4MS43ODI5Mjk2ODc1MDAwMyA1My42MDg3Njk1MzEyNTAwMDUgNDg0LjY2NDI3NDkwMjM0MzggNTYuMjUyNDc4MDI3MzQzNzVRNDg3LjU0NTYyMDExNzE4NzUgNTguODk2MTg2NTIzNDM3NDkgNDg3LjU0NTYyMDExNzE4NzUgNjIuNzU3NzgzMjAzMTI1UTQ4Ny41NDU2MjAxMTcxODc1IDY2LjU1OTk3MDcwMzEyNSA0ODQuNjY0Mjc0OTAyMzQzOCA2OS4yMzMzODM3ODkwNjI1UTQ4MS43ODI5Mjk2ODc1MDAwMyA3MS45MDY3OTY4NzUgNDc3Ljc0MzEwNTQ2ODc1IDcxLjkwNjc5Njg3NVogTTUxOS42MjY1NzcxNDg0Mzc1IDEwOC41NjIyNjA3NDIxODc1VjE0Ny4wSDUwMS44MDM4MjMyNDIxODc1VjgwLjU4MDUzNzEwOTM3NUg1MTguNjE2NjIxMDkzNzVMNTE4LjkxMzY2Njk5MjE4NzUgOTcuMTU1Njk4MjQyMTg3NUg1MTcuODQ0MzAxNzU3ODEyNFE1MjAuNDU4MzA1NjY0MDYyNCA4OC44Mzg0MTMwODU5Mzc1IDUyNS43NzU0MjcyNDYwOTM3IDg0LjI5MzYxMDgzOTg0Mzc1UTUzMS4wOTI1NDg4MjgxMjUgNzkuNzQ4ODA4NTkzNzUgNTM5LjUyODY1MjM0Mzc1IDc5Ljc0ODgwODU5Mzc1UTU0Ni40MjAxMTcxODc1IDc5Ljc0ODgwODU5Mzc1IDU1MS41NTkwMTEyMzA0Njg3IDgyLjc0ODk3MjE2Nzk2ODc0UTU1Ni42OTc5MDUyNzM0Mzc1IDg1Ljc0OTEzNTc0MjE4NzQ5IDU1OS41MTk4NDEzMDg1OTM4IDkxLjM2MzMwMzIyMjY1NjI0UTU2Mi4zNDE3NzczNDM3NSA5Ni45Nzc0NzA3MDMxMjUgNTYyLjM0MTc3NzM0Mzc1IDEwNC43NjAwNzMyNDIxODc1VjE0Ny4wSDU0NC41MTkwMjM0Mzc1VjEwNy44NDkzNTA1ODU5Mzc1UTU0NC41MTkwMjM0Mzc1IDEwMS42NzA3OTU4OTg0Mzc0OSA1NDEuMzQwNjMyMzI0MjE4NyA5OC4xNjU2NTQyOTY4NzQ5OVE1MzguMTYyMjQxMjEwOTM3NSA5NC42NjA1MTI2OTUzMTI0OSA1MzIuNTE4MzY5MTQwNjI0OSA5NC42NjA1MTI2OTUzMTI0OVE1MjguNzc1NTkwODIwMzEyNSA5NC42NjA1MTI2OTUzMTI0OSA1MjUuODM0ODM2NDI1NzgxMyA5Ni4yOTQyNjUxMzY3MTg3NVE1MjIuODk0MDgyMDMxMjUgOTcuOTI4MDE3NTc4MTI1MDEgNTIxLjI2MDMyOTU4OTg0MzggMTAxLjAxNzI5NDkyMTg3NVE1MTkuNjI2NTc3MTQ4NDM3NSAxMDQuMTA2NTcyMjY1NjI1IDUxOS42MjY1NzcxNDg0Mzc1IDEwOC41NjIyNjA3NDIxODc1WiBNNTk0LjE4NTA5NzY1NjI1IDE0Ny4wIDU2OS43MDg1MTU2MjUgODAuNTgwNTM3MTA5Mzc1SDU4OC42NjAwNDM5NDUzMTI1TDU5OS44Mjg5Njk3MjY1NjI1IDExNS4wMzc4NjEzMjgxMjVRNjAxLjg0ODg4MTgzNTkzNzUgMTIxLjUxMzQ2MTkxNDA2MjUgNjAzLjM2MzgxNTkxNzk2ODcgMTI4LjEwNzg4MDg1OTM3NVE2MDQuODc4NzUgMTM0LjcwMjI5OTgwNDY4NzUgNjA2LjQ4Mjc5Nzg1MTU2MjUgMTQxLjc3MTk5MjE4NzVINjAyLjY4MDYxMDM1MTU2MjZRNjA0LjIyNTI0OTAyMzQzNzUgMTM0LjcwMjI5OTgwNDY4NzUgNjA1LjcxMDQ3ODUxNTYyNSAxMjguMTA3ODgwODU5Mzc1UTYwNy4xOTU3MDgwMDc4MTI1IDEyMS41MTM0NjE5MTQwNjI1IDYwOS4yMTU2MjAxMTcxODc1IDExNS4wMzc4NjEzMjgxMjVMNjIwLjI2NTcyNzUzOTA2MjUgODAuNTgwNTM3MTA5Mzc1SDYzOC45Nzk2MTkxNDA2MjVMNjE0LjQ0MzYyNzkyOTY4NzUgMTQ3LjBaIE02NzUuOTMyMTI4OTA2MjUgMTQ4LjMwNzAwMTk1MzEyNVE2NjUuOTUxMzg2NzE4NzUgMTQ4LjMwNzAwMTk1MzEyNSA2NTguNjQ0MDU3NjE3MTg3NCAxNDMuOTk5ODM2NDI1NzgxMjdRNjUxLjMzNjcyODUxNTYyNDkgMTM5LjY5MjY3MDg5ODQzNzUgNjQ3LjM4NjAxODA2NjQwNjIgMTMxLjk5OTE4MjEyODkwNjI2UTY0My40MzUzMDc2MTcxODc1IDEyNC4zMDU2OTMzNTkzNzUgNjQzLjQzNTMwNzYxNzE4NzUgMTE0LjA4NzMxNDQ1MzEyNVE2NDMuNDM1MzA3NjE3MTg3NSAxMDMuNzUwMTE3MTg3NSA2NDcuMzg2MDE4MDY2NDA2MiA5Ni4wNTY2Mjg0MTc5Njg3NFE2NTEuMzM2NzI4NTE1NjI0OSA4OC4zNjMxMzk2NDg0Mzc1IDY1OC42NDQwNTc2MTcxODc0IDg0LjA1NTk3NDEyMTA5Mzc1UTY2NS45NTEzODY3MTg3NSA3OS43NDg4MDg1OTM3NSA2NzUuOTMyMTI4OTA2MjUgNzkuNzQ4ODA4NTkzNzVRNjg1Ljk3MjI4MDI3MzQzNzUgNzkuNzQ4ODA4NTkzNzUgNjkzLjI0OTkwNDc4NTE1NjIgODQuMDU1OTc0MTIxMDkzNzVRNzAwLjUyNzUyOTI5Njg3NSA4OC4zNjMxMzk2NDg0Mzc1IDcwNC40NzgyMzk3NDYwOTM4IDk2LjA1NjYyODQxNzk2ODc0UTcwOC40Mjg5NTAxOTUzMTI1IDEwMy43NTAxMTcxODc1IDcwOC40Mjg5NTAxOTUzMTI1IDExNC4wODczMTQ0NTMxMjVRNzA4LjQyODk1MDE5NTMxMjUgMTI0LjMwNTY5MzM1OTM3NSA3MDQuNDc4MjM5NzQ2MDkzOCAxMzEuOTk5MTgyMTI4OTA2MjZRNzAwLjUyNzUyOTI5Njg3NSAxMzkuNjkyNjcwODk4NDM3NSA2OTMuMjQ5OTA0Nzg1MTU2MiAxNDMuOTk5ODM2NDI1NzgxMjdRNjg1Ljk3MjI4MDI3MzQzNzUgMTQ4LjMwNzAwMTk1MzEyNSA2NzUuOTMyMTI4OTA2MjUgMTQ4LjMwNzAwMTk1MzEyNVpNNjc1LjkzMjEyODkwNjI1IDEzNC4yODY0MzU1NDY4NzVRNjgwLjY4NDg2MzI4MTI1IDEzNC4yODY0MzU1NDY4NzUgNjgzLjg5Mjk1ODk4NDM3NSAxMzEuNjQyNzI3MDUwNzgxMjVRNjg3LjEwMTA1NDY4NzUgMTI4Ljk5OTAxODU1NDY4NzUgNjg4LjcwNTEwMjUzOTA2MjQgMTI0LjM5NDgwNzEyODkwNjI1UTY5MC4zMDkxNTAzOTA2MjUgMTE5Ljc5MDU5NTcwMzEyNSA2OTAuMzA5MTUwMzkwNjI1IDExNC4wMjc5MDUyNzM0Mzc1UTY5MC4zMDkxNTAzOTA2MjUgMTA4LjE0NjM5NjQ4NDM3NSA2ODguNzA1MTAyNTM5MDYyNCAxMDMuNTcxODg5NjQ4NDM3NVE2ODcuMTAxMDU0Njg3NSA5OC45OTczODI4MTI1IDY4My44OTI5NTg5ODQzNzUgOTYuMzgzMzc4OTA2MjVRNjgwLjY4NDg2MzI4MTI1IDkzLjc2OTM3NSA2NzUuOTMyMTI4OTA2MjUgOTMuNzY5Mzc1UTY3MS4xNzkzOTQ1MzEyNSA5My43NjkzNzUgNjY4LjAwMTAwMzQxNzk2ODcgOTYuMzgzMzc4OTA2MjVRNjY0LjgyMjYxMjMwNDY4NzUgOTguOTk3MzgyODEyNSA2NjMuMjE4NTY0NDUzMTI1IDEwMy41NzE4ODk2NDg0Mzc1UTY2MS42MTQ1MTY2MDE1NjI1IDEwOC4xNDYzOTY0ODQzNzUgNjYxLjYxNDUxNjYwMTU2MjUgMTE0LjAyNzkwNTI3MzQzNzVRNjYxLjYxNDUxNjYwMTU2MjUgMTE5Ljc5MDU5NTcwMzEyNSA2NjMuMjE4NTY0NDUzMTI1IDEyNC4zOTQ4MDcxMjg5MDYyNVE2NjQuODIyNjEyMzA0Njg3NSAxMjguOTk5MDE4NTU0Njg3NSA2NjguMDAxMDAzNDE3OTY4NyAxMzEuNjQyNzI3MDUwNzgxMjVRNjcxLjE3OTM5NDUzMTI1IDEzNC4yODY0MzU1NDY4NzUgNjc1LjkzMjEyODkwNjI1IDEzNC4yODY0MzU1NDY4NzVaIE03MjAuODQ1NDY4NzUgMTQ3LjBWODAuNTgwNTM3MTA5Mzc1SDczOC42NjgyMjI2NTYyNVYxNDcuMFpNNzI5Ljc1Njg0NTcwMzEyNSA3MS45MDY3OTY4NzVRNzI1LjcxNzAyMTQ4NDM3NSA3MS45MDY3OTY4NzUgNzIyLjg2NTM4MDg1OTM3NSA2OS4yMzMzODM3ODkwNjI1UTcyMC4wMTM3NDAyMzQzNzUxIDY2LjU1OTk3MDcwMzEyNSA3MjAuMDEzNzQwMjM0Mzc1MSA2Mi43NTc3ODMyMDMxMjVRNzIwLjAxMzc0MDIzNDM3NTEgNTguOTU1NTk1NzAzMTI1IDcyMi44NjUzODA4NTkzNzUgNTYuMjgyMTgyNjE3MTg3NVE3MjUuNzE3MDIxNDg0Mzc1IDUzLjYwODc2OTUzMTI1MDAwNSA3MjkuNzU2ODQ1NzAzMTI1IDUzLjYwODc2OTUzMTI1MDAwNVE3MzMuNzk2NjY5OTIxODc1IDUzLjYwODc2OTUzMTI1MDAwNSA3MzYuNjc4MDE1MTM2NzE4OCA1Ni4yNTI0NzgwMjczNDM3NVE3MzkuNTU5MzYwMzUxNTYyNSA1OC44OTYxODY1MjM0Mzc0OSA3MzkuNTU5MzYwMzUxNTYyNSA2Mi43NTc3ODMyMDMxMjVRNzM5LjU1OTM2MDM1MTU2MjUgNjYuNTU5OTcwNzAzMTI1IDczNi42NzgwMTUxMzY3MTg4IDY5LjIzMzM4Mzc4OTA2MjVRNzMzLjc5NjY2OTkyMTg3NSA3MS45MDY3OTY4NzUgNzI5Ljc1Njg0NTcwMzEyNSA3MS45MDY3OTY4NzVaIE03ODMuNTIyMTUzMzIwMzEyNCAxNDguMzA3MDAxOTUzMTI1UTc3My40ODIwMDE5NTMxMjUgMTQ4LjMwNzAwMTk1MzEyNSA3NjYuMjA0Mzc3NDQxNDA2MiAxNDMuOTk5ODM2NDI1NzgxMjdRNzU4LjkyNjc1MjkyOTY4NzQgMTM5LjY5MjY3MDg5ODQzNzUgNzU0Ljk3NjA0MjQ4MDQ2ODcgMTMxLjk5OTE4MjEyODkwNjI2UTc1MS4wMjUzMzIwMzEyNSAxMjQuMzA1NjkzMzU5Mzc1IDc1MS4wMjUzMzIwMzEyNSAxMTQuMDg3MzE0NDUzMTI1UTc1MS4wMjUzMzIwMzEyNSAxMDMuNzUwMTE3MTg3NSA3NTQuOTc2MDQyNDgwNDY4NyA5Ni4wNTY2Mjg0MTc5Njg3NFE3NTguOTI2NzUyOTI5Njg3NCA4OC4zNjMxMzk2NDg0Mzc1IDc2Ni4yMDQzNzc0NDE0MDYyIDg0LjA1NTk3NDEyMTA5Mzc1UTc3My40ODIwMDE5NTMxMjUgNzkuNzQ4ODA4NTkzNzUgNzgzLjUyMjE1MzMyMDMxMjQgNzkuNzQ4ODA4NTkzNzVRNzg5LjQwMzY2MjEwOTM3NSA3OS43NDg4MDg1OTM3NSA3OTQuMzk0MDMzMjAzMTI1IDgxLjI5MzQ0NzI2NTYyNDk5UTc5OS4zODQ0MDQyOTY4NzQ5IDgyLjgzODA4NTkzNzUgODAzLjI0NjAwMDk3NjU2MjQgODUuNjg5NzI2NTYyNVE4MDcuMTA3NTk3NjU2MjQ5OSA4OC41NDEzNjcxODc1IDgwOS42MDI3ODMyMDMxMjUgOTIuNjQwNjAwNTg1OTM3NVE4MTIuMDk3OTY4NzUgOTYuNzM5ODMzOTg0Mzc1IDgxMy4wNDg1MTU2MjQ5OTk5IDEwMS44NDkwMjM0Mzc1TDc5Ni40NzMzNTQ0OTIxODc1IDEwNC45MzgzMDA3ODEyNVE3OTUuOTM4NjcxODc1IDEwMi4zMjQyOTY4NzUgNzk0LjgwOTg5NzQ2MDkzNzUgMTAwLjI3NDY4MDE3NTc4MTI0UTc5My42ODExMjMwNDY4NzUgOTguMjI1MDYzNDc2NTYyNSA3OTIuMDc3MDc1MTk1MzEyNCA5Ni43Njk1Mzg1NzQyMTg3NFE3OTAuNDczMDI3MzQzNzQ5OSA5NS4zMTQwMTM2NzE4NzQ5OSA3ODguMzY0MDAxNDY0ODQzNyA5NC41NDE2OTQzMzU5Mzc0OVE3ODYuMjU0OTc1NTg1OTM3NSA5My43NjkzNzUgNzgzLjcwMDM4MDg1OTM3NSA5My43NjkzNzVRNzc4Ljk0NzY0NjQ4NDM3NDkgOTMuNzY5Mzc1IDc3NS43MDk4NDYxOTE0MDYxIDk2LjMyMzk2OTcyNjU2MjVRNzcyLjQ3MjA0NTg5ODQzNzQgOTguODc4NTY0NDUzMTI1IDc3MC44MzgyOTM0NTcwMzExIDEwMy40NTMwNzEyODkwNjI0OVE3NjkuMjA0NTQxMDE1NjI1IDEwOC4wMjc1NzgxMjQ5OTk5OSA3NjkuMjA0NTQxMDE1NjI1IDExNC4wMjc5MDUyNzM0Mzc1UTc2OS4yMDQ1NDEwMTU2MjUgMTE5LjkwOTQxNDA2MjQ5OTk5IDc3MC44MzgyOTM0NTcwMzExIDEyNC40ODM5MjA4OTg0Mzc0OVE3NzIuNDcyMDQ1ODk4NDM3NCAxMjkuMDU4NDI3NzM0Mzc1IDc3NS43MDk4NDYxOTE0MDYxIDEzMS42NzI0MzE2NDA2MjVRNzc4Ljk0NzY0NjQ4NDM3NDkgMTM0LjI4NjQzNTU0Njg3NSA3ODMuNzAwMzgwODU5Mzc1IDEzNC4yODY0MzU1NDY4NzVRNzg2LjI1NDk3NTU4NTkzNzUgMTM0LjI4NjQzNTU0Njg3NSA3ODguMzkzNzA2MDU0Njg3NSAxMzMuNDg0NDExNjIxMDkzNzZRNzkwLjUzMjQzNjUyMzQzNzUgMTMyLjY4MjM4NzY5NTMxMjUgNzkyLjE5NTg5MzU1NDY4NzUgMTMxLjE2NzQ1MzYxMzI4MTI1UTc5My44NTkzNTA1ODU5Mzc1IDEyOS42NTI1MTk1MzEyNSA3OTQuOTg4MTI1IDEyNy41MTM3ODkwNjI1UTc5Ni4xMTY4OTk0MTQwNjI1IDEyNS4zNzUwNTg1OTM3NSA3OTYuNTkyMTcyODUxNTYyNCAxMjIuNzAxNjQ1NTA3ODEyNUw4MTMuMTY3MzMzOTg0Mzc1IDEyNS43MzE1MTM2NzE4NzVRODEyLjIxNjc4NzEwOTM3NSAxMzEuMDE4OTMwNjY0MDYyNSA4MDkuNzIxNjAxNTYyNDk5OSAxMzUuMTQ3ODY4NjUyMzQzNzZRODA3LjIyNjQxNjAxNTYyNSAxMzkuMjc2ODA2NjQwNjI1IDgwMy4zNjQ4MTkzMzU5Mzc1IDE0Mi4yNDcyNjU2MjVRNzk5LjUwMzIyMjY1NjI0OTkgMTQ1LjIxNzcyNDYwOTM3NSA3OTQuNDgzMTQ2OTcyNjU2MiAxNDYuNzYyMzYzMjgxMjVRNzg5LjQ2MzA3MTI4OTA2MjQgMTQ4LjMwNzAwMTk1MzEyNSA3ODMuNTIyMTUzMzIwMzEyNCAxNDguMzA3MDAxOTUzMTI1WiBNODU1LjQwNzI2MDc0MjE4NzUgMTQ4LjMwNzAwMTk1MzEyNVE4NDUuMjQ4MjkxMDE1NjI1IDE0OC4zMDcwMDE5NTMxMjUgODM3Ljg4MTU1MjczNDM3NSAxNDQuMTQ4MzU5Mzc0OTk5OThRODMwLjUxNDgxNDQ1MzEyNDkgMTM5Ljk4OTcxNjc5Njg3NSA4MjYuNTY0MTA0MDAzOTA2MiAxMzIuMzI1OTMyNjE3MTg3NVE4MjIuNjEzMzkzNTU0Njg3NSAxMjQuNjYyMTQ4NDM3NTAwMDEgODIyLjYxMzM5MzU1NDY4NzUgMTE0LjE0NjcyMzYzMjgxMjVRODIyLjYxMzM5MzU1NDY4NzUgMTAzLjg2ODkzNTU0Njg3NTAxIDgyNi41MzQzOTk0MTQwNjI1IDk2LjE0NTc0MjE4NzVRODMwLjQ1NTQwNTI3MzQzNzUgODguNDIyNTQ4ODI4MTI1IDgzNy42NDM5MTYwMTU2MjUgODQuMDg1Njc4NzEwOTM3NVE4NDQuODMyNDI2NzU3ODEyNSA3OS43NDg4MDg1OTM3NSA4NTQuNTE2MTIzMDQ2ODc1IDc5Ljc0ODgwODU5Mzc1UTg2MS4wNTExMzI4MTI1IDc5Ljc0ODgwODU5Mzc1IDg2Ni42OTUwMDQ4ODI4MTI2IDgxLjgyODEyOTg4MjgxMjVRODcyLjMzODg3Njk1MzEyNSA4My45MDc0NTExNzE4NzUgODc2LjYxNjMzNzg5MDYyNSA4OC4wOTU3OTgzMzk4NDM3NVE4ODAuODkzNzk4ODI4MTI1IDkyLjI4NDE0NTUwNzgxMjUgODgzLjI5OTg3MDYwNTQ2ODggOTguNTgxNTE4NTU0Njg3NVE4ODUuNzA1OTQyMzgyODEyNSAxMDQuODc4ODkxNjAxNTYyNSA4ODUuNzA1OTQyMzgyODEyNSAxMTMuNDMzODEzNDc2NTYyNVYxMTguNDI0MTg0NTcwMzEyNDlIODI5LjkyMDcyMjY1NjI1VjEwNy4yNTUyNTg3ODkwNjI1MUg4NzYuOTcyNzkyOTY4NzVMODY4LjY1NTUwNzgxMjUgMTEwLjIyNTcxNzc3MzQzNzUxUTg2OC42NTU1MDc4MTI1IDEwNS4wNTcxMTkxNDA2MjQ5OSA4NjcuMDgxMTY0NTUwNzgxMyAxMDEuMjI1MjI3MDUwNzgxMjRRODY1LjUwNjgyMTI4OTA2MjUgOTcuMzkzMzM0OTYwOTM3NSA4NjIuMzg3ODM5MzU1NDY4NyA5NS4yODQzMDkwODIwMzEyNFE4NTkuMjY4ODU3NDIxODc0OSA5My4xNzUyODMyMDMxMjQ5OSA4NTQuNjk0MzUwNTg1OTM3NSA5My4xNzUyODMyMDMxMjQ5OVE4NTAuMDYwNDM0NTcwMzEyNSA5My4xNzUyODMyMDMxMjQ5OSA4NDYuODIyNjM0Mjc3MzQzNyA5NS4zMTQwMTM2NzE4NzQ5OVE4NDMuNTg0ODMzOTg0Mzc1IDk3LjQ1Mjc0NDE0MDYyNSA4NDEuOTIxMzc2OTUzMTI1IDEwMS4xMDY0MDg2OTE0MDYyNFE4NDAuMjU3OTE5OTIxODc1IDEwNC43NjAwNzMyNDIxODc1IDg0MC4yNTc5MTk5MjE4NzUgMTA5LjQ1MzM5ODQzNzVWMTE3LjM1NDgxOTMzNTkzNzQ5UTg0MC4yNTc5MTk5MjE4NzUgMTIzLjExNzUwOTc2NTYyNSA4NDIuMTg4NzE4MjYxNzE4OCAxMjcuMDM4NTE1NjI1UTg0NC4xMTk1MTY2MDE1NjI1IDEzMC45NTk1MjE0ODQzNzUgODQ3LjU5NDk1MzYxMzI4MTIgMTMyLjkyMDAyNDQxNDA2MjQ4UTg1MS4wNzAzOTA2MjUgMTM0Ljg4MDUyNzM0Mzc1IDg1NS43MDQzMDY2NDA2MjUgMTM0Ljg4MDUyNzM0Mzc1UTg1OC44NTI5OTMxNjQwNjI1IDEzNC44ODA1MjczNDM3NSA4NjEuNDA3NTg3ODkwNjI1IDEzMy45ODkzODk2NDg0Mzc1UTg2My45NjIxODI2MTcxODc1IDEzMy4wOTgyNTE5NTMxMjUgODY1Ljc3NDE2MjU5NzY1NjIgMTMxLjM0NTY4MTE1MjM0MzczUTg2Ny41ODYxNDI1NzgxMjUgMTI5LjU5MzExMDM1MTU2MjUgODY4LjUzNjY4OTQ1MzEyNSAxMjcuMDM4NTE1NjI1TDg4NC42OTU5ODYzMjgxMjUgMTMwLjA2ODM4Mzc4OTA2MjVRODgzLjA5MTkzODQ3NjU2MjUgMTM1LjUzNDAyODMyMDMxMjUgODc5LjExMTUyMzQzNzUgMTM5LjY2Mjk2NjMwODU5Mzc1UTg3NS4xMzExMDgzOTg0Mzc1IDE0My43OTE5MDQyOTY4NzUgODY5LjE2MDQ4NTgzOTg0MzcgMTQ2LjA0OTQ1MzEyNVE4NjMuMTg5ODYzMjgxMjQ5OSAxNDguMzA3MDAxOTUzMTI1IDg1NS40MDcyNjA3NDIxODc1IDE0OC4zMDcwMDE5NTMxMjVaIi8+CjxwYXRoIGZpbGw9IiNGRjg4M0UiIGQ9Ik04OTguMzAwNjg4NDc2NTYyNCAxNDcuMFY1OC40ODAzMjIyNjU2MjUwMDZIOTMyLjgxNzQyMTg3NDk5OTlROTQyLjkxNjk4MjQyMTg3NSA1OC40ODAzMjIyNjU2MjUwMDYgOTQ5Ljk4NjY3NDgwNDY4NzUgNjIuMzEyMjE0MzU1NDY4NzU0UTk1Ny4wNTYzNjcxODc1IDY2LjE0NDEwNjQ0NTMxMjUgOTYwLjc2OTQ0MDkxNzk2ODcgNzIuODg3MDQ4MzM5ODQzNzRROTY0LjQ4MjUxNDY0ODQzNzUgNzkuNjI5OTkwMjM0Mzc1IDk2NC40ODI1MTQ2NDg0Mzc1IDg4LjM2MzEzOTY0ODQzNzVROTY0LjQ4MjUxNDY0ODQzNzUgOTcuMTU1Njk4MjQyMTg3NSA5NjAuNzEwMDMxNzM4MjgxMyAxMDMuODM5MjMwOTU3MDMxMjVROTU2LjkzNzU0ODgyODEyNDkgMTEwLjUyMjc2MzY3MTg3NSA5NDkuNzc4NzQyNjc1NzgxMSAxMTQuMjk1MjQ2NTgyMDMxMjRROTQyLjYxOTkzNjUyMzQzNzQgMTE4LjA2NzcyOTQ5MjE4NzUgOTMyLjQwMTU1NzYxNzE4NzQgMTE4LjA2NzcyOTQ5MjE4NzVIOTEwLjE4MjUyNDQxNDA2MjRWMTAzLjQ1MzA3MTI4OTA2MjVIOTI5LjQ5MDUwNzgxMjQ5OTlROTM1LjA3NDk3MDcwMzEyNDkgMTAzLjQ1MzA3MTI4OTA2MjUgOTM4LjY2OTIyNjA3NDIxODYgMTAxLjUyMjI3Mjk0OTIxODc1UTk0Mi4yNjM0ODE0NDUzMTI0IDk5LjU5MTQ3NDYwOTM3NSA5NDQuMDE2MDUyMjQ2MDkzOCA5Ni4yMDUxNTEzNjcxODc1UTk0NS43Njg2MjMwNDY4NzUgOTIuODE4ODI4MTI1IDk0NS43Njg2MjMwNDY4NzUgODguMzYzMTM5NjQ4NDM3NVE5NDUuNzY4NjIzMDQ2ODc1IDgzLjkwNzQ1MTE3MTg3NSA5NDQuMDE2MDUyMjQ2MDkzOCA4MC41NTA4MzI1MTk1MzEyNFE5NDIuMjYzNDgxNDQ1MzEyNCA3Ny4xOTQyMTM4NjcxODc1IDkzOC42Mzk1MjE0ODQzNzQ5IDc1LjMyMjgyNDcwNzAzMTI2UTkzNS4wMTU1NjE1MjM0Mzc0IDczLjQ1MTQzNTU0Njg3NSA5MjkuNDMxMDk4NjMyODEyNCA3My40NTE0MzU1NDY4NzVIOTE2LjQyMDQ4ODI4MTI1VjE0Ny4wWiBNOTc2LjcyMDgwNTY2NDA2MjUgMTQ3LjBWODAuNTgwNTM3MTA5Mzc1SDk5My45NDk0Njc3NzM0Mzc1VjkyLjE2NTMyNzE0ODQzNzVIOTk0LjY2MjM3NzkyOTY4NzVROTk2LjUwNDA2MjUgODUuOTg2NzcyNDYwOTM3NSAxMDAwLjgxMTIyODAyNzM0MzggODIuODM4MDg1OTM3NVExMDA1LjExODM5MzU1NDY4NzUgNzkuNjg5Mzk5NDE0MDYyNDkgMTAxMC43MDI4NTY0NDUzMTI1IDc5LjY4OTM5OTQxNDA2MjQ5UTEwMTIuMDY5MjY3NTc4MTI0OSA3OS42ODkzOTk0MTQwNjI0OSAxMDEzLjY3MzMxNTQyOTY4NzUgNzkuODM3OTIyMzYzMjgxMjVRMTAxNS4yNzczNjMyODEyNSA3OS45ODY0NDUzMTI1IDEwMTYuNDY1NTQ2ODc1IDgwLjI4MzQ5MTIxMDkzNzVWOTYuMjA1MTUxMzY3MTg3NVExMDE1LjI3NzM2MzI4MTI1IDk1Ljc4OTI4NzEwOTM3NSAxMDEzLjAxOTgxNDQ1MzEyNSA5NS41NTE2NTAzOTA2MjQ5OVExMDEwLjc2MjI2NTYyNDk5OTkgOTUuMzE0MDEzNjcxODc0OTkgMTAwOC43NDIzNTM1MTU2MjQ5IDk1LjMxNDAxMzY3MTg3NDk5UTEwMDQuNzAyNTI5Mjk2ODc1IDk1LjMxNDAxMzY3MTg3NDk5IDEwMDEuNDM1MDI0NDE0MDYyNSA5Ny4wNjY1ODQ0NzI2NTYyNVE5OTguMTY3NTE5NTMxMjQ5OSA5OC44MTkxNTUyNzM0Mzc1IDk5Ni4zNTU1Mzk1NTA3ODEzIDEwMS45MzgxMzcyMDcwMzEyNVE5OTQuNTQzNTU5NTcwMzEyNSAxMDUuMDU3MTE5MTQwNjI0OTkgOTk0LjU0MzU1OTU3MDMxMjUgMTA5LjIxNTc2MTcxODc1VjE0Ny4wWiBNMTA1My4yOTkyMzgyODEyNSAxNDguMzA3MDAxOTUzMTI1UTEwNDMuMTQwMjY4NTU0Njg3NSAxNDguMzA3MDAxOTUzMTI1IDEwMzUuNzczNTMwMjczNDM3NSAxNDQuMTQ4MzU5Mzc0OTk5OThRMTAyOC40MDY3OTE5OTIxODc0IDEzOS45ODk3MTY3OTY4NzUgMTAyNC40NTYwODE1NDI5Njg2IDEzMi4zMjU5MzI2MTcxODc1UTEwMjAuNTA1MzcxMDkzNzUgMTI0LjY2MjE0ODQzNzUwMDAxIDEwMjAuNTA1MzcxMDkzNzUgMTE0LjE0NjcyMzYzMjgxMjVRMTAyMC41MDUzNzEwOTM3NSAxMDMuODY4OTM1NTQ2ODc1MDEgMTAyNC40MjYzNzY5NTMxMjQ5IDk2LjE0NTc0MjE4NzVRMTAyOC4zNDczODI4MTI1IDg4LjQyMjU0ODgyODEyNSAxMDM1LjUzNTg5MzU1NDY4NzQgODQuMDg1Njc4NzEwOTM3NVExMDQyLjcyNDQwNDI5Njg3NSA3OS43NDg4MDg1OTM3NSAxMDUyLjQwODEwMDU4NTkzNzUgNzkuNzQ4ODA4NTkzNzVRMTA1OC45NDMxMTAzNTE1NjI0IDc5Ljc0ODgwODU5Mzc1IDEwNjQuNTg2OTgyNDIxODc0OCA4MS44MjgxMjk4ODI4MTI1UTEwNzAuMjMwODU0NDkyMTg3NSA4My45MDc0NTExNzE4NzUgMTA3NC41MDgzMTU0Mjk2ODc2IDg4LjA5NTc5ODMzOTg0Mzc1UTEwNzguNzg1Nzc2MzY3MTg3NSA5Mi4yODQxNDU1MDc4MTI1IDEwODEuMTkxODQ4MTQ0NTMxNCA5OC41ODE1MTg1NTQ2ODc1UTEwODMuNTk3OTE5OTIxODc1IDEwNC44Nzg4OTE2MDE1NjI1IDEwODMuNTk3OTE5OTIxODc1IDExMy40MzM4MTM0NzY1NjI1VjExOC40MjQxODQ1NzAzMTI0OUgxMDI3LjgxMjcwMDE5NTMxMjZWMTA3LjI1NTI1ODc4OTA2MjUxSDEwNzQuODY0NzcwNTA3ODEyNEwxMDY2LjU0NzQ4NTM1MTU2MjUgMTEwLjIyNTcxNzc3MzQzNzUxUTEwNjYuNTQ3NDg1MzUxNTYyNSAxMDUuMDU3MTE5MTQwNjI0OTkgMTA2NC45NzMxNDIwODk4NDM4IDEwMS4yMjUyMjcwNTA3ODEyNFExMDYzLjM5ODc5ODgyODEyNDkgOTcuMzkzMzM0OTYwOTM3NSAxMDYwLjI3OTgxNjg5NDUzMTIgOTUuMjg0MzA5MDgyMDMxMjRRMTA1Ny4xNjA4MzQ5NjA5Mzc2IDkzLjE3NTI4MzIwMzEyNDk5IDEwNTIuNTg2MzI4MTI1IDkzLjE3NTI4MzIwMzEyNDk5UTEwNDcuOTUyNDEyMTA5Mzc1IDkzLjE3NTI4MzIwMzEyNDk5IDEwNDQuNzE0NjExODE2NDA2MiA5NS4zMTQwMTM2NzE4NzQ5OVExMDQxLjQ3NjgxMTUyMzQzNzQgOTcuNDUyNzQ0MTQwNjI1IDEwMzkuODEzMzU0NDkyMTg3NSAxMDEuMTA2NDA4NjkxNDA2MjRRMTAzOC4xNDk4OTc0NjA5Mzc0IDEwNC43NjAwNzMyNDIxODc1IDEwMzguMTQ5ODk3NDYwOTM3NCAxMDkuNDUzMzk4NDM3NVYxMTcuMzU0ODE5MzM1OTM3NDlRMTAzOC4xNDk4OTc0NjA5Mzc0IDEyMy4xMTc1MDk3NjU2MjUgMTA0MC4wODA2OTU4MDA3ODEgMTI3LjAzODUxNTYyNVExMDQyLjAxMTQ5NDE0MDYyNSAxMzAuOTU5NTIxNDg0Mzc1IDEwNDUuNDg2OTMxMTUyMzQ0IDEzMi45MjAwMjQ0MTQwNjI0OFExMDQ4Ljk2MjM2ODE2NDA2MjYgMTM0Ljg4MDUyNzM0Mzc1IDEwNTMuNTk2Mjg0MTc5Njg3NSAxMzQuODgwNTI3MzQzNzVRMTA1Ni43NDQ5NzA3MDMxMjUgMTM0Ljg4MDUyNzM0Mzc1IDEwNTkuMjk5NTY1NDI5Njg3NCAxMzMuOTg5Mzg5NjQ4NDM3NVExMDYxLjg1NDE2MDE1NjI1IDEzMy4wOTgyNTE5NTMxMjUgMTA2My42NjYxNDAxMzY3MTg3IDEzMS4zNDU2ODExNTIzNDM3M1ExMDY1LjQ3ODEyMDExNzE4NzUgMTI5LjU5MzExMDM1MTU2MjUgMTA2Ni40Mjg2NjY5OTIxODc2IDEyNy4wMzg1MTU2MjVMMTA4Mi41ODc5NjM4NjcxODc1IDEzMC4wNjgzODM3ODkwNjI1UTEwODAuOTgzOTE2MDE1NjI1IDEzNS41MzQwMjgzMjAzMTI1IDEwNzcuMDAzNTAwOTc2NTYyNSAxMzkuNjYyOTY2MzA4NTkzNzVRMTA3My4wMjMwODU5Mzc1IDE0My43OTE5MDQyOTY4NzUgMTA2Ny4wNTI0NjMzNzg5MDYyIDE0Ni4wNDk0NTMxMjVRMTA2MS4wODE4NDA4MjAzMTI0IDE0OC4zMDcwMDE5NTMxMjUgMTA1My4yOTkyMzgyODEyNSAxNDguMzA3MDAxOTUzMTI1WiBNMTEyMi4xNTQ0Nzc1MzkwNjI2IDE0OC4zMDcwMDE5NTMxMjVRMTExNC4xMzQyMzgyODEyNSAxNDguMzA3MDAxOTUzMTI1IDExMDcuOTU1NjgzNTkzNzUgMTQ2LjAxOTc0ODUzNTE1NjI1UTExMDEuNzc3MTI4OTA2MjUgMTQzLjczMjQ5NTExNzE4NzUgMTA5Ny44NTYxMjMwNDY4NzUgMTM5LjM2NTkyMDQxMDE1NjI2UTEwOTMuOTM1MTE3MTg3NSAxMzQuOTk5MzQ1NzAzMTI1IDEwOTIuODA2MzQyNzczNDM3MyAxMjguODIwNzkxMDE1NjI1TDExMDkuMzgxNTAzOTA2MjUgMTI1Ljk2OTE1MDM5MDYyNVExMTEwLjY4ODUwNTg1OTM3NSAxMzAuNjAzMDY2NDA2MjUgMTExMy45NTYwMTA3NDIxODc2IDEzMi45MjAwMjQ0MTQwNjI1UTExMTcuMjIzNTE1NjI1IDEzNS4yMzY5ODI0MjE4NzUgMTEyMi42ODkxNjAxNTYyNSAxMzUuMjM2OTgyNDIxODc1UTExMjcuNzk4MzQ5NjA5Mzc1IDEzNS4yMzY5ODI0MjE4NzUgMTEzMC43MzkxMDQwMDM5MDYzIDEzMy4zMDYxODQwODIwMzEyNVExMTMzLjY3OTg1ODM5ODQzNzUgMTMxLjM3NTM4NTc0MjE4NzUgMTEzMy42Nzk4NTgzOTg0Mzc1IDEyOC40MDQ5MjY3NTc4MTI1UTExMzMuNjc5ODU4Mzk4NDM3NSAxMjUuNzkwOTIyODUxNTYyNSAxMTMxLjU3MDgzMjUxOTUzMTIgMTI0LjEyNzQ2NTgyMDMxMjVRMTEyOS40NjE4MDY2NDA2MjUgMTIyLjQ2NDAwODc4OTA2MjUgMTEyNS4xMjQ5MzY1MjM0Mzc2IDEyMS41NzI4NzEwOTM3NUwxMTEzLjY1ODk2NDg0Mzc1IDExOS4xOTY1MDM5MDYyNVExMTA0LjAzNDY3NzczNDM3NSAxMTcuMjM2MDAwOTc2NTYyNTEgMTA5OS4yODE5NDMzNTkzNzUgMTEyLjUxMjk3MTE5MTQwNjI1UTEwOTQuNTI5MjA4OTg0Mzc1IDEwNy43ODk5NDE0MDYyNSAxMDk0LjUyOTIwODk4NDM3NSAxMDAuMzYzNzkzOTQ1MzEyNVExMDk0LjUyOTIwODk4NDM3NSA5My45NDc2MDI1MzkwNjI1IDEwOTguMDM0MzUwNTg1OTM3MyA4OS4zNDMzOTExMTMyODEyNlExMTAxLjUzOTQ5MjE4NzUgODQuNzM5MTc5Njg3NSAxMTA3Ljc3NzQ1NjA1NDY4NzUgODIuMjQzOTk0MTQwNjI1UTExMTQuMDE1NDE5OTIxODc1IDc5Ljc0ODgwODU5Mzc1IDExMjIuNDUxNTIzNDM3NDk5OSA3OS43NDg4MDg1OTM3NVExMTMwLjI5MzUzNTE1NjI0OTggNzkuNzQ4ODA4NTkzNzUgMTEzNi4wNTYyMjU1ODU5MzcyIDgxLjkxNzI0MzY1MjM0Mzc2UTExNDEuODE4OTE2MDE1NjI0OCA4NC4wODU2Nzg3MTA5Mzc1IDExNDUuMzgzNDY2Nzk2ODc1IDg4LjA2NjA5Mzc1UTExNDguOTQ4MDE3NTc4MTI1IDkyLjA0NjUwODc4OTA2MjUgMTE1MC4xMzYyMDExNzE4NzUgOTcuNDUyNzQ0MTQwNjI1TDExMzQuMzMzMzU5Mzc0OTk5OSAxMDAuMjQ0OTc1NTg1OTM3NVExMTMzLjMyMzQwMzMyMDMxMjUgOTYuODU4NjUyMzQzNzUwMDEgMTEzMC40NDIwNTgxMDU0Njg3IDk0LjY5MDIxNzI4NTE1NjI1UTExMjcuNTYwNzEyODkwNjI1IDkyLjUyMTc4MjIyNjU2MjUgMTEyMi42ODkxNjAxNTYyNSA5Mi41MjE3ODIyMjY1NjI1UTExMTguMjkyODgwODU5Mzc1IDkyLjUyMTc4MjIyNjU2MjUgMTExNS4zMjI0MjE4NzUgOTQuMzYzNDY2Nzk2ODc1UTExMTIuMzUxOTYyODkwNjI1IDk2LjIwNTE1MTM2NzE4NzUgMTExMi4zNTE5NjI4OTA2MjUgOTkuMjk0NDI4NzEwOTM3NVExMTEyLjM1MTk2Mjg5MDYyNSAxMDEuNzg5NjE0MjU3ODEyNSAxMTE0LjI4Mjc2MTIzMDQ2ODYgMTAzLjUxMjQ4MDQ2ODc1UTExMTYuMjEzNTU5NTcwMzEyNiAxMDUuMjM1MzQ2Njc5Njg3NSAxMTIwLjkwNjg4NDc2NTYyNSAxMDYuMTg1ODkzNTU0Njg3NUwxMTMyLjg0ODEyOTg4MjgxMjQgMTA4LjU2MjI2MDc0MjE4NzVRMTE0Mi40NzI0MTY5OTIxODc0IDExMC41MjI3NjM2NzE4NzUgMTE0Ny4xNjU3NDIxODc1IDExNC45NDg3NDc1NTg1OTM3NVExMTUxLjg1OTA2NzM4MjgxMjYgMTE5LjM3NDczMTQ0NTMxMjUgMTE1MS44NTkwNjczODI4MTI2IDEyNi41MDM4MzMwMDc4MTI1UTExNTEuODU5MDY3MzgyODEyNiAxMzMuMDM4ODQyNzczNDM3NSAxMTQ4LjA1Njg3OTg4MjgxMjYgMTM3Ljk0MDEwMDA5NzY1NjIzUTExNDQuMjU0NjkyMzgyODEyNCAxNDIuODQxMzU3NDIxODc1IDExMzcuNTcxMTU5NjY3OTY4NyAxNDUuNTc0MTc5Njg3NVExMTMwLjg4NzYyNjk1MzEyNSAxNDguMzA3MDAxOTUzMTI1IDExMjIuMTU0NDc3NTM5MDYyNiAxNDguMzA3MDAxOTUzMTI1WiBNMTE5MC4yOTY4MDY2NDA2MjUyIDE0OC4zMDcwMDE5NTMxMjVRMTE4Mi4yNzY1NjczODI4MTI2IDE0OC4zMDcwMDE5NTMxMjUgMTE3Ni4wOTgwMTI2OTUzMTI3IDE0Ni4wMTk3NDg1MzUxNTYyNVExMTY5LjkxOTQ1ODAwNzgxMjYgMTQzLjczMjQ5NTExNzE4NzUgMTE2NS45OTg0NTIxNDg0Mzc1IDEzOS4zNjU5MjA0MTAxNTYyNlExMTYyLjA3NzQ0NjI4OTA2MjcgMTM0Ljk5OTM0NTcwMzEyNSAxMTYwLjk0ODY3MTg3NSAxMjguODIwNzkxMDE1NjI1TDExNzcuNTIzODMzMDA3ODEyNSAxMjUuOTY5MTUwMzkwNjI1UTExNzguODMwODM0OTYwOTM3NiAxMzAuNjAzMDY2NDA2MjUgMTE4Mi4wOTgzMzk4NDM3NTAyIDEzMi45MjAwMjQ0MTQwNjI1UTExODUuMzY1ODQ0NzI2NTYyNSAxMzUuMjM2OTgyNDIxODc1IDExOTAuODMxNDg5MjU3ODEyNiAxMzUuMjM2OTgyNDIxODc1UTExOTUuOTQwNjc4NzEwOTM3NiAxMzUuMjM2OTgyNDIxODc1IDExOTguODgxNDMzMTA1NDY5IDEzMy4zMDYxODQwODIwMzEyNVExMjAxLjgyMjE4NzUwMDAwMDIgMTMxLjM3NTM4NTc0MjE4NzUgMTIwMS44MjIxODc1MDAwMDAyIDEyOC40MDQ5MjY3NTc4MTI1UTEyMDEuODIyMTg3NTAwMDAwMiAxMjUuNzkwOTIyODUxNTYyNSAxMTk5LjcxMzE2MTYyMTA5MzggMTI0LjEyNzQ2NTgyMDMxMjVRMTE5Ny42MDQxMzU3NDIxODc1IDEyMi40NjQwMDg3ODkwNjI1IDExOTMuMjY3MjY1NjI1MDAwMiAxMjEuNTcyODcxMDkzNzVMMTE4MS44MDEyOTM5NDUzMTI2IDExOS4xOTY1MDM5MDYyNVExMTcyLjE3NzAwNjgzNTkzNzYgMTE3LjIzNjAwMDk3NjU2MjUxIDExNjcuNDI0MjcyNDYwOTM3NiAxMTIuNTEyOTcxMTkxNDA2MjVRMTE2Mi42NzE1MzgwODU5Mzc1IDEwNy43ODk5NDE0MDYyNSAxMTYyLjY3MTUzODA4NTkzNzUgMTAwLjM2Mzc5Mzk0NTMxMjVRMTE2Mi42NzE1MzgwODU5Mzc1IDkzLjk0NzYwMjUzOTA2MjUgMTE2Ni4xNzY2Nzk2ODc1IDg5LjM0MzM5MTExMzI4MTI2UTExNjkuNjgxODIxMjg5MDYyNiA4NC43MzkxNzk2ODc1IDExNzUuOTE5Nzg1MTU2MjUgODIuMjQzOTk0MTQwNjI1UTExODIuMTU3NzQ5MDIzNDM3NiA3OS43NDg4MDg1OTM3NSAxMTkwLjU5Mzg1MjUzOTA2MjUgNzkuNzQ4ODA4NTkzNzVRMTE5OC40MzU4NjQyNTc4MTI1IDc5Ljc0ODgwODU5Mzc1IDEyMDQuMTk4NTU0Njg3NDk5OCA4MS45MTcyNDM2NTIzNDM3NlExMjA5Ljk2MTI0NTExNzE4NzQgODQuMDg1Njc4NzEwOTM3NSAxMjEzLjUyNTc5NTg5ODQzNzUgODguMDY2MDkzNzVRMTIxNy4wOTAzNDY2Nzk2ODc2IDkyLjA0NjUwODc4OTA2MjUgMTIxOC4yNzg1MzAyNzM0Mzc2IDk3LjQ1Mjc0NDE0MDYyNUwxMjAyLjQ3NTY4ODQ3NjU2MjUgMTAwLjI0NDk3NTU4NTkzNzVRMTIwMS40NjU3MzI0MjE4NzUxIDk2Ljg1ODY1MjM0Mzc1MDAxIDExOTguNTg0Mzg3MjA3MDMxMyA5NC42OTAyMTcyODUxNTYyNVExMTk1LjcwMzA0MTk5MjE4NzUgOTIuNTIxNzgyMjI2NTYyNSAxMTkwLjgzMTQ4OTI1NzgxMjYgOTIuNTIxNzgyMjI2NTYyNVExMTg2LjQzNTIwOTk2MDkzNzUgOTIuNTIxNzgyMjI2NTYyNSAxMTgzLjQ2NDc1MDk3NjU2MjUgOTQuMzYzNDY2Nzk2ODc1UTExODAuNDk0MjkxOTkyMTg3NSA5Ni4yMDUxNTEzNjcxODc1IDExODAuNDk0MjkxOTkyMTg3NSA5OS4yOTQ0Mjg3MTA5Mzc1UTExODAuNDk0MjkxOTkyMTg3NSAxMDEuNzg5NjE0MjU3ODEyNSAxMTgyLjQyNTA5MDMzMjAzMTIgMTAzLjUxMjQ4MDQ2ODc1UTExODQuMzU1ODg4NjcxODc1MiAxMDUuMjM1MzQ2Njc5Njg3NSAxMTg5LjA0OTIxMzg2NzE4NzUgMTA2LjE4NTg5MzU1NDY4NzVMMTIwMC45OTA0NTg5ODQzNzUgMTA4LjU2MjI2MDc0MjE4NzVRMTIxMC42MTQ3NDYwOTM3NSAxMTAuNTIyNzYzNjcxODc1IDEyMTUuMzA4MDcxMjg5MDYyNiAxMTQuOTQ4NzQ3NTU4NTkzNzVRMTIyMC4wMDEzOTY0ODQzNzUyIDExOS4zNzQ3MzE0NDUzMTI1IDEyMjAuMDAxMzk2NDg0Mzc1MiAxMjYuNTAzODMzMDA3ODEyNVExMjIwLjAwMTM5NjQ4NDM3NTIgMTMzLjAzODg0Mjc3MzQzNzUgMTIxNi4xOTkyMDg5ODQzNzUyIDEzNy45NDAxMDAwOTc2NTYyM1ExMjEyLjM5NzAyMTQ4NDM3NSAxNDIuODQxMzU3NDIxODc1IDEyMDUuNzEzNDg4NzY5NTMxMyAxNDUuNTc0MTc5Njg3NVExMTk5LjAyOTk1NjA1NDY4NzUgMTQ4LjMwNzAwMTk1MzEyNSAxMTkwLjI5NjgwNjY0MDYyNTIgMTQ4LjMwNzAwMTk1MzEyNVoiLz4KPHJlY3QgeD0iMTMyNiIgeT0iMjkiIHdpZHRoPSI4IiBoZWlnaHQ9IjE1MCIgZmlsbD0iIzJDMzQ0MiIvPgo8cGF0aCBmaWxsPSIjOEM5N0FEIiBkPSJNMTQ0MC4wMDEzOTY0ODQzNzUyIDEzNC4wVjczLjczMzY4ODQxNTQ0NjA4SDE0NzUuNDE4MTc0MTE0MjAyMlY4MS42NTkxMjExNzE3NzA5OEgxNDQ4Ljc1MjM5NTE1MjgxNzRWOTguNzQ4MzM1NTUyNTk2NTRIMTQ3Mi41Mjg2OTM0MjE3OTJWMTA2LjU5MTIxMTcxNzcwOTczSDE0NDguNzUyMzk1MTUyODE3NFYxMjYuMDc0NTY3MjQzNjc1MUgxNDc1LjQxODE3NDExNDIwMjJWMTM0LjBaIE0xNTAwLjgzMjk1NDQwNzE0NSAxMTAuODAxNTk3ODY5NTA3MzNWMTAyLjcxMTA1MTkzMDc1OUgxNTI3LjI1MTA2MzU5NDg5NDdWMTEwLjgwMTU5Nzg2OTUwNzMzWiBNMTU1NC4zOTk1MzIzMDMyODM0IDEzNC4wVjEyNi4wNzQ1NjcyNDM2NzUxSDE1NjYuNTM1MzUxMjExNDA2VjgxLjY1OTEyMTE3MTc3MDk4SDE1NTQuMzk5NTMyMzAzMjgzNFY3My43MzM2ODg0MTU0NDYwOEgxNTg3Ljc1MjM5NTE1MjgxNzRWODEuNjU5MTIxMTcxNzcwOThIMTU3NS42MTY1NzYyNDQ2OTVWMTI2LjA3NDU2NzI0MzY3NTFIMTU4Ny43NTIzOTUxNTI4MTc0VjEzNC4wWiBNMTYxMC4wMzAwMjQ5Nzk3MTQ3IDEzNC4wVjczLjczMzY4ODQxNTQ0NjA4SDE2MjEuMjU3NzIxMzg0NTA4NEwxNjM4Ljg0MjI3NTMxMjYwNDIgMTIzLjg0NTUzOTI4MDk1ODcyUTE2MzguNjc3MTYyMTMwMTgwNyAxMjEuNDUxMzk4MTM1ODE4OSAxNjM4LjQyOTQ5MjM1NjU0NTYgMTE4LjE0OTEzNDQ4NzM1MDIxUTE2MzguMTgxODIyNTgyOTEwNCAxMTQuODQ2ODcwODM4ODgxNSAxNjM4LjA1Nzk4NzY5NjA5MjggMTExLjI5NjkzNzQxNjc3NzY0UTE2MzcuOTM0MTUyODA5Mjc1MiAxMDcuNzQ3MDAzOTk0NjczNzggMTYzNy45MzQxNTI4MDkyNzUyIDEwNC44NTc1MjMzMDIyNjM2NFY3My43MzM2ODg0MTU0NDYwOEgxNjQ2LjE4OTgxMTkzMDQ0N1YxMzQuMEgxNjM0Ljk2MjExNTUyNTY1MzRMMTYxNy40NjAxMTgxODg3NjkyIDgzLjg4ODE0OTEzNDQ4NzM1UTE2MTcuNjI1MjMxMzcxMTkyNyA4Ni4wMzQ2MjA1MDU5OTIwMiAxNjE3LjgzMTYyMjg0OTIyMiA4OS4yNTQzMjc1NjMyNDlRMTYxOC4wMzgwMTQzMjcyNTEyIDkyLjQ3NDAzNDYyMDUwNTk5IDE2MTguMTYxODQ5MjE0MDY4OCA5NS45NDE0MTE0NTEzOTgxNFExNjE4LjI4NTY4NDEwMDg4NjMgOTkuNDA4Nzg4MjgyMjkwMjkgMTYxOC4yODU2ODQxMDA4ODYzIDEwMi4zODA4MjU1NjU5MTIxMlYxMzQuMFogTTE2NzkuMTk5Nzk4NjE0ODY3OSAxMzQuMCAxNjYzLjkyNjgyOTI0MDcgNzMuNzMzNjg4NDE1NDQ2MDhIMTY3My4wOTA2MTA4NjUyMDA3TDE2ODIuNzQ5NzMyMDM2OTcxOSAxMTMuODU2MTkxNzQ0MzQwODlRMTY4My42NTc4NTQ1NDAzMDA2IDExNy40MDYxMjUxNjY0NDQ3NCAxNjg0LjM1OTU4NTU2NTYwMDQgMTIwLjkxNDc4MDI5Mjk0Mjc0UTE2ODUuMDYxMzE2NTkwODk5OSAxMjQuNDIzNDM1NDE5NDQwNzUgMTY4NS4zOTE1NDI5NTU3NDY3IDEyNi40MDQ3OTM2MDg1MjE5N1ExNjg1LjcyMTc2OTMyMDU5MzcgMTI0LjQyMzQzNTQxOTQ0MDc1IDE2ODYuMzQwOTQzNzU0NjgxNiAxMjAuOTE0NzgwMjkyOTQyNzRRMTY4Ni45NjAxMTgxODg3Njk1IDExNy40MDYxMjUxNjY0NDQ3NCAxNjg3Ljg2ODI0MDY5MjA5ODIgMTEzLjc3MzYzNTE1MzEyOTE2TDE2OTcuNDQ0ODA1MjcyNjU3NSA3My43MzM2ODg0MTU0NDYwOEgxNzA2LjM2MDkxNzEyMzUyM0wxNjkxLjAwNTM5MTE1ODE0MzUgMTM0LjBaIE0xNzQyLjE3NzgyNzkwOTE0MjMgMTM0LjgyNTU2NTkxMjExNzE4UTE3MzYuNTYzOTc5NzA2NzQ1NiAxMzQuODI1NTY1OTEyMTE3MTggMTczMi40Nzc0Mjg0NDE3NjU0IDEzMi43MjAzNzI4MzYyMTgzNlExNzI4LjM5MDg3NzE3Njc4NTQgMTMwLjYxNTE3OTc2MDMxOTU2IDE3MjYuMjAzMTI3NTA5Njc1IDEyNi42MTExODUwODY1NTEyNlExNzI0LjAxNTM3Nzg0MjU2NDUgMTIyLjYwNzE5MDQxMjc4Mjk2IDE3MjQuMDE1Mzc3ODQyNTY0NSAxMTcuMjQxMDExOTg0MDIxM1Y5MC40OTI2NzY0MzE0MjQ3N1ExNzI0LjAxNTM3Nzg0MjU2NDUgODUuMDQzOTQxNDExNDUxNDEgMTcyNi4yMDMxMjc1MDk2NzUgODEuMDgxMjI1MDMzMjg4OTZRMTcyOC4zOTA4NzcxNzY3ODU0IDc3LjExODUwODY1NTEyNjUgMTczMi40Nzc0Mjg0NDE3NjU0IDc1LjAxMzMxNTU3OTIyNzcxUTE3MzYuNTYzOTc5NzA2NzQ1NiA3Mi45MDgxMjI1MDMzMjg5MSAxNzQyLjE3NzgyNzkwOTE0MjMgNzIuOTA4MTIyNTAzMzI4OTFRMTc0Ny43OTE2NzYxMTE1MzkxIDcyLjkwODEyMjUwMzMyODkxIDE3NTEuODc4MjI3Mzc2NTE5MSA3NS4wMTMzMTU1NzkyMjc3MVExNzU1Ljk2NDc3ODY0MTQ5OTIgNzcuMTE4NTA4NjU1MTI2NSAxNzU4LjE1MjUyODMwODYwOTggODEuMDgxMjI1MDMzMjg4OTZRMTc2MC4zNDAyNzc5NzU3MjAzIDg1LjA0Mzk0MTQxMTQ1MTQxIDE3NjAuMzQwMjc3OTc1NzIwMyA5MC40MTAxMTk4NDAyMTMwNlYxMTcuMjQxMDExOTg0MDIxM1ExNzYwLjM0MDI3Nzk3NTcyMDMgMTIyLjYwNzE5MDQxMjc4Mjk2IDE3NTguMTUyNTI4MzA4NjA5OCAxMjYuNjExMTg1MDg2NTUxMjZRMTc1NS45NjQ3Nzg2NDE0OTkyIDEzMC42MTUxNzk3NjAzMTk1NiAxNzUxLjg3ODIyNzM3NjUxOTEgMTMyLjcyMDM3MjgzNjIxODM2UTE3NDcuNzkxNjc2MTExNTM5MSAxMzQuODI1NTY1OTEyMTE3MTggMTc0Mi4xNzc4Mjc5MDkxNDIzIDEzNC44MjU1NjU5MTIxMTcxOFpNMTc0Mi4xNzc4Mjc5MDkxNDIzIDEyNi45MDAxMzMxNTU3OTIyOFExNzQ2LjcxODQ0MDQyNTc4NjkgMTI2LjkwMDEzMzE1NTc5MjI4IDE3NDkuMDcxMzAzMjc1MzIwOCAxMjQuMzgyMTU3MTIzODM0ODlRMTc1MS40MjQxNjYxMjQ4NTQ4IDEyMS44NjQxODEwOTE4Nzc1IDE3NTEuNDI0MTY2MTI0ODU0OCAxMTcuMjQxMDExOTg0MDIxM1Y5MC40OTI2NzY0MzE0MjQ3N1ExNzUxLjQyNDE2NjEyNDg1NDggODUuNzg2OTUwNzMyMzU2ODcgMTc0OS4wNzEzMDMyNzUzMjA4IDgzLjMxMDI1Mjk5NjAwNTMzUTE3NDYuNzE4NDQwNDI1Nzg2OSA4MC44MzM1NTUyNTk2NTM3OSAxNzQyLjE3NzgyNzkwOTE0MjMgODAuODMzNTU1MjU5NjUzNzlRMTczNy43MTk3NzE5ODM3MDk1IDgwLjgzMzU1NTI1OTY1Mzc5IDE3MzUuMzI1NjMwODM4NTY5OSA4My4zMTAyNTI5OTYwMDUzM1ExNzMyLjkzMTQ4OTY5MzQzIDg1Ljc4Njk1MDczMjM1Njg3IDE3MzIuOTMxNDg5NjkzNDMgOTAuNDkyNjc2NDMxNDI0NzdWMTE3LjI0MTAxMTk4NDAyMTNRMTczMi45MzE0ODk2OTM0MyAxMjEuODY0MTgxMDkxODc3NSAxNzM1LjMyNTYzMDgzODU2OTkgMTI0LjM4MjE1NzEyMzgzNDg5UTE3MzcuNzE5NzcxOTgzNzA5NSAxMjYuOTAwMTMzMTU1NzkyMjggMTc0Mi4xNzc4Mjc5MDkxNDIzIDEyNi45MDAxMzMxNTU3OTIyOFogTTE3ODIuNTM1MzUxMjExNDA2IDEzNC4wVjEyNi4wNzQ1NjcyNDM2NzUxSDE3OTQuNjcxMTcwMTE5NTI4NFY4MS42NTkxMjExNzE3NzA5OEgxNzgyLjUzNTM1MTIxMTQwNlY3My43MzM2ODg0MTU0NDYwOEgxODE1Ljg4ODIxNDA2MDkzOThWODEuNjU5MTIxMTcxNzcwOThIMTgwMy43NTIzOTUxNTI4MTc0VjEyNi4wNzQ1NjcyNDM2NzUxSDE4MTUuODg4MjE0MDYwOTM5OFYxMzQuMFogTTE4NTYuNTc1OTYzNzI4MDUwMyAxMzQuODI1NTY1OTEyMTE3MThRMTg1MC45NjIxMTU1MjU2NTM0IDEzNC44MjU1NjU5MTIxMTcxOCAxODQ2Ljc5MzAwNzY2OTQ2MTUgMTMyLjcyMDM3MjgzNjIxODM2UTE4NDIuNjIzODk5ODEzMjY5OSAxMzAuNjE1MTc5NzYwMzE5NTYgMTg0MC4zNTM1OTM1NTQ5NDc2IDEyNi42MTExODUwODY1NTEyNlExODM4LjA4MzI4NzI5NjYyNTUgMTIyLjYwNzE5MDQxMjc4Mjk2IDE4MzguMDgzMjg3Mjk2NjI1NSAxMTcuMjQxMDExOTg0MDIxM1Y5MC40OTI2NzY0MzE0MjQ3N1ExODM4LjA4MzI4NzI5NjYyNTUgODUuMDQzOTQxNDExNDUxNDEgMTg0MC4zNTM1OTM1NTQ5NDc2IDgxLjA4MTIyNTAzMzI4ODk2UTE4NDIuNjIzODk5ODEzMjY5OSA3Ny4xMTg1MDg2NTUxMjY1IDE4NDYuNzkzMDA3NjY5NDYxNSA3NS4wMTMzMTU1NzkyMjc3MVExODUwLjk2MjExNTUyNTY1MzQgNzIuOTA4MTIyNTAzMzI4OTEgMTg1Ni41NzU5NjM3MjgwNTAzIDcyLjkwODEyMjUwMzMyODkxUTE4NjIuMTg5ODExOTMwNDQ3IDcyLjkwODEyMjUwMzMyODkxIDE4NjYuMzE3NjQxNDkxMDMyOSA3NS4wNTQ1OTM4NzQ4MzM1N1ExODcwLjQ0NTQ3MTA1MTYxODggNzcuMjAxMDY1MjQ2MzM4MjMgMTg3Mi43MTU3NzczMDk5NDExIDgxLjEyMjUwMzMyODg5NDgyUTE4NzQuOTg2MDgzNTY4MjYzMiA4NS4wNDM5NDE0MTE0NTE0MSAxODc0Ljk4NjA4MzU2ODI2MzIgOTAuNDkyNjc2NDMxNDI0NzdIMTg2Ni4wNjk5NzE3MTczOTc3UTE4NjYuMDY5OTcxNzE3Mzk3NyA4NS43ODY5NTA3MzIzNTY4NyAxODYzLjU5MzI3Mzk4MTA0NjIgODMuMzEwMjUyOTk2MDA1MzNRMTg2MS4xMTY1NzYyNDQ2OTQ3IDgwLjgzMzU1NTI1OTY1Mzc5IDE4NTYuNTc1OTYzNzI4MDUwMyA4MC44MzM1NTUyNTk2NTM3OVExODUyLjAzNTM1MTIxMTQwNTcgODAuODMzNTU1MjU5NjUzNzkgMTg0OS41MTczNzUxNzk0NDgyIDgzLjMxMDI1Mjk5NjAwNTMzUTE4NDYuOTk5Mzk5MTQ3NDkxIDg1Ljc4Njk1MDczMjM1Njg3IDE4NDYuOTk5Mzk5MTQ3NDkxIDkwLjQxMDExOTg0MDIxMzA2VjExNy4yNDEwMTE5ODQwMjEzUTE4NDYuOTk5Mzk5MTQ3NDkxIDEyMS44NjQxODEwOTE4Nzc1IDE4NDkuNTE3Mzc1MTc5NDQ4MiAxMjQuMzgyMTU3MTIzODM0ODlRMTg1Mi4wMzUzNTEyMTE0MDU3IDEyNi45MDAxMzMxNTU3OTIyOCAxODU2LjU3NTk2MzcyODA1MDMgMTI2LjkwMDEzMzE1NTc5MjI4UTE4NjEuMTE2NTc2MjQ0Njk0NyAxMjYuOTAwMTMzMTU1NzkyMjggMTg2My41OTMyNzM5ODEwNDYyIDEyNC4zODIxNTcxMjM4MzQ4OVExODY2LjA2OTk3MTcxNzM5NzcgMTIxLjg2NDE4MTA5MTg3NzUgMTg2Ni4wNjk5NzE3MTczOTc3IDExNy4yNDEwMTE5ODQwMjEzSDE4NzQuOTg2MDgzNTY4MjYzMlExODc0Ljk4NjA4MzU2ODI2MzIgMTIyLjYwNzE5MDQxMjc4Mjk2IDE4NzIuNzE1Nzc3MzA5OTQxMSAxMjYuNTY5OTA2NzkwOTQ1NDFRMTg3MC40NDU0NzEwNTE2MTg4IDEzMC41MzI2MjMxNjkxMDc4NiAxODY2LjMxNzY0MTQ5MTAzMjkgMTMyLjY3OTA5NDU0MDYxMjU0UTE4NjIuMTg5ODExOTMwNDQ3IDEzNC44MjU1NjU5MTIxMTcxOCAxODU2LjU3NTk2MzcyODA1MDMgMTM0LjgyNTU2NTkxMjExNzE4WiBNMTg5Ni42MDMyNjA2NjU0NjcxIDEzNC4wVjEyNi4wNzQ1NjcyNDM2NzUxSDE5MDguNzM5MDc5NTczNTg5NlY4MS42NTkxMjExNzE3NzA5OEgxODk2LjYwMzI2MDY2NTQ2NzFWNzMuNzMzNjg4NDE1NDQ2MDhIMTkyOS45NTYxMjM1MTUwMDFWODEuNjU5MTIxMTcxNzcwOThIMTkxNy44MjAzMDQ2MDY4Nzg2VjEyNi4wNzQ1NjcyNDM2NzUxSDE5MjkuOTU2MTIzNTE1MDAxVjEzNC4wWiBNMTk1Mi4yMzM3NTMzNDE4OTg2IDEzNC4wVjczLjczMzY4ODQxNTQ0NjA4SDE5NjMuNDYxNDQ5NzQ2NjkyM0wxOTgxLjA0NjAwMzY3NDc4ODIgMTIzLjg0NTUzOTI4MDk1ODcyUTE5ODAuODgwODkwNDkyMzY0NiAxMjEuNDUxMzk4MTM1ODE4OSAxOTgwLjYzMzIyMDcxODcyOTUgMTE4LjE0OTEzNDQ4NzM1MDIxUTE5ODAuMzg1NTUwOTQ1MDk0MyAxMTQuODQ2ODcwODM4ODgxNSAxOTgwLjI2MTcxNjA1ODI3NjggMTExLjI5NjkzNzQxNjc3NzY0UTE5ODAuMTM3ODgxMTcxNDU5MiAxMDcuNzQ3MDAzOTk0NjczNzggMTk4MC4xMzc4ODExNzE0NTkyIDEwNC44NTc1MjMzMDIyNjM2NFY3My43MzM2ODg0MTU0NDYwOEgxOTg4LjM5MzU0MDI5MjYzMDlWMTM0LjBIMTk3Ny4xNjU4NDM4ODc4Mzc0TDE5NTkuNjYzODQ2NTUwOTUzMiA4My44ODgxNDkxMzQ0ODczNVExOTU5LjgyODk1OTczMzM3NjcgODYuMDM0NjIwNTA1OTkyMDIgMTk2MC4wMzUzNTEyMTE0MDYgODkuMjU0MzI3NTYzMjQ5UTE5NjAuMjQxNzQyNjg5NDM1MSA5Mi40NzQwMzQ2MjA1MDU5OSAxOTYwLjM2NTU3NzU3NjI1MjcgOTUuOTQxNDExNDUxMzk4MTRRMTk2MC40ODk0MTI0NjMwNzAzIDk5LjQwODc4ODI4MjI5MDI5IDE5NjAuNDg5NDEyNDYzMDcwMyAxMDIuMzgwODI1NTY1OTEyMTJWMTM0LjBaIE0yMDI3LjY3NzgyNzkwOTE0MjMgMTM0LjgyNTU2NTkxMjExNzE4UTIwMjIuMDYzOTc5NzA2NzQ1NCAxMzQuODI1NTY1OTEyMTE3MTggMjAxNy44OTQ4NzE4NTA1NTM1IDEzMi43MjAzNzI4MzYyMTgzNlEyMDEzLjcyNTc2Mzk5NDM2MTggMTMwLjYxNTE3OTc2MDMxOTU2IDIwMTEuNDU1NDU3NzM2MDM5NSAxMjYuNjExMTg1MDg2NTUxMjZRMjAwOS4xODUxNTE0Nzc3MTc1IDEyMi42MDcxOTA0MTI3ODI5NiAyMDA5LjE4NTE1MTQ3NzcxNzUgMTE3LjI0MTAxMTk4NDAyMTNWOTAuNDkyNjc2NDMxNDI0NzdRMjAwOS4xODUxNTE0Nzc3MTc1IDg1LjA0Mzk0MTQxMTQ1MTQxIDIwMTEuNDU1NDU3NzM2MDM5NSA4MS4wODEyMjUwMzMyODg5NlEyMDEzLjcyNTc2Mzk5NDM2MTggNzcuMTE4NTA4NjU1MTI2NSAyMDE3Ljg5NDg3MTg1MDU1MzUgNzUuMDEzMzE1NTc5MjI3NzFRMjAyMi4wNjM5Nzk3MDY3NDU0IDcyLjkwODEyMjUwMzMyODkxIDIwMjcuNjc3ODI3OTA5MTQyMyA3Mi45MDgxMjI1MDMzMjg5MVEyMDMzLjI5MTY3NjExMTUzOSA3Mi45MDgxMjI1MDMzMjg5MSAyMDM3LjQxOTUwNTY3MjEyNDggNzUuMDU0NTkzODc0ODMzNTdRMjA0MS41NDczMzUyMzI3MTA4IDc3LjIwMTA2NTI0NjMzODIzIDIwNDMuODE3NjQxNDkxMDMzIDgxLjEyMjUwMzMyODg5NDgyUTIwNDYuMDg3OTQ3NzQ5MzU1MiA4NS4wNDM5NDE0MTE0NTE0MSAyMDQ2LjA4Nzk0Nzc0OTM1NTIgOTAuNDkyNjc2NDMxNDI0NzdIMjAzNy4xNzE4MzU4OTg0ODk3UTIwMzcuMTcxODM1ODk4NDg5NyA4NS43ODY5NTA3MzIzNTY4NyAyMDM0LjY5NTEzODE2MjEzODIgODMuMzEwMjUyOTk2MDA1MzNRMjAzMi4yMTg0NDA0MjU3ODY2IDgwLjgzMzU1NTI1OTY1Mzc5IDIwMjcuNjc3ODI3OTA5MTQyMyA4MC44MzM1NTUyNTk2NTM3OVEyMDIzLjEzNzIxNTM5MjQ5NzYgODAuODMzNTU1MjU5NjUzNzkgMjAyMC42MTkyMzkzNjA1NDAyIDgzLjMxMDI1Mjk5NjAwNTMzUTIwMTguMTAxMjYzMzI4NTgzIDg1Ljc4Njk1MDczMjM1Njg3IDIwMTguMTAxMjYzMzI4NTgzIDkwLjQxMDExOTg0MDIxMzA2VjExNy4yNDEwMTE5ODQwMjEzUTIwMTguMTAxMjYzMzI4NTgzIDEyMS44NjQxODEwOTE4Nzc1IDIwMjAuNjE5MjM5MzYwNTQwMiAxMjQuNDIzNDM1NDE5NDQwNzVRMjAyMy4xMzcyMTUzOTI0OTc2IDEyNi45ODI2ODk3NDcwMDQgMjAyNy42Nzc4Mjc5MDkxNDIzIDEyNi45ODI2ODk3NDcwMDRRMjAzMi4yMTg0NDA0MjU3ODY2IDEyNi45ODI2ODk3NDcwMDQgMjAzNC42OTUxMzgxNjIxMzgyIDEyNC40MjM0MzU0MTk0NDA3NVEyMDM3LjE3MTgzNTg5ODQ4OTcgMTIxLjg2NDE4MTA5MTg3NzUgMjAzNy4xNzE4MzU4OTg0ODk3IDExNy4yNDEwMTE5ODQwMjEzVjExMC40NzEzNzE1MDQ2NjA0NUgyMDI1Ljk0NDEzOTQ5MzY5NjJWMTAyLjYyODQ5NTMzOTU0NzI3SDIwNDYuMDg3OTQ3NzQ5MzU1MlYxMTcuMjQxMDExOTg0MDIxM1EyMDQ2LjA4Nzk0Nzc0OTM1NTIgMTIyLjYwNzE5MDQxMjc4Mjk2IDIwNDMuODE3NjQxNDkxMDMzIDEyNi41Njk5MDY3OTA5NDU0MVEyMDQxLjU0NzMzNTIzMjcxMDggMTMwLjUzMjYyMzE2OTEwNzg2IDIwMzcuNDE5NTA1NjcyMTI0OCAxMzIuNjc5MDk0NTQwNjEyNTRRMjAzMy4yOTE2NzYxMTE1MzkgMTM0LjgyNTU2NTkxMjExNzE4IDIwMjcuNjc3ODI3OTA5MTQyMyAxMzQuODI1NTY1OTEyMTE3MThaIE0yMTI0LjkwNDE5Mjc1NjAxMzMgMTM0LjAgMjExOC4zODIyMjIwNTAyODc1IDczLjczMzY4ODQxNTQ0NjA4SDIxMjYuMzkwMjExMzk3ODI0M0wyMTMwLjQzNTQ4NDM2NzE5OCAxMTYuOTkzMzQyMjEwMzg2MTVRMjEzMC42MDA1OTc1NDk2MjIgMTE4LjY0NDQ3NDAzNDYyMDUyIDIxMzAuNzI0NDMyNDM2NDM5IDEyMC42MjU4MzIyMjM3MDE3NFEyMTMwLjg0ODI2NzMyMzI1NyAxMjIuNjA3MTkwNDEyNzgyOTYgMjEzMC45NzIxMDIyMTAwNzUgMTI0LjUwNTk5MjAxMDY1MjQ2UTIxMzEuMDk1OTM3MDk2ODkyIDEyNi40MDQ3OTM2MDg1MjE5NyAyMTMxLjA5NTkzNzA5Njg5MiAxMjcuODA4MjU1NjU5MTIxMTdRMjEzMS4yNjEwNTAyNzkzMTU0IDEyNi40MDQ3OTM2MDg1MjE5NyAyMTMxLjQyNjE2MzQ2MTczODcgMTI0LjUwNTk5MjAxMDY1MjQ2UTIxMzEuNTkxMjc2NjQ0MTYyNSAxMjIuNjA3MTkwNDEyNzgyOTYgMjEzMS43OTc2NjgxMjIxOTE3IDEyMC42MjU4MzIyMjM3MDE3NFEyMTMyLjAwNDA1OTYwMDIyMSAxMTguNjQ0NDc0MDM0NjIwNTIgMjEzMi4yNTE3MjkzNzM4NTYgMTE2Ljk5MzM0MjIxMDM4NjE1TDIxMzcuNDUyNzk0NjIwMTk0MyA3My43MzM2ODg0MTU0NDYwOEgyMTQ1LjcwODQ1Mzc0MTM2NkwyMTUwLjU3OTI5MjYyMjg1NzMgMTE2Ljk5MzM0MjIxMDM4NjE1UTIxNTAuNzQ0NDA1ODA1MjgwNiAxMTguNjQ0NDc0MDM0NjIwNTIgMjE1MC45NTA3OTcyODMzMSAxMjAuNjI1ODMyMjIzNzAxNzRRMjE1MS4xNTcxODg3NjEzMzk1IDEyMi42MDcxOTA0MTI3ODI5NiAyMTUxLjQwNDg1ODUzNDk3NDcgMTI0LjUwNTk5MjAxMDY1MjQ2UTIxNTEuNjUyNTI4MzA4NjEgMTI2LjQwNDc5MzYwODUyMTk3IDIxNTEuNzM1MDg0ODk5ODIxNyAxMjcuODA4MjU1NjU5MTIxMTdRMjE1MS44MTc2NDE0OTEwMzMgMTI2LjQwNDc5MzYwODUyMTk3IDIxNTEuOTQxNDc2Mzc3ODUwNCAxMjQuNTA1OTkyMDEwNjUyNDZRMjE1Mi4wNjUzMTEyNjQ2NjgzIDEyMi42MDcxOTA0MTI3ODI5NiAyMTUyLjIzMDQyNDQ0NzA5MTUgMTIwLjYyNTgzMjIyMzcwMTc0UTIxNTIuMzk1NTM3NjI5NTE1MyAxMTguNjQ0NDc0MDM0NjIwNTIgMjE1Mi41NjA2NTA4MTE5Mzg2IDExNi45OTMzNDIyMTAzODYxNUwyMTU2LjY4ODQ4MDM3MjUyNDcgNzMuNzMzNjg4NDE1NDQ2MDhIMjE2NC40NDg3OTk5NDY0MjZMMjE1Ny42NzkxNTk0NjcwNjUzIDEzNC4wSDIxNDcuMzU5NTg1NTY1NjAwNEwyMTQyLjQ4ODc0NjY4NDEwOSA5MC4xNjI0NTAwNjY1Nzc5UTIxNDIuMzIzNjMzNTAxNjg1NCA4OC40Mjg3NjE2NTExMzE4MiAyMTQyLjE1ODUyMDMxOTI2MiA4Ni40ODg2ODE3NTc2NTY0N1EyMTQxLjk5MzQwNzEzNjgzOSA4NC41NDg2MDE4NjQxODExMSAyMTQxLjgyODI5Mzk1NDQxNSA4Mi42OTEwNzg1NjE5MTc0NVEyMTQxLjY2MzE4MDc3MTk5MiA4MC44MzM1NTUyNTk2NTM3OSAyMTQxLjQ5ODA2NzU4OTU2ODYgNzkuNTk1MjA2MzkxNDc4MDNRMjE0MS40MTU1MTA5OTgzNTY3IDgwLjgzMzU1NTI1OTY1Mzc5IDIxNDEuMjUwMzk3ODE1OTMzIDgyLjY5MTA3ODU2MTkxNzQ1UTIxNDEuMDg1Mjg0NjMzNTA5NyA4NC41NDg2MDE4NjQxODExMSAyMTQwLjkyMDE3MTQ1MTA4NjQgODYuNDg4NjgxNzU3NjU2NDdRMjE0MC43NTUwNTgyNjg2NjMgODguNDI4NzYxNjUxMTMxODIgMjE0MC41MDczODg0OTUwMjggOTAuMTYyNDUwMDY2NTc3OUwyMTM1LjMwNjMyMzI0ODY4OTggMTM0LjBaIE0yMTgxLjQ0MjgwNzkzNTc3MzUgMTM0LjBWNzMuNzMzNjg4NDE1NDQ2MDhIMjIxNi44NTk1ODU1NjU2MDA0VjgxLjY1OTEyMTE3MTc3MDk4SDIxOTAuMTkzODA2NjA0MjE1M1Y5OC43NDgzMzU1NTI1OTY1NEgyMjEzLjk3MDEwNDg3MzE5MDRWMTA2LjU5MTIxMTcxNzcwOTczSDIxOTAuMTkzODA2NjA0MjE1M1YxMjYuMDc0NTY3MjQzNjc1MUgyMjE2Ljg1OTU4NTU2NTYwMDRWMTM0LjBaIE0yMjM3LjY1MTE5Njc1MDY4NjcgMTM0LjBWNzMuNzMzNjg4NDE1NDQ2MDhIMjI1Ni41NTY2NTYxMzgxN1EyMjYyLjI1MzA2MDkzMTc3ODcgNzMuNzMzNjg4NDE1NDQ2MDggMjI2Ni40NjM0NDcwODM1NzYzIDc1LjkyMTQzODA4MjU1NjU5UTIyNzAuNjczODMzMjM1Mzc0IDc4LjEwOTE4Nzc0OTY2NzExIDIyNzMuMDI2Njk2MDg0OTA3NiA4Mi4wNzE5MDQxMjc4Mjk1N1EyMjc1LjM3OTU1ODkzNDQ0MiA4Ni4wMzQ2MjA1MDU5OTIwMiAyMjc1LjM3OTU1ODkzNDQ0MiA5MS40MDA3OTg5MzQ3NTM2N1EyMjc1LjM3OTU1ODkzNDQ0MiA5Ny40Mjc0MzAwOTMyMDkwNyAyMjcyLjI4MzY4Njc2NDAwMjYgMTAxLjg0NDIwNzcyMzAzNTk2UTIyNjkuMTg3ODE0NTkzNTYzIDEwNi4yNjA5ODUzNTI4NjI4NiAyMjYzLjkwNDE5Mjc1NjAxMyAxMDguMDc3MjMwMzU5NTIwNjRMMjI3Ni4yMDUxMjQ4NDY1NTkgMTM0LjBIMjI2Ni4wNTA2NjQxMjc1MThMMjI1NS4wNzA2Mzc0OTYzNTkzIDEwOS4yMzMwMjI2MzY0ODQ2OUgyMjQ2LjU2NzMwODYwMTU1MlYxMzQuMFpNMjI0Ni41NjczMDg2MDE1NTIgMTAxLjM5MDE0NjQ3MTM3MTUxSDIyNTYuNTU2NjU2MTM4MTdRMjI2MS4wMTQ3MTIwNjM2MDMgMTAxLjM5MDE0NjQ3MTM3MTUxIDIyNjMuNjU2NTIyOTgyMzc4IDk4LjcwNzA1NzI1Njk5MDY4UTIyNjYuMjk4MzMzOTAxMTUzIDk2LjAyMzk2ODA0MjYwOTg1IDIyNjYuMjk4MzMzOTAxMTUzIDkxLjU2NTkxMjExNzE3NzFRMjI2Ni4yOTgzMzM5MDExNTMgODYuOTQyNzQzMDA5MzIwOSAyMjYzLjY1NjUyMjk4MjM3OCA4NC4zMDA5MzIwOTA1NDU5NFEyMjYxLjAxNDcxMjA2MzYwMyA4MS42NTkxMjExNzE3NzA5OCAyMjU2LjU1NjY1NjEzODE3IDgxLjY1OTEyMTE3MTc3MDk4SDIyNDYuNTY3MzA4NjAxNTUyWiBNMjI5NC42ODUxNTE0Nzc3MTc3IDEzNC4wVjczLjczMzY4ODQxNTQ0NjA4SDIzMDMuNjAxMjYzMzI4NTgzVjk4LjgzMDg5MjE0MzgwODI2SDIzMTEuNjA5MjUyNjc2MTJMMjMyMy45MTAxODQ3NjY2NjU3IDczLjczMzY4ODQxNTQ0NjA4SDIzMzMuNjUxODYyNTI5NjQ4NUwyMzE5LjQ1MjEyODg0MTIzMyAxMDIuNjI4NDk1MzM5NTQ3MjdMMjMzNC4zMTIzMTUyNTkzNDIgMTM0LjBIMjMyNC4zMjI5Njc3MjI3MjQ2TDIzMTEuNDQ0MTM5NDkzNjk2IDEwNi44Mzg4ODE0OTEzNDQ4OEgyMzAzLjYwMTI2MzMyODU4M1YxMzQuMFogTTIzNTEuNTUzOTkzMDIyMzI1IDEzNC4wVjEyNS4zMzE1NTc5MjI3Njk2NUwyMzc3LjIyOTA5Mjg4OTE2OSA4MS45MDY3OTA5NDU0MDYxM0gyMzUyLjA0OTMzMjU2OTU5NVY3My43MzM2ODg0MTU0NDYwOEgyMzg2LjcyMzEwMDg3ODUxNjZWODIuNDAyMTMwNDkyNjc2NDNMMjM2MS4wNDgwMDEwMTE2NzIgMTI1LjgyNjg5NzQ3MDAzOTk1SDIzODcuNTQ4NjY2NzkwNjM0VjEzNC4wWiBNMjQwOS41Nzg2MjY4NDM4OTY1IDEzNC4wVjczLjczMzY4ODQxNTQ0NjA4SDI0NDQuOTk1NDA0NDczNzIzM1Y4MS42NTkxMjExNzE3NzA5OEgyNDE4LjMyOTYyNTUxMjMzOFY5OC43NDgzMzU1NTI1OTY1NEgyNDQyLjEwNTkyMzc4MTMxMzNWMTA2LjU5MTIxMTcxNzcwOTczSDI0MTguMzI5NjI1NTEyMzM4VjEyNi4wNzQ1NjcyNDM2NzUxSDI0NDQuOTk1NDA0NDczNzIzM1YxMzQuMFogTTI0ODMuNjE5MjM5MzYwNTQwNiAxMzQuODI1NTY1OTEyMTE3MThRMjQ3NC45NTA3OTcyODMzMTAzIDEzNC44MjU1NjU5MTIxMTcxOCAyNDcwLjI0NTA3MTU4NDI0MjQgMTMwLjA3ODU2MTkxNzQ0MzRRMjQ2NS41MzkzNDU4ODUxNzQ1IDEyNS4zMzE1NTc5MjI3Njk2NSAyNDY1LjUzOTM0NTg4NTE3NDUgMTE3LjE1ODQ1NTM5MjgwOTU5VjczLjczMzY4ODQxNTQ0NjA4SDI0NzQuNDU1NDU3NzM2MDRWMTE3LjE1ODQ1NTM5MjgwOTU5UTI0NzQuNDU1NDU3NzM2MDQgMTIxLjY5OTA2NzkwOTQ1NDA2IDI0NzYuNzI1NzYzOTk0MzYyMyAxMjQuMzQwODc4ODI4MjI5MDJRMjQ3OC45OTYwNzAyNTI2ODQ2IDEyNi45ODI2ODk3NDcwMDQgMjQ4My42MTkyMzkzNjA1NDA2IDEyNi45ODI2ODk3NDcwMDRRMjQ4OC4xNTk4NTE4NzcxODUyIDEyNi45ODI2ODk3NDcwMDQgMjQ5MC40NzE0MzY0MzExMTMgMTI0LjM0MDg3ODgyODIyOTAyUTI0OTIuNzgzMDIwOTg1MDQxMyAxMjEuNjk5MDY3OTA5NDU0MDYgMjQ5Mi43ODMwMjA5ODUwNDEzIDExNy4xNTg0NTUzOTI4MDk1OVY3My43MzM2ODg0MTU0NDYwOEgyNTAxLjY5OTEzMjgzNTkwNjhWMTE3LjE1ODQ1NTM5MjgwOTU5UTI1MDEuNjk5MTMyODM1OTA2OCAxMjUuMzMxNTU3OTIyNzY5NjUgMjQ5Ni45OTM0MDcxMzY4MzkgMTMwLjA3ODU2MTkxNzQ0MzRRMjQ5Mi4yODc2ODE0Mzc3NzEgMTM0LjgyNTU2NTkxMjExNzE4IDI0ODMuNjE5MjM5MzYwNTQwNiAxMzQuODI1NTY1OTEyMTE3MThaIE0yNTQwLjk4MzQyMDQ1MjQxOCAxMzQuODI1NTY1OTEyMTE3MThRMjUzNS4zNjk1NzIyNTAwMjEgMTM0LjgyNTU2NTkxMjExNzE4IDI1MzEuMjAwNDY0MzkzODI5NCAxMzIuNzIwMzcyODM2MjE4MzZRMjUyNy4wMzEzNTY1Mzc2Mzc3IDEzMC42MTUxNzk3NjAzMTk1NiAyNTI0Ljc2MTA1MDI3OTMxNTQgMTI2LjYxMTE4NTA4NjU1MTI2UTI1MjIuNDkwNzQ0MDIwOTkzIDEyMi42MDcxOTA0MTI3ODI5NiAyNTIyLjQ5MDc0NDAyMDk5MyAxMTcuMjQxMDExOTg0MDIxM1Y5MC40OTI2NzY0MzE0MjQ3N1EyNTIyLjQ5MDc0NDAyMDk5MyA4NS4wNDM5NDE0MTE0NTE0MSAyNTI0Ljc2MTA1MDI3OTMxNTQgODEuMDgxMjI1MDMzMjg4OTZRMjUyNy4wMzEzNTY1Mzc2Mzc3IDc3LjExODUwODY1NTEyNjUgMjUzMS4yMDA0NjQzOTM4Mjk0IDc1LjAxMzMxNTU3OTIyNzcxUTI1MzUuMzY5NTcyMjUwMDIxIDcyLjkwODEyMjUwMzMyODkxIDI1NDAuOTgzNDIwNDUyNDE4IDcyLjkwODEyMjUwMzMyODkxUTI1NDYuNTk3MjY4NjU0ODE1IDcyLjkwODEyMjUwMzMyODkxIDI1NTAuNzI1MDk4MjE1NDAxIDc1LjA1NDU5Mzg3NDgzMzU3UTI1NTQuODUyOTI3Nzc1OTg2NyA3Ny4yMDEwNjUyNDYzMzgyMyAyNTU3LjEyMzIzNDAzNDMwOSA4MS4xMjI1MDMzMjg4OTQ4MlEyNTU5LjM5MzU0MDI5MjYzMTMgODUuMDQzOTQxNDExNDUxNDEgMjU1OS4zOTM1NDAyOTI2MzEzIDkwLjQ5MjY3NjQzMTQyNDc3SDI1NTAuNDc3NDI4NDQxNzY2UTI1NTAuNDc3NDI4NDQxNzY2IDg1Ljc4Njk1MDczMjM1Njg3IDI1NDguMDAwNzMwNzA1NDE0IDgzLjMxMDI1Mjk5NjAwNTMzUTI1NDUuNTI0MDMyOTY5MDYyMyA4MC44MzM1NTUyNTk2NTM3OSAyNTQwLjk4MzQyMDQ1MjQxOCA4MC44MzM1NTUyNTk2NTM3OVEyNTM2LjQ0MjgwNzkzNTc3MzUgODAuODMzNTU1MjU5NjUzNzkgMjUzMy45MjQ4MzE5MDM4MTYgODMuMzEwMjUyOTk2MDA1MzNRMjUzMS40MDY4NTU4NzE4NTg2IDg1Ljc4Njk1MDczMjM1Njg3IDI1MzEuNDA2ODU1ODcxODU4NiA5MC40MTAxMTk4NDAyMTMwNlYxMTcuMjQxMDExOTg0MDIxM1EyNTMxLjQwNjg1NTg3MTg1ODYgMTIxLjg2NDE4MTA5MTg3NzUgMjUzMy45MjQ4MzE5MDM4MTYgMTI0LjQyMzQzNTQxOTQ0MDc1UTI1MzYuNDQyODA3OTM1NzczNSAxMjYuOTgyNjg5NzQ3MDA0IDI1NDAuOTgzNDIwNDUyNDE4IDEyNi45ODI2ODk3NDcwMDRRMjU0NS41MjQwMzI5NjkwNjIzIDEyNi45ODI2ODk3NDcwMDQgMjU0OC4wMDA3MzA3MDU0MTQgMTI0LjQyMzQzNTQxOTQ0MDc1UTI1NTAuNDc3NDI4NDQxNzY2IDEyMS44NjQxODEwOTE4Nzc1IDI1NTAuNDc3NDI4NDQxNzY2IDExNy4yNDEwMTE5ODQwMjEzVjExMC40NzEzNzE1MDQ2NjA0NUgyNTM5LjI0OTczMjAzNjk3MlYxMDIuNjI4NDk1MzM5NTQ3MjdIMjU1OS4zOTM1NDAyOTI2MzEzVjExNy4yNDEwMTE5ODQwMjEzUTI1NTkuMzkzNTQwMjkyNjMxMyAxMjIuNjA3MTkwNDEyNzgyOTYgMjU1Ny4xMjMyMzQwMzQzMDkgMTI2LjU2OTkwNjc5MDk0NTQxUTI1NTQuODUyOTI3Nzc1OTg2NyAxMzAuNTMyNjIzMTY5MTA3ODYgMjU1MC43MjUwOTgyMTU0MDEgMTMyLjY3OTA5NDU0MDYxMjU0UTI1NDYuNTk3MjY4NjU0ODE1IDEzNC44MjU1NjU5MTIxMTcxOCAyNTQwLjk4MzQyMDQ1MjQxOCAxMzQuODI1NTY1OTEyMTE3MThaIE0yNTgwLjY4MDQ5MTAyNDk4ODQgMTM0LjBWNzMuNzMzNjg4NDE1NDQ2MDhIMjYxNi4wOTcyNjg2NTQ4MTUzVjgxLjY1OTEyMTE3MTc3MDk4SDI1ODkuNDMxNDg5NjkzNDNWOTguNzQ4MzM1NTUyNTk2NTRIMjYxMy4yMDc3ODc5NjI0MDUzVjEwNi41OTEyMTE3MTc3MDk3M0gyNTg5LjQzMTQ4OTY5MzQzVjEyNi4wNzQ1NjcyNDM2NzUxSDI2MTYuMDk3MjY4NjU0ODE1M1YxMzQuMFoiLz4KPC9zdmc+Cg==" alt="invoicePress"><div class="brand-tag">Handbuch</div></div><div class="sep"></div>
+<div class="top-title">VAMPIRE PHP<small>Installieren, arbeiten, einstellen</small></div>
+<div class="grow"></div><div class="top-actions"><button class="icon-btn" id="theme" title="Hell / Dunkel">◖</button></div></header>
+<div class="app-body">
+<nav class="tool-nav"><div class="nav-cap">Inhalt</div><a href="#k1" class="on"><span class="no">1</span>Überblick</a><a href="#k2"><span class="no">2</span>Installieren</a><a href="#k3"><span class="no">3</span>Erste Schritte</a><a href="#k4"><span class="no">4</span>Arbeiten mit VAMPIRE PHP</a><a href="#k5"><span class="no">5</span>Einstellungen</a><a href="#k6"><span class="no">6</span>Besondere Fälle</a><a href="#k7"><span class="no">7</span>Zusammenspiel</a><a href="#k8"><span class="no">8</span>Wenn etwas nicht geht</a><a href="#k9"><span class="no">9</span>Datenschutz und Sicherheit</a><a href="#k10"><span class="no">10</span>Lizenz</a><a href="#k11"><span class="no">11</span>Fassungen</a></nav>
+<main class="main">
+<div class="pagehead"><div><div class="crumb">invoicePress / Handbücher / VAMPIRE PHP</div><h1>VAMPIRE PHP – Handbuch</h1><div class="muted">Gilt für Fassung 1.1.0. Stand 18.10.2026.</div></div>
+<div class="page-actions"><button class="btn" id="print">Drucken</button></div></div>
+<div class="filterbar"><div class="navsel"><select class="sel" id="navsel"><option value="">Inhalt …</option><option value="k1">1 · Überblick</option><option value="k2">2 · Installieren</option><option value="k3">3 · Erste Schritte</option><option value="k4">4 · Arbeiten mit VAMPIRE PHP</option><option value="k5">5 · Einstellungen</option><option value="k6">6 · Besondere Fälle</option><option value="k7">7 · Zusammenspiel</option><option value="k8">8 · Wenn etwas nicht geht</option><option value="k9">9 · Datenschutz und Sicherheit</option><option value="k10">10 · Lizenz</option><option value="k11">11 · Fassungen</option></select></div><input class="inp srch" id="q" type="search" placeholder="Im Handbuch suchen …" aria-label="Im Handbuch suchen …"><span class="muted" id="hit" style="font-size:var(--fs-sm)"></span></div>
+<div class="doc"><div class="doc-inner">
+<section id="k1"><h2>1 · Überblick</h2>
+<p>VAMPIRE PHP ist eine PHP-Bibliothek, die E-Rechnungen nach EN 16931 prüft. Sie nimmt eine XML-Rechnung in UBL oder CII entgegen und liefert einen Prüfbericht: zuerst Wohlgeformtheit, dann das XML-Schema, dann die Geschäftsregeln des passenden Regelwerks. Die Regeln stammen aus den offiziellen Schematron-Paketen. Ausgeführt werden sie im PHP-Prozess selbst, ohne Java, ohne Prüfdienst und ohne Netzwerk.</p>
+<p><strong>Für wen sie gedacht ist:</strong> für Entwickler, die eine Prüfung nach EN 16931 in eine eigene PHP-Anwendung einbauen wollen, auch auf einem gewöhnlichen Webhosting ohne Java.</p>
+<p><strong>Was sie kann:</strong></p>
+<ul>
+<li>Sie prüft Wohlgeformtheit, XML-Schema und Geschäftsregeln in einem Durchgang und gibt das Urteil „angenommen“ oder „abgelehnt“ mit allen Meldungen zurück.</li>
+<li>Sie wählt Schema und Regelwerke über Szenarien selbst aus, anhand der Spezifikationskennung der Rechnung.</li>
+<li>Sie bringt 17 Regelwerke mit zusammen 9 677 Regeln mit ( gemessen mit <code>ruleset:list</code> ). 15 davon wählt sie über die Szenarien selbst aus: EN 16931 für UBL und CII, XRechnung 3.0.2 für UBL und CII, Peppol BIS Billing 3.0.21, vier Profile von Factur-X 1.09.2 und die Länderausprägungen für Italien, Rumänien, Portugal, Belgien und Serbien. Die Ausprägung für Kroatien und das Factur-X-Profil EN 16931 liegen bei und lassen sich über ein Prüfprofil zuschalten.</li>
+<li>Sie prüft eine ZUGFeRD-Rechnung auf Wunsch gegen mehrere ZUGFeRD-Fassungen zugleich.</li>
+<li>Sie schreibt Berichte als Text, JSON, HTML oder im XML-Format des KoSIT-Validators.</li>
+<li>Sie lässt sich über Prüfprofile strenger oder milder einstellen, ohne ein Regelwerk zu ändern.</li>
+<li>Sie hat eine Kommandozeile mit Selbsttest.</li>
+</ul>
+<p><strong>Was sie nicht kann:</strong></p>
+<ul>
+<li>Sie liest keine PDF-Datei. Aus einer ZUGFeRD- oder Factur-X-PDF muss die eingebettete XML vorher herausgelöst werden.</li>
+<li>Sie prüft keine Formate ausserhalb von EN 16931 und ihren Ausprägungen, etwa FatturaPA oder KSeF.</li>
+<li>Sie ist keine Oberfläche. Für WordPress gibt es dafür das Plugin eInvoice Validator for VAMPIRE.</li>
+</ul>
+<p><strong>Voraussetzungen:</strong></p>
+<div class="tblw"><table>
+<thead><tr><th>Voraussetzung</th><th>Angabe</th></tr></thead>
+<tbody>
+<tr><td>PHP</td><td>8.2 oder neuer</td></tr>
+<tr><td>PHP-Erweiterungen</td><td><code>dom</code>, <code>libxml</code>, <code>bcmath</code></td></tr>
+<tr><td>Weitere Abhängigkeiten</td><td>keine</td></tr>
+</tbody>
+</table></div></section>
+<section id="k2"><h2>2 · Installieren</h2>
+<p>VAMPIRE PHP erhalten Sie als ZIP-Datei von specialPress.</p>
+<ol class="chk">
+<li><label><input data-chk="k2-0" type="checkbox"/><span>Entpacken Sie die ZIP-Datei in ein Verzeichnis Ihres Projekts, etwa <code>lib/vampire-php/</code>.</span></label></li>
+<li><label><input data-chk="k2-1" type="checkbox"/><span>Binden Sie den Autoloader ein. Mit Composer tragen Sie das Verzeichnis als Pfad-Repository ein und verlangen das Paket <code>invoicepress/vampire-php</code>; ohne Composer binden Sie <code>vendor/autoload.php</code> aus dem Paket ein.</span></label></li>
+<li><label><input data-chk="k2-2" type="checkbox"/><span>Führen Sie <code>php bin/einvoice-validator selftest</code> aus. <strong>Erwartet:</strong> Jede Zeile meldet „ok“, und der Beispielbeleg ist „angenommen“.</span></label></li>
+</ol>
+<h3>Aktualisieren</h3>
+<p>Ersetzen Sie das Verzeichnis durch die neue Fassung. Eigene Prüfprofile im Ordner <code>profiles/</code> sichern Sie vorher und legen sie danach wieder hinein.</p></section>
+<section id="k3"><h2>3 · Erste Schritte</h2>
+<div class="codebox"><button class="btn copy" type="button">Kopieren</button><pre><code>use EinvoiceValidator\Pipeline\ScenarioResolver;
+use EinvoiceValidator\Validator;
+
+$base      = __DIR__ . '/lib/vampire-php';
+$resolver  = ScenarioResolver::fromJsonFile( $base . '/rulesets/scenarios.json' );
+$validator = new Validator( scenarioResolver: $resolver, baseDir: $base );
+
+$result = $validator-&gt;validateFile( 'rechnung.xml' );
+
+if ( $result-&gt;isAccepted() ) {
+	echo &quot;angenommen\n&quot;;
+} else {
+	foreach ( $result-&gt;messages() as $message ) {
+		printf( &quot;%-12s %-14s %s\n&quot;, $message-&gt;flag-&gt;value, $message-&gt;ruleId ?? '-', $message-&gt;text );
+	}
+}</code></pre></div>
+<p><code>baseDir</code> ist das Verzeichnis, gegen das die Pfade aus <code>scenarios.json</code> aufgelöst werden, in der Regel das Paketverzeichnis. Ohne <code>ScenarioResolver</code> prüft die Bibliothek nur die Wohlgeformtheit.</p></section>
+<section id="k4"><h2>4 · Arbeiten mit VAMPIRE PHP</h2>
+<h3>Der Ablauf einer Prüfung</h3>
+<ol class="chk">
+<li><label><input data-chk="k4-0" type="checkbox"/><span><strong>Wohlgeformtheit.</strong> Ist die Datei kein gültiges XML, endet die Prüfung hier mit „abgelehnt“.</span></label></li>
+<li><label><input data-chk="k4-1" type="checkbox"/><span><strong>Szenario.</strong> Die Bibliothek liest die Spezifikationskennung der Rechnung und sucht in <code>rulesets/scenarios.json</code> das passende Szenario. Es gibt 22 Szenarien. Passt keines, meldet sie das, statt zu raten.</span></label></li>
+<li><label><input data-chk="k4-2" type="checkbox"/><span><strong>XML-Schema.</strong> Das Szenario nennt das Schema, gegen das geprüft wird.</span></label></li>
+<li><label><input data-chk="k4-3" type="checkbox"/><span><strong>Geschäftsregeln.</strong> Das Szenario nennt ein oder mehrere Regelwerke, deren Regeln nacheinander ausgewertet werden.</span></label></li>
+</ol>
+<p>Das Urteil folgt der schwersten Meldung: Eine Meldung der Stufe <code>fatal</code> macht die Rechnung „abgelehnt“, Warnungen und Hinweise nicht.</p>
+<h3>Auf der Kommandozeile</h3>
+<div class="codebox"><button class="btn copy" type="button">Kopieren</button><pre><code>php bin/einvoice-validator validate rechnung.xml
+php bin/einvoice-validator validate rechnung.xml --format=json --profile=haus-standard
+php bin/einvoice-validator validate rechnung.xml --cascade
+php bin/einvoice-validator ruleset:list
+php bin/einvoice-validator profile:show haus-standard
+php bin/einvoice-validator selftest</code></pre></div>
+<div class="tblw"><table>
+<thead><tr><th>Schalter</th><th>Wirkung</th></tr></thead>
+<tbody>
+<tr><td>`--format=text\</td><td>json\</td><td>html\</td><td>xml`</td><td>Das Format des Berichts. <code>xml</code> ist das Format des KoSIT-Validators.</td></tr>
+<tr><td><code>--profile=&lt;id&gt;</code></td><td>Ein Prüfprofil aus dem Ordner <code>profiles/</code>.</td></tr>
+<tr><td><code>--scenario=&lt;id&gt;</code></td><td>Ein Szenario erzwingen statt es zu erkennen.</td></tr>
+<tr><td><code>--rule-report</code></td><td>Auch die bestandenen Regeln aufführen, als positiver Prüfbericht.</td></tr>
+<tr><td><code>--cascade</code> / <code>--matrix</code></td><td>Eine ZUGFeRD-Rechnung gegen mehrere ZUGFeRD-Fassungen prüfen, als Folge oder als Tabelle.</td></tr>
+</tbody>
+</table></div>
+<p>Die Kommandozeile gibt 0 zurück, wenn die Rechnung angenommen ist, 1, wenn sie abgelehnt ist, und 2 bei einem Aufruffehler.</p>
+<h3>Prüfprofile</h3>
+<p>Ein Prüfprofil legt fest, wie streng geprüft wird. Es ändert nie ein Regelwerk, sondern liegt als Schicht darüber. Profile sind JSON-Dateien im Ordner <code>profiles/</code> des Pakets:</p>
+<div class="codebox"><button class="btn copy" type="button">Kopieren</button><pre><code>{
+	&quot;id&quot;: &quot;haus-standard&quot;,
+	&quot;title&quot;: &quot;Hausprofil, Stand 2026&quot;,
+	&quot;extends&quot;: null,
+	&quot;disable&quot;: [ &quot;BR-DE-15&quot; ],
+	&quot;severity&quot;: { &quot;BR-DE-18&quot;: &quot;warning&quot; },
+	&quot;include&quot;: [ { &quot;ruleset&quot;: &quot;PEPPOL-EN16931-UBL@3.0.21&quot;, &quot;rules&quot;: [ &quot;PEPPOL-EN16931-R120&quot; ] } ],
+	&quot;note&quot;: &quot;Wozu dieses Profil da ist.&quot;
+}</code></pre></div>
+<div class="tblw"><table>
+<thead><tr><th>Feld</th><th>Bedeutung</th></tr></thead>
+<tbody>
+<tr><td><code>id</code></td><td>Der eindeutige Name; er erscheint im Bericht.</td></tr>
+<tr><td><code>extends</code></td><td>Die <code>id</code> eines anderen Profils, dessen Einträge zuerst gelten.</td></tr>
+<tr><td><code>disable</code></td><td>Regeln, die gar nicht ausgewertet werden.</td></tr>
+<tr><td><code>severity</code></td><td>Regeln mit einer anderen Stufe: <code>fatal</code>, <code>warning</code> oder <code>information</code>.</td></tr>
+<tr><td><code>include</code></td><td>Regeln aus einem Regelwerk, das das Szenario nicht ohnehin prüft.</td></tr>
+</tbody>
+</table></div>
+<p>⚠️ Ein Profil, das eine Pflichtregel abschaltet, kann eine Rechnung annehmen, die der amtliche Validator ablehnt. Der Bericht nennt deshalb immer das verwendete Profil.</p>
+<h3>Berichte</h3>
+<div class="tblw"><table>
+<thead><tr><th>Format</th><th>Wofür es gedacht ist</th></tr></thead>
+<tbody>
+<tr><td>Text</td><td>Für die Kommandozeile: Urteil und eine Zeile je Meldung.</td></tr>
+<tr><td>JSON</td><td>Für die Weiterverarbeitung: Szenario, Urteil, Meldungen mit Regel, Stufe, Text und Fundstelle.</td></tr>
+<tr><td>HTML</td><td>Für Menschen: ein Bericht zum Anzeigen oder Speichern.</td></tr>
+<tr><td>KoSIT-XML</td><td>Für Werkzeuge, die den Bericht des KoSIT-Validators erwarten.</td></tr>
+</tbody>
+</table></div></section>
+<section id="k5"><h2>5 · Einstellungen</h2>
+<p>Die Bibliothek hat keine Einstellungsdatei. Was sie tut, legen Sie im Aufruf fest: über das Szenario, das Prüfprofil und das Format des Berichts.</p></section>
+<section id="k6"><h2>6 · Besondere Fälle</h2>
+<h3>Eine ZUGFeRD-PDF prüfen</h3>
+<p>Lösen Sie die eingebettete XML aus der PDF, etwa die Datei <code>factur-x.xml</code>, und prüfen Sie diese. Die Bibliothek selbst öffnet keine PDF.</p>
+<h3>Eine Rechnung passt zu keinem Szenario</h3>
+<p>Die Spezifikationskennung der Rechnung nennt kein bekanntes Format. Prüfen Sie die Kennung im Feld BT-24, oder erzwingen Sie mit <code>--scenario</code> ein Szenario, wenn Sie wissen, wonach die Rechnung gebaut ist.</p>
+<h3>Grosse Rechnungen</h3>
+<p>Die Prüfung läuft im Speicher des PHP-Prozesses. Bei Rechnungen mit sehr vielen Positionen erhöhen Sie <code>memory_limit</code> und die Laufzeitgrenze Ihres Skripts.</p></section>
+<section id="k7"><h2>7 · Zusammenspiel</h2>
+<ul>
+<li><strong>eInvoice Validator for VAMPIRE</strong> bringt die Bibliothek als WordPress-Plugin mit Ablagefläche und Bericht in die Verwaltung.</li>
+<li><strong>VAMPIRE JS</strong> prüft dieselben Regeln im Browser.</li>
+</ul></section>
+<section id="k8"><h2>8 · Wenn etwas nicht geht</h2>
+<div class="tblw"><table>
+<thead><tr><th>Was Sie sehen</th><th>Woran es liegt</th><th>Was Sie tun</th></tr></thead>
+<tbody>
+<tr><td>Der Selbsttest meldet eine fehlende Erweiterung</td><td><code>dom</code>, <code>libxml</code> oder <code>bcmath</code> fehlt in Ihrem PHP.</td><td>Lassen Sie die Erweiterung von Ihrem Hoster einschalten.</td></tr>
+<tr><td>„Kein Szenario“</td><td>Die Rechnung trägt keine bekannte Spezifikationskennung.</td><td>Siehe Abschnitt 6.</td></tr>
+<tr><td>Der Speicher reicht nicht</td><td>Die Rechnung ist sehr gross.</td><td>Erhöhen Sie <code>memory_limit</code>.</td></tr>
+<tr><td>Rückgabewert 2</td><td>Der Aufruf der Kommandozeile ist fehlerhaft, etwa eine fehlende Datei.</td><td>Prüfen Sie Pfad und Schalter.</td></tr>
+</tbody>
+</table></div></section>
+<section id="k9"><h2>9 · Datenschutz und Sicherheit</h2>
+<ul>
+<li>Die Bibliothek ruft keinen Dienst auf und lädt nichts aus dem Netz. Die Rechnung verlässt Ihren Server nicht.</li>
+<li>Sie schreibt keine Dateien, ausser Sie lassen einen Bericht schreiben.</li>
+<li>XML wird ohne externe Entitäten geladen.</li>
+</ul></section>
+<section id="k10"><h2>10 · Lizenz</h2>
+<p>VAMPIRE PHP ist ein Kaufprodukt unter einer eigenen Lizenz von specialPress ( Datei <code>LICENSE</code> ). Die Regelwerke stammen aus öffentlichen Quellen; ihre Herkunft steht in der Datei <code>NOTICE</code>. Die Bibliothek gehört in kein Plugin, das über wordpress.org verteilt wird.</p></section>
+<section id="k11"><h2>11 · Fassungen</h2>
+<div class="tblw"><table>
+<thead><tr><th>Fassung</th><th>Was sich geändert hat</th></tr></thead>
+<tbody>
+<tr><td>1.1.0</td><td>Die erste Fassung, die als eigenes Paket erscheint. Sie enthält den positiven Prüfbericht, die Prüfung gegen mehrere ZUGFeRD-Fassungen und die Dokumentansicht im Bericht. Bisher lag die Bibliothek nur im Plugin eInvoice Validator for VAMPIRE bei.</td></tr>
+</tbody>
+</table></div></section>
+
+<div id="zoom"></div>
+</div></div>
+</main></div></div>
+<script>
+
+const tb=document.getElementById("theme");let dark=false;try{dark=localStorage.getItem("en16931-doc-theme")==="dark"}catch(e){}
+try{if(!localStorage.getItem("en16931-doc-theme")&&matchMedia("(prefers-color-scheme: dark)").matches)dark=true}catch(e){}
+const applyT=()=>{document.documentElement.setAttribute("data-theme",dark?"dark":"light");tb.textContent=dark?"☀":"◖";};
+tb.addEventListener("click",()=>{dark=!dark;try{localStorage.setItem("en16931-doc-theme",dark?"dark":"light")}catch(e){}applyT();});applyT();
+const navs=[...document.querySelectorAll(".tool-nav a")];const secs=navs.map(a=>document.querySelector(a.getAttribute("href")));
+const doc=document.querySelector(".doc");
+const inner=()=>doc.scrollHeight>doc.clientHeight+5;
+const topOf=el=>{let y=0;while(el&&el!==doc&&el!==document.body){y+=el.offsetTop;el=el.offsetParent;}return y;};
+function spy(){let cur=0;const top=(inner()?doc.scrollTop:window.scrollY)+90;secs.forEach((s,i)=>{if(s&&topOf(s)<=top)cur=i;});navs.forEach((a,i)=>a.classList.toggle("on",i===cur));}
+doc.addEventListener("scroll",spy,{passive:true});window.addEventListener("scroll",spy,{passive:true});spy();
+function goTo(id){const t=document.getElementById(id);if(!t)return;if(inner())doc.scrollTo({top:topOf(t)-8,behavior:"smooth"});else t.scrollIntoView({behavior:"smooth",block:"start"});}
+navs.forEach(a=>a.addEventListener("click",ev=>{ev.preventDefault();goTo(a.getAttribute("href").slice(1));}));
+document.getElementById("navsel").addEventListener("change",ev=>{if(ev.target.value)goTo(ev.target.value);ev.target.value="";});
+
+const KEY="handbuch-vampire-php";let st={};try{st=JSON.parse(localStorage.getItem(KEY)||"{}")}catch(e){}
+const save=()=>{try{localStorage.setItem(KEY,JSON.stringify(st))}catch(e){}};
+// abhakbare Schritte
+document.querySelectorAll("input[data-chk]").forEach(i=>{i.checked=!!(st.c&&st.c[i.dataset.chk]);i.addEventListener("change",()=>{st.c=st.c||{};st.c[i.dataset.chk]=i.checked;save()})});
+// Kopieren
+document.querySelectorAll(".copy").forEach(b=>b.addEventListener("click",async()=>{const t=b.parentElement.querySelector("code").textContent;try{await navigator.clipboard.writeText(t)}catch(e){const r=document.createRange();r.selectNodeContents(b.parentElement.querySelector("code"));const s=getSelection();s.removeAllRanges();s.addRange(r);document.execCommand("copy")}b.textContent="Kopiert";setTimeout(()=>b.textContent="Kopieren",1400)}));
+// Bildschirmfotos: im ausgelieferten Paket aus manual/img/, im Arbeitsordner aus ../../screenshots/
+// ⚠️ ERST img/, DANN screenshots/. Im ZIP und im App-Paket liegt das Handbuch in manual/ mit den Bildern in manual/img/;
+// ../../screenshots/ gibt es dort nicht. Im Arbeitsordner ist es umgekehrt. Jede Sprache wird an beiden Orten gesucht.
+const LANG="de",zoom=document.getElementById("zoom");zoom.addEventListener("click",()=>zoom.classList.remove("on"));
+const BASES=["img/","../../screenshots/"];
+document.querySelectorAll("figure.shot").forEach(f=>{const k=f.dataset.shot;const tryL=[];(LANG==="en"?["en"]:[LANG,"en"]).forEach(l=>BASES.forEach(b=>tryL.push([b,l])));let n=0;const img=new Image();img.alt=f.dataset.desc;
+ const mark=(ok,l)=>{document.querySelectorAll('#shotlist tr[data-row="'+k+'"] .sst').forEach(td=>{td.textContent=ok?(l===LANG?"vorhanden":"nur vorhanden in "+l):"fehlt";td.className="sst "+(ok&&l===LANG?"ok":"no")})};
+ img.onload=()=>{f.classList.add("has");f.insertBefore(img,f.firstChild);if(tryL[n][1]!==LANG)f.querySelector("figcaption").textContent+=" (englische Fassung des Bildes)";mark(true,tryL[n][1]);img.addEventListener("click",()=>{zoom.innerHTML="";const z=new Image();z.src=img.src;zoom.appendChild(z);zoom.classList.add("on")})};
+ img.onerror=()=>{n++;if(n<tryL.length)img.src=tryL[n][0]+k+"."+tryL[n][1]+".png";else mark(false)};
+ img.src=tryL[0][0]+k+"."+tryL[0][1]+".png";});
+// Suche
+const q=document.getElementById("q"),hit=document.getElementById("hit");let t=null;q.addEventListener("input",()=>{clearTimeout(t);t=setTimeout(()=>{const v=q.value.trim().toLowerCase();if(v.length<3){hit.textContent="";return}
+ const els=[...document.querySelectorAll(".doc-inner section h3, .doc-inner section p, .doc-inner section td, .doc-inner section li")].filter(e=>!e.closest("[hidden]")&&e.textContent.toLowerCase().includes(v));
+ hit.textContent=els.length?els.length+" Stellen":"nichts gefunden";if(els[0]){const d=document.querySelector(".doc");if(inner())d.scrollTo({top:topOf(els[0])-70,behavior:"smooth"});else els[0].scrollIntoView({block:"center"})}},180)});
+document.getElementById("print").addEventListener("click",()=>window.print());
+
+</script>
+</body>
+</html>

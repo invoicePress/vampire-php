@@ -1,0 +1,6 @@
+{
+    "id": "test-disable",
+    "extends": "test-downgrade",
+    "disable": ["BR-02"],
+    "note": "Testprofil (Aufgaben 5.1/5.2): erbt die Herabstufung und schaltet die Regel dann ganz ab."
+}

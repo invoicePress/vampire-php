@@ -1,0 +1,5 @@
+{
+    "id": "test-include-cii",
+    "include": [ { "ruleset": "FACTURX-EXTENDED-CII@1.09.2", "rules": ["BR-52"] } ],
+    "note": "Testprofil (Aufgabe 5.4): schaltet bewusst ein CII-Regelwerk in ein UBL-Szenario zu - muss abgelehnt werden."
+}

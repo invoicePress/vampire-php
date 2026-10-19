@@ -1,0 +1,10 @@
+{
+    "file": "invoices/mutated/ubl-broken-payable-amount.xml",
+    "scenario": "EN16931 XRechnung (UBL Invoice)",
+    "accept": false,
+    "messages": {
+        "BR-CO-16": "error",
+        "BR-DE-TMP-32": "information"
+    },
+    "engine": "KoSIT Validator 1.6.3"
+}

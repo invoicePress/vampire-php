@@ -1,0 +1,7 @@
+{
+    "file": "invoices/phive-en16931-ubl/ubl-tc434-example1.xml",
+    "scenario": "EN16931 (UBL Invoice)",
+    "accept": true,
+    "messages": [],
+    "engine": "KoSIT Validator 1.6.3"
+}

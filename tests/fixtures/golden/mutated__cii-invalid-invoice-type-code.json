@@ -1,0 +1,11 @@
+{
+    "file": "invoices/mutated/cii-invalid-invoice-type-code.xml",
+    "scenario": "EN16931 XRechnung (CII)",
+    "accept": false,
+    "messages": {
+        "BR-CL-01": "error",
+        "BR-DE-17": "warning",
+        "BR-DE-TMP-32": "information"
+    },
+    "engine": "KoSIT Validator 1.6.3"
+}

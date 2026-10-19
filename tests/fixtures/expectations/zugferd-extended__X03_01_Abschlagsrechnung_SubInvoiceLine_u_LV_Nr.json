@@ -1,0 +1,8 @@
+{
+    "file": "invoices/zugferd-extended/X03_01_Abschlagsrechnung_SubInvoiceLine_u_LV_Nr.xml",
+    "scenario": "Factur-X / ZUGFeRD EXTENDED (CII)",
+    "accept": true,
+    "rules": [],
+    "mustNotBlock": [],
+    "note": "Offizielle XRechnung-3.0.2-Testsuite, Gruppe zugferd-extended - gueltiger Beleg, muss angenommen werden."
+}

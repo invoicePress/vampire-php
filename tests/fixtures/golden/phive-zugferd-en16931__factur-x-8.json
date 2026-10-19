@@ -1,0 +1,7 @@
+{
+    "file": "invoices/phive-zugferd-en16931/factur-x-8.xml",
+    "scenario": "EN16931 (CII)",
+    "accept": true,
+    "messages": [],
+    "engine": "KoSIT Validator 1.6.3"
+}

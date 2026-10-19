@@ -1,0 +1,7 @@
+{
+    "file": "invoices/zugferd-extended/X02_01_SubInvoiceLines_Buero_Material_Bsp3__.xml",
+    "scenario": "Factur-X / ZUGFeRD EXTENDED (CII)",
+    "accept": true,
+    "messages": [],
+    "engine": "KoSIT Validator 1.6.3"
+}

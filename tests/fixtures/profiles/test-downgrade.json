@@ -1,0 +1,9 @@
+{
+    "id": "test-downgrade",
+    "title": "Die zwei Regeln, an denen der Negativfall scheitert, nur noch als Hinweis",
+    "severity": {
+        "BR-02": "information",
+        "PEPPOL-EN16931-R008": "information"
+    },
+    "note": "Testprofil (Aufgabe 5.3). Gemessen: die mutierte Rechnung ohne Rechnungsnummer loest BR-02 (EN16931-UBL) UND PEPPOL-EN16931-R008 (XRechnung-UBL) aus - beide muessen herabgestuft werden, sonst bleibt der Beleg abgelehnt und das Profil beweist nichts."
+}

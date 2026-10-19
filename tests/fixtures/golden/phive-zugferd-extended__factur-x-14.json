@@ -1,0 +1,9 @@
+{
+    "file": "invoices/phive-zugferd-extended/factur-x-14.xml",
+    "scenario": "Factur-X / ZUGFeRD EXTENDED (CII)",
+    "accept": true,
+    "messages": {
+        "BR-FXEXT-E-08rev": "warning"
+    },
+    "engine": "KoSIT Validator 1.6.3"
+}

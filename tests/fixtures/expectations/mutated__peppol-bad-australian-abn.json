@@ -1,0 +1,13 @@
+{
+    "file": "invoices/mutated/peppol-bad-australian-abn.xml",
+    "scenario": "Peppol Billing BIS 3 - UBL Invoice",
+    "accept": false,
+    "rules": [
+        {
+            "id": "PEPPOL-COMMON-R050",
+            "flag": "fatal"
+        }
+    ],
+    "mustNotBlock": [],
+    "note": "Negativtest (Aufgabe 4.2), erzeugt aus base-example.xml: EndpointID mit Schema 0151 (ABN), Prüfziffer verfälscht - u:abn."
+}

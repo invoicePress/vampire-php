@@ -1,0 +1,91 @@
+{
+    "format": "vampire-profile",
+    "formatVersion": 1,
+    "name": "muster-ust",
+    "version": "1.0.0",
+    "title": "Beispielprofil: Pflichtangaben nach § 14 UStG über EN 16931 hinaus",
+    "note": "Testprofil, das nur Regeln HINZUFÜGT. Synthetische Beispielfirma, keine echten Stammdaten.",
+    "syntax": "ubl",
+    "prefix": "MUSTER",
+    "extends": [
+        { "ruleset": "XRechnung-UBL", "versions": ">=3.0.2 <3.1" },
+        { "ruleset": "EN16931-UBL", "versions": "1.3.x" }
+    ],
+    "namespaces": {
+        "cac": "urn:oasis:names:specification:ubl:schema:xsd:CommonAggregateComponents-2",
+        "cbc": "urn:oasis:names:specification:ubl:schema:xsd:CommonBasicComponents-2"
+    },
+    "globalLets": [
+        { "name": "zahlbetrag", "expr": "xs:decimal(/*/cac:LegalMonetaryTotal/cbc:PayableAmount)" }
+    ],
+    "rules": [
+        {
+            "id": "MUSTER-UST-002",
+            "title": "Vollständige Anschrift des Verkäufers",
+            "flag": "fatal",
+            "context": "/*/cac:AccountingSupplierParty/cac:Party/cac:PostalAddress",
+            "test": "normalize-space(cbc:StreetName) != '' and normalize-space(cbc:PostalZone) != ''",
+            "message": "Die Anschrift des Verkäufers braucht Straße und Postleitzahl.",
+            "fields": ["BT-35", "BT-38"],
+            "reference": "§ 14 Abs. 4 Nr. 1 UStG"
+        },
+        {
+            "id": "MUSTER-UST-010",
+            "title": "Leistungszeitpunkt oder Leistungszeitraum",
+            "flag": "warning",
+            "context": "/*",
+            "test": "exists(cac:Delivery/cbc:ActualDeliveryDate) or exists(cac:InvoicePeriod)",
+            "message": "Weder ein Leistungsdatum noch ein Leistungszeitraum ist angegeben.",
+            "fields": ["BT-72", "BG-14"],
+            "reference": "§ 14 Abs. 4 Nr. 6 UStG"
+        },
+        {
+            "id": "MUSTER-UST-007",
+            "title": "Rechnungsnummer ohne Platzhalter",
+            "flag": "fatal",
+            "context": "/*/cbc:ID",
+            "test": "not(matches(upper-case(normalize-space(.)), '(ENTWURF|TBD|XXX|MUSTER)'))",
+            "message": [
+                { "kind": "literal", "text": "Die Rechnungsnummer \"" },
+                { "kind": "expr", "expr": "normalize-space(.)" },
+                { "kind": "literal", "text": "\" sieht nach einem Platzhalter aus." }
+            ],
+            "fields": ["BT-1"]
+        },
+        {
+            "id": "MUSTER-UST-013",
+            "title": "Steuersatz je Aufschlüsselung",
+            "flag": "warning",
+            "context": "/*",
+            "test": "every $s in cac:TaxTotal/cac:TaxSubtotal satisfies exists($s/cac:TaxCategory/cbc:Percent)",
+            "message": "Mindestens eine Steueraufschlüsselung nennt keinen Steuersatz.",
+            "fields": ["BG-23", "BT-119"]
+        },
+        {
+            "id": "MUSTER-POS-001",
+            "title": "Handelsübliche Bezeichnung je Position",
+            "flag": "warning",
+            "context": "/*/cac:InvoiceLine",
+            "lets": [
+                { "name": "bezeichnung", "expr": "normalize-space(cac:Item/cbc:Name)" }
+            ],
+            "test": "string-length($bezeichnung) >= 5",
+            "message": [
+                { "kind": "literal", "text": "Die Positionsbezeichnung \"" },
+                { "kind": "expr", "expr": "$bezeichnung" },
+                { "kind": "literal", "text": "\" ist kürzer als fünf Zeichen." }
+            ],
+            "fields": ["BT-153"]
+        },
+        {
+            "id": "MUSTER-PLAU-010",
+            "title": "Freigabegrenze",
+            "flag": "information",
+            "kind": "report",
+            "context": "/*",
+            "test": "$zahlbetrag > 10000",
+            "message": "Der Zahlbetrag liegt über der Freigabegrenze von 10 000 Euro.",
+            "fields": ["BT-115"]
+        }
+    ]
+}

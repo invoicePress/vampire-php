@@ -1,0 +1,475 @@
+VAMPIRE PHP ( invoicepress/vampire-php ) - NOTICE
+
+The engine ( src/ ) is free software, copyright 2026 Ralf Fuhrmann, specialPress,
+licensed under the GNU General Public License, version 2 or later
+( GPL-2.0-or-later, see LICENSE ). That licence covers the engine only.
+
+The rule packages in rulesets/ are NOT original work of specialPress. Each one
+is a rule model derived by machine from a published Schematron rule set: rule
+identifiers, contexts, test expressions and message texts are taken from the
+upstream files, and the message texts are reproduced verbatim. Each rule
+package names in its head ( "license" ) the SPDX identifier of the licence
+under which it is passed on, and the list below says the same per package,
+with origin, publisher and copyright. NOASSERTION means that the rights
+holder states no licence; the entry then says on what terms the package is
+included. The full text of every licence named below is in licences/.
+
+Modifications: the upstream rules were compiled into a JSON rule model. The
+business terms that a message names ( BT-n, BG-n ) were extracted into a
+list per rule, and catalogue keys for the merging of equal rules were added.
+The rule logic and the message texts were not changed.
+
+------------------------------------------------------------------------------
+Rule sets in this package
+------------------------------------------------------------------------------
+
+1. rulesets/CEN-EN16931-UBL@3.0.21.json
+   Title:      EN16931 model bound to UBL
+   Version:    3.0.21
+   Upstream:   EN 16931 validation artefacts for UBL, release 1.3.16 (CEN/TC
+               434), in the copy that OpenPeppol ships with Peppol BIS Billing
+               3.0.21
+   Publisher:  European Commission, ConnectingEurope, on behalf of CEN/TC 434;
+               obtained through the KoSIT validator configuration for Peppol
+               BIS Billing 3.0
+   Source:     https://github.com/ConnectingEurope/eInvoicing-EN16931
+   File:       CEN-EN16931-UBL.xslt
+   SHA-256:    a8a54aef3699057a3820cd2ebcac8ea3c364a6ebaf4a237e62064a5bc2877c4a
+   Package:    SPDX-License-Identifier: EUPL-1.2
+   Licence:    EUPL-1.2
+   Texts:      licences/EUPL-1.2.txt
+   Copyright:  From <xsl:stylesheet on, the file is character for character
+               the CEN release EN16931-UBL-validation.xslt 1.3.16 (measured
+               2026-10-09); OpenPeppol removed only the two leading comments,
+               one of which is the licence line 'Licensed under European Union
+               Public Licence (EUPL) version 1.2.' The copyright of EN
+               16931:2017 is owned by CEN and its members.
+   Notice:     The upstream files state: Licensed under European Union Public
+               Licence (EUPL) version 1.2.
+   Condition:  This rule package is a derivative of EUPL-1.2 material and is
+               distributed under EUPL-1.2 only, never under the proprietary
+               licence of the engine.
+   Condition:  Its source form is the rule package itself (readable JSON); the
+               upstream Schematron is published at the address under Source.
+
+2. rulesets/CIUS-HR-UBL@1.0.4.json
+   Title:      Rules for CIUS-HR and EXT-HR 2025 (1.0.0)
+   Version:    1.0.4
+   Upstream:   CIUS-HR and EXT-HR ( Croatia, eRacun / Fiskalizacija 2.0 ),
+               Schematron release 1.0.4 for UBL: HR-CIUS-EXT-EN16931-UBL.sch
+               with its code list file, compiled to
+               HR-CIUS-EXT-EN16931-UBL.xslt. Croatian rules only. VAMPIRE PHP
+               imports it as CIUS-HR-UBL@1.0.4 from vendor-sources/eu-cius/;
+               the explanation packages read phive-rules-eracun.
+   Publisher:  Porezna uprava ( Tax Administration ), Ministarstvo financija,
+               Republika Hrvatska; obtained through phive-rules-eracun
+   Source:     https://porezna.gov.hr/fiskalizacija/bezgotovinski-racuni/eracun
+   File:       HR-CIUS-EXT-EN16931-UBL.xslt
+   SHA-256:    02b60508d7b31dc70b6fc6a226df9afad0d77501b6e39d30f9bc0857c55a7124
+   Package:    SPDX-License-Identifier:
+               LicenseRef-HR-PoreznaUprava-Reuse-With-Attribution
+   Licence:    Read on 2026-10-09. (1) The Schematron files 1.0.4 and the
+               publisher's archive HRUBLSchematron_13032026-2.zip carry no
+               licence and no copyright line. (2) The footer of the
+               publisher's page reads: 'Sva prava pridrzana (c) 2023 Republika
+               Hrvatska, Ministarstvo financija, Porezna uprava. Sadrzaji s
+               ovih stranica se mogu prenositi bez posebne dozvole uz
+               navodjenje izvora' ( written here without diacritics, because
+               NOTICE is plain ASCII ) ( all rights reserved; the contents of
+               these pages may be passed on without special permission,
+               provided the source is named ). The Schematron is published for
+               download from these pages. Measured: all 62 rule identifiers
+               are Croatian ( HR-BR- ); the file contains no CEN rules. There
+               is no SPDX identifier for this permission, hence the
+               LicenseRef.
+   Copyright:  Republika Hrvatska, Ministarstvo financija, Porezna uprava.
+   Notice:     The upstream files state: Sadrzaji s ovih stranica se mogu
+               prenositi bez posebne dozvole uz navodjenje izvora. ( Footer of
+               porezna.gov.hr, written here without diacritics: the contents
+               of these pages may be passed on without special permission,
+               provided the source is named. )
+   Condition:  The publisher's condition is that the source is named: every
+               package and every NOTICE names Porezna uprava, Ministarstvo
+               financija, Republika Hrvatska, and the address under Source.
+   Condition:  The package states that it is a translation of the Schematron
+               into the rule format of the engine and not the original file;
+               the message texts are reproduced unchanged.
+
+3. rulesets/CIUS-RO-UBL@1.0.9.json
+   Title:      EN16931 model bound to UBL
+   Version:    1.0.9
+   Upstream:   CIUS-RO ( Romania, RO_CIUS 1.0.1 ), Schematron release 1.0.9
+               for UBL: the publisher's package ro16931-ubl-1.0.9 with the CEN
+               EN 16931 UBL rules and the Romanian rules RO16931-rules.sch,
+               compiled to EN16931-CIUS_RO-UBL-validation.xslt. VAMPIRE PHP
+               imports it as CIUS-RO-UBL@1.0.9 from vendor-sources/eu-cius/;
+               the explanation packages read phive-rules-cius-ro.
+   Publisher:  Ministerul Finantelor ( Ministry of Finance of Romania ), ANAF
+               e-Factura; obtained through phive-rules-cius-ro, whose
+               docs/1.0.9/ro16931-ubl-1.0.9.zip is the publisher's package
+   Source:     https://mfinante.gov.ro/web/efactura/informatii-tehnice
+   File:       EN16931-CIUS_RO-UBL-validation.xslt
+   SHA-256:    938ab438dde460e2393198a620e59e2b533fbca7ab5399689ccd52aabb05b6cb
+   Package:    SPDX-License-Identifier: EUPL-1.2
+   Licence:    Read on 2026-10-09. (1) The root file of the publisher's
+               package, EN16931-CIUS_RO-UBL-validation.sch, carries as its
+               only comment 'Licensed under European Union Public Licence
+               (EUPL) version 1.2.'; so do the six CEN files in it (
+               abstract/, UBL/, codelist/,
+               preprocessed/EN16931-UBL-validation-preprocessed.sch ). (2)
+               RO16931-rules.sch, the Romanian part, carries a change log and
+               no licence line; it is included by the root file and published
+               in the same package. (3) The page of the Ministry named by
+               phive could not be read on 2026-10-09 ( connection reset twice
+               ), so no statement from the web page is recorded. Measured: 998
+               of the 1098 rule identifiers are CEN identifiers ( UBL-CR 679,
+               BR-* and UBL-* ), 100 are Romanian ( BR-RO ). The derived rule
+               package is distributed under EUPL-1.2.
+   Texts:      licences/EUPL-1.2.txt
+   Copyright:  Ministerul Finantelor for the Romanian rules; the files carry
+               no copyright line. The EN 16931 rules restate EN 16931-1:2017,
+               whose copyright is owned by CEN and its members.
+   Notice:     The upstream files state: Licensed under European Union Public
+               Licence (EUPL) version 1.2.
+   Condition:  This rule package is a derivative of EUPL-1.2 material and is
+               distributed under EUPL-1.2 only, never under the proprietary
+               licence of the engine.
+   Condition:  Its source form is the rule package itself (readable JSON); the
+               upstream Schematron is published at the address under Source.
+
+4. rulesets/EN16931-CII@1.3.16.json
+   Title:      EN16931 model bound to CII
+   Version:    1.3.16
+   Upstream:   EN 16931 validation artefacts (Schematron), CEN/TC 434
+   Publisher:  European Commission, ConnectingEurope, on behalf of CEN/TC 434;
+               obtained through the phive-rules distribution, unchanged
+   Source:     https://github.com/ConnectingEurope/eInvoicing-EN16931
+   File:       EN16931-CII-validation.xslt
+   SHA-256:    0b234dea2bbfee739b7761e607a992c17fab88773014ef56355b6158cfb1cc53
+   Package:    SPDX-License-Identifier: EUPL-1.2
+   Licence:    EUPL-1.2
+   Texts:      licences/EUPL-1.2.txt
+   Copyright:  The upstream files carry no copyright line. The copyright of EN
+               16931:2017 is owned by CEN and its members. Up to release 1.2.3
+               the artefacts were Apache-2.0; since 1.3.0 they are EUPL-1.2.
+   Notice:     The upstream files state: Licensed under European Union Public
+               Licence (EUPL) version 1.2.
+   Condition:  This rule package is a derivative of EUPL-1.2 material and is
+               distributed under EUPL-1.2 only, never under the proprietary
+               licence of the engine.
+   Condition:  Its source form is the rule package itself (readable JSON); the
+               upstream Schematron is published at the address under Source.
+
+5. rulesets/EN16931-UBL@1.3.16.json
+   Title:      EN16931 model bound to UBL
+   Version:    1.3.16
+   Upstream:   EN 16931 validation artefacts (Schematron), CEN/TC 434
+   Publisher:  European Commission, ConnectingEurope, on behalf of CEN/TC 434;
+               obtained through the phive-rules distribution, unchanged
+   Source:     https://github.com/ConnectingEurope/eInvoicing-EN16931
+   File:       EN16931-UBL-validation.xslt
+   SHA-256:    39f9d282867f1a49e7708d9e29a53da89643e1ee56f10cec1ebcf1277595fcbd
+   Package:    SPDX-License-Identifier: EUPL-1.2
+   Licence:    EUPL-1.2
+   Texts:      licences/EUPL-1.2.txt
+   Copyright:  The upstream files carry no copyright line. The copyright of EN
+               16931:2017 is owned by CEN and its members. Up to release 1.2.3
+               the artefacts were Apache-2.0; since 1.3.0 they are EUPL-1.2.
+   Notice:     The upstream files state: Licensed under European Union Public
+               Licence (EUPL) version 1.2.
+   Condition:  This rule package is a derivative of EUPL-1.2 material and is
+               distributed under EUPL-1.2 only, never under the proprietary
+               licence of the engine.
+   Condition:  Its source form is the rule package itself (readable JSON); the
+               upstream Schematron is published at the address under Source.
+
+6. rulesets/FACTURX-BASIC-CII@1.09.2.json
+   Title:      Schema for Factur-X; 1.09.2; EN16931-COMPLIANT-BASIC
+   Version:    1.09.2
+   Upstream:   Factur-X 1.09.2 / ZUGFeRD 2.5.2, profiles MINIMUM, BASIC WL and
+               BASIC: prebuilt Schematron XSLT from the official FeRD release
+               package ZUGFeRD 2.5.2. Not part of the default rule packages.
+   Publisher:  FNFE-MPE and FeRD (Forum elektronische Rechnung Deutschland at
+               AWV e.V.); obtained from the FeRD release package
+   Source:     https://www.ferd-net.de/en/ueber-uns/ressourcen-1/veroeffentlichungen/disclaimer-and-rights-of-use-zugferd
+   File:       FACTUR-X_BASIC.xslt
+   SHA-256:    65f08bf924a7beb97f90149276100799bbe3c5c7e09052c41597ca6659b6cad5
+   Package:    SPDX-License-Identifier: EUPL-1.2
+   Licence:    Apache-2.0 according to FeRD for the ZUGFeRD Technical
+               Artifacts (Schemata and Schematron). Some BR-* assertions have
+               the test of the EUPL-1.2 CEN release 1.3.16 ( BASIC 47 of 198,
+               BASIC WL 29 of 130, MINIMUM 1 of 18; measured 2026-10-09 );
+               this rule package is therefore distributed under EUPL-1.2, and
+               both licence texts are included.
+   Texts:      licences/Apache-2.0.txt, licences/EUPL-1.2.txt
+   Copyright:  Copyright FNFE-MPE and FeRD. Same terms as the EN 16931 and
+               EXTENDED profiles of the same package. The EN 16931 business
+               rules (BR-*) restate EN 16931-1:2017, whose copyright is owned
+               by CEN and its members.
+   Condition:  FeRD requires: 'Developed applications based on this
+               publication or using information from this publication must
+               contain a statement that visibly indicates to the users that
+               this is an application of the publication.' Both engines print
+               the visible notice of this entry in the report of every check
+               that ran this rule package.
+   Condition:  The parts that come from EUPL-1.2 material are distributed
+               under EUPL-1.2 only, never under the proprietary licence of the
+               engine.
+   Shown as:   This check applies the publication Factur-X / ZUGFeRD of
+               FNFE-MPE and FeRD.
+
+7. rulesets/FACTURX-BASICWL-CII@1.09.2.json
+   Title:      Schema for Factur-X; 1.09.2; Accounting, BASIC without Lines
+   Version:    1.09.2
+   Upstream:   Factur-X 1.09.2 / ZUGFeRD 2.5.2, profiles MINIMUM, BASIC WL and
+               BASIC: prebuilt Schematron XSLT from the official FeRD release
+               package ZUGFeRD 2.5.2. Not part of the default rule packages.
+   Publisher:  FNFE-MPE and FeRD (Forum elektronische Rechnung Deutschland at
+               AWV e.V.); obtained from the FeRD release package
+   Source:     https://www.ferd-net.de/en/ueber-uns/ressourcen-1/veroeffentlichungen/disclaimer-and-rights-of-use-zugferd
+   File:       FACTUR-X_BASIC-WL.xslt
+   SHA-256:    e71093e4ac9e582ce7166cd7318cbef47743af5d16741c140fee862ef28986bf
+   Package:    SPDX-License-Identifier: EUPL-1.2
+   Licence:    Apache-2.0 according to FeRD for the ZUGFeRD Technical
+               Artifacts (Schemata and Schematron). Some BR-* assertions have
+               the test of the EUPL-1.2 CEN release 1.3.16 ( BASIC 47 of 198,
+               BASIC WL 29 of 130, MINIMUM 1 of 18; measured 2026-10-09 );
+               this rule package is therefore distributed under EUPL-1.2, and
+               both licence texts are included.
+   Texts:      licences/Apache-2.0.txt, licences/EUPL-1.2.txt
+   Copyright:  Copyright FNFE-MPE and FeRD. Same terms as the EN 16931 and
+               EXTENDED profiles of the same package. The EN 16931 business
+               rules (BR-*) restate EN 16931-1:2017, whose copyright is owned
+               by CEN and its members.
+   Condition:  FeRD requires: 'Developed applications based on this
+               publication or using information from this publication must
+               contain a statement that visibly indicates to the users that
+               this is an application of the publication.' Both engines print
+               the visible notice of this entry in the report of every check
+               that ran this rule package.
+   Condition:  The parts that come from EUPL-1.2 material are distributed
+               under EUPL-1.2 only, never under the proprietary licence of the
+               engine.
+   Shown as:   This check applies the publication Factur-X / ZUGFeRD of
+               FNFE-MPE and FeRD.
+
+8. rulesets/FACTURX-EN16931-CII@1.09.2.json
+   Title:      Schema for Factur-X; 1.09.2; EN16931-COMPLIANT (FULLY)
+   Version:    1.09.2
+   Upstream:   Factur-X 1.09.2 / ZUGFeRD 2.5.2, profile EN 16931 (COMFORT):
+               prebuilt Schematron XSLT FACTUR-X_EN16931.xslt with its code
+               database FACTUR-X_EN16931_codedb.xml, byte-identical to the
+               official FeRD release package ZUGFeRD 2.5.2
+   Publisher:  FNFE-MPE (Forum National de la Facture Electronique et des
+               Marches Publics Electroniques, Paris) and FeRD (Forum
+               elektronische Rechnung Deutschland at AWV e.V., Berlin);
+               obtained from the FeRD release package, not through phive-rules
+   Source:     https://www.ferd-net.de/en/ueber-uns/ressourcen-1/veroeffentlichungen/disclaimer-and-rights-of-use-zugferd
+   File:       FACTUR-X_EN16931.xslt
+   SHA-256:    67f03050e3add4c83dc93de36e4501f6a11aae1ac790b3f9558feb0581019bcb
+   Package:    SPDX-License-Identifier: EUPL-1.2
+   Licence:    Apache-2.0 according to FeRD for the ZUGFeRD Technical
+               Artifacts (Schemata and Schematron). 48 of the 200 BR-*
+               assertions have the test of the EUPL-1.2 CEN release 1.3.16 and
+               not that of 1.2.3, the last Apache-2.0 release (measured
+               2026-10-09); this rule package is therefore distributed under
+               EUPL-1.2, and both licence texts are included.
+   Texts:      licences/Apache-2.0.txt, licences/EUPL-1.2.txt
+   Copyright:  Copyright FNFE-MPE and FeRD. The XSLT, Schematron and code
+               database files carry no copyright or licence line, and the
+               package has no LICENSE or NOTICE file. The specification footer
+               reads '(c)2026 FNFE-MPE | FeRD - All rights reserved'. The EN
+               16931 business rules (BR-*) restate EN 16931-1:2017, whose
+               copyright is owned by CEN and its members.
+   Condition:  FeRD requires: 'Developed applications based on this
+               publication or using information from this publication must
+               contain a statement that visibly indicates to the users that
+               this is an application of the publication.' Both engines print
+               the visible notice of this entry in the report of every check
+               that ran this rule package.
+   Condition:  The parts that come from EUPL-1.2 material are distributed
+               under EUPL-1.2 only, never under the proprietary licence of the
+               engine.
+   Shown as:   This check applies the publication Factur-X / ZUGFeRD of
+               FNFE-MPE and FeRD.
+
+9. rulesets/FACTURX-EXTENDED-CII@1.09.2.json
+   Title:      Schema for Factur-X; 1.09.2; EN16931-CONFORMANT-EXTENDED
+   Version:    1.09.2
+   Upstream:   Factur-X 1.09.2 / ZUGFeRD 2.5.2, profile EXTENDED: prebuilt
+               Schematron XSLT FACTUR-X_EXTENDED.xslt with its code database
+               FACTUR-X_EXTENDED_codedb.xml, byte-identical to the official
+               FeRD release package ZUGFeRD 2.5.2
+   Publisher:  FNFE-MPE (Forum National de la Facture Electronique et des
+               Marches Publics Electroniques, Paris) and FeRD (Forum
+               elektronische Rechnung Deutschland at AWV e.V., Berlin);
+               obtained from the FeRD release package, not through phive-rules
+   Source:     https://www.ferd-net.de/en/ueber-uns/ressourcen-1/veroeffentlichungen/disclaimer-and-rights-of-use-zugferd
+   File:       FACTUR-X_EXTENDED.xslt
+   SHA-256:    52b44e77be20de05ee090eec0c4bbe69df239b608aefcaca2e24ffb1a0e50a6e
+   Package:    SPDX-License-Identifier: EUPL-1.2
+   Licence:    Apache-2.0 according to FeRD for the ZUGFeRD Technical
+               Artifacts (Schemata and Schematron). 34 of the 211 BR-*
+               assertions have the test of the EUPL-1.2 CEN release 1.3.16 and
+               not that of 1.2.3, the last Apache-2.0 release (measured
+               2026-10-09); this rule package is therefore distributed under
+               EUPL-1.2, and both licence texts are included.
+   Texts:      licences/Apache-2.0.txt, licences/EUPL-1.2.txt
+   Copyright:  Copyright FNFE-MPE and FeRD. The XSLT, Schematron and code
+               database files carry no copyright or licence line, and the
+               package has no LICENSE or NOTICE file. The specification footer
+               reads '(c)2026 FNFE-MPE | FeRD - All rights reserved'. The EN
+               16931 business rules (BR-*) restate EN 16931-1:2017, whose
+               copyright is owned by CEN and its members.
+   Condition:  FeRD requires: 'Developed applications based on this
+               publication or using information from this publication must
+               contain a statement that visibly indicates to the users that
+               this is an application of the publication.' Both engines print
+               the visible notice of this entry in the report of every check
+               that ran this rule package.
+   Condition:  The parts that come from EUPL-1.2 material are distributed
+               under EUPL-1.2 only, never under the proprietary licence of the
+               engine.
+   Shown as:   This check applies the publication Factur-X / ZUGFeRD of
+               FNFE-MPE and FeRD.
+
+10. rulesets/FACTURX-MINIMUM-CII@1.09.2.json
+   Title:      Schema for Factur-X; 1.09.2; Accounting, MINIMUM
+   Version:    1.09.2
+   Upstream:   Factur-X 1.09.2 / ZUGFeRD 2.5.2, profiles MINIMUM, BASIC WL and
+               BASIC: prebuilt Schematron XSLT from the official FeRD release
+               package ZUGFeRD 2.5.2. Not part of the default rule packages.
+   Publisher:  FNFE-MPE and FeRD (Forum elektronische Rechnung Deutschland at
+               AWV e.V.); obtained from the FeRD release package
+   Source:     https://www.ferd-net.de/en/ueber-uns/ressourcen-1/veroeffentlichungen/disclaimer-and-rights-of-use-zugferd
+   File:       FACTUR-X_MINIMUM.xslt
+   SHA-256:    81d75c0f1a38363e4f77dde732bdb01e1aa4810dd03c16f61e1319af76228793
+   Package:    SPDX-License-Identifier: EUPL-1.2
+   Licence:    Apache-2.0 according to FeRD for the ZUGFeRD Technical
+               Artifacts (Schemata and Schematron). Some BR-* assertions have
+               the test of the EUPL-1.2 CEN release 1.3.16 ( BASIC 47 of 198,
+               BASIC WL 29 of 130, MINIMUM 1 of 18; measured 2026-10-09 );
+               this rule package is therefore distributed under EUPL-1.2, and
+               both licence texts are included.
+   Texts:      licences/Apache-2.0.txt, licences/EUPL-1.2.txt
+   Copyright:  Copyright FNFE-MPE and FeRD. Same terms as the EN 16931 and
+               EXTENDED profiles of the same package. The EN 16931 business
+               rules (BR-*) restate EN 16931-1:2017, whose copyright is owned
+               by CEN and its members.
+   Condition:  FeRD requires: 'Developed applications based on this
+               publication or using information from this publication must
+               contain a statement that visibly indicates to the users that
+               this is an application of the publication.' Both engines print
+               the visible notice of this entry in the report of every check
+               that ran this rule package.
+   Condition:  The parts that come from EUPL-1.2 material are distributed
+               under EUPL-1.2 only, never under the proprietary licence of the
+               engine.
+   Shown as:   This check applies the publication Factur-X / ZUGFeRD of
+               FNFE-MPE and FeRD.
+
+11. rulesets/PEPPOL-EN16931-UBL@3.0.21.json
+   Title:      Rules for Peppol BIS 3.0 Billing
+   Version:    3.0.21
+   Upstream:   Peppol BIS Billing 3.0 validation artefacts (Schematron), the
+               Peppol-specific rules
+   Publisher:  OpenPeppol AISBL; obtained through the KoSIT validator
+               configuration for Peppol BIS Billing 3.0
+   Source:     https://github.com/OpenPEPPOL/peppol-bis-invoice-3
+   File:       PEPPOL-EN16931-UBL.xslt
+   SHA-256:    8c6b935b1bc0bb17d29d949b0aa27ecc62021b613b9fba173cd6bfec6b3f0008
+   Package:    SPDX-License-Identifier: NOASSERTION
+   Licence:    None. OpenPeppol AISBL states no licence for these files.
+               specialPress grants no licence to this rule package and claims
+               none; the rule package is included until OpenPeppol AISBL
+               answers a request for consent, and it will be removed with an
+               update if OpenPeppol AISBL does not consent.
+   Copyright:  Rights holder: OpenPeppol AISBL, Brussels, holds the copyright
+               of Peppol BIS Billing 3.0. The OpenPeppol repository declares
+               no licence, and the compiled XSLT carries no licence line. The
+               BIS document says it 'may not be modified, re-distribute, sold
+               or repackaged in any other way without the prior consent of
+               OpenPeppol AISBL'. KoSIT redistributes the files in an
+               Apache-2.0 repository, which grants no rights in OpenPeppol's
+               material.
+   Pending:    Consent of OpenPeppol AISBL to redistribute the translated
+               Peppol rules has been requested.
+
+12. rulesets/XRechnung-CII@3.0.2.json
+   Title:      Schematron Version 2.5.0 - XRechnung 3.0.2 compatible - CII
+   Version:    3.0.2
+   Upstream:   XRechnung Schematron (CIUS XRechnung and Extension XRechnung)
+   Publisher:  Koordinierungsstelle fuer IT-Standards (KoSIT), Bremen
+   Source:     https://github.com/itplr-kosit/xrechnung-schematron
+   File:       XRechnung-CII-validation.xslt
+   SHA-256:    b7a422f1191be2781cf5961f58a9a28e3e0538962eeb5533cc482ec34decadf2
+   Package:    SPDX-License-Identifier: Apache-2.0
+   Licence:    Apache-2.0
+   Texts:      licences/Apache-2.0.txt
+   Copyright:  Copyright Koordinierungsstelle fuer IT-Standards (KoSIT). The
+               upstream files carry no copyright line, the repository LICENSE
+               is the unmodified Apache License 2.0, and the repository has no
+               NOTICE file. The same upstream files also contain rules with
+               PEPPOL-EN16931 identifiers ( 21 in the UBL rule set, 22 in the
+               CII rule set ), which KoSIT publishes there under the same
+               licence.
+
+13. rulesets/XRechnung-UBL@3.0.2.json
+   Title:      Schematron Version 2.5.0 - XRechnung 3.0.2 compatible - UBL -
+               Invoice / Creditnote
+   Version:    3.0.2
+   Upstream:   XRechnung Schematron (CIUS XRechnung and Extension XRechnung)
+   Publisher:  Koordinierungsstelle fuer IT-Standards (KoSIT), Bremen
+   Source:     https://github.com/itplr-kosit/xrechnung-schematron
+   File:       XRechnung-UBL-validation.xslt
+   SHA-256:    ef4b78e9035e9c215451e46baeff9e336b48c9153507900df792dc1a25c35e37
+   Package:    SPDX-License-Identifier: Apache-2.0
+   Licence:    Apache-2.0
+   Texts:      licences/Apache-2.0.txt
+   Copyright:  Copyright Koordinierungsstelle fuer IT-Standards (KoSIT). The
+               upstream files carry no copyright line, the repository LICENSE
+               is the unmodified Apache License 2.0, and the repository has no
+               NOTICE file. The same upstream files also contain rules with
+               PEPPOL-EN16931 identifiers ( 21 in the UBL rule set, 22 in the
+               CII rule set ), which KoSIT publishes there under the same
+               licence.
+
+------------------------------------------------------------------------------
+Other third-party material
+------------------------------------------------------------------------------
+
+E. Rule sets in rulesets/ without a cleared entry in the provenance table
+   These rule sets are in the development tree only. No package may carry
+   them before their licence is documented and their entry is cleared:
+   - AGID-EN16931-UBL@3.0.2 ( status open )
+   - CIUS-PT-UBL@2.1.1 ( status open )
+   - CIUS-RS-UBL@1.0.0 ( status open )
+   - UBL-TR@1.2.1 ( status open )
+   - UBLBE-UBL@1.31 ( status open )
+
+A. Factur-X / ZUGFeRD code lists ( rulesets/codedb/FACTUR-X_*_codedb.xml )
+   Publisher: FNFE-MPE and FeRD, from the official release package ZUGFeRD
+              2.5.2
+   Licence:   Apache-2.0 according to FeRD for the ZUGFeRD Technical Artifacts
+   Used as:   shipped unchanged; the Factur-X rules load them at runtime
+              through fn:document(). The licence text is licences/Apache-2.0.txt.
+
+B. KoSIT Validator scenario configurations ( scenarios.xml )
+   Publisher: Koordinierungsstelle fuer IT-Standards (KoSIT)
+   Licence:   Apache-2.0
+   Used as:   source of the scenario definitions in rulesets/scenarios.json.
+              No KoSIT code is bundled; this library runs no Java at all.
+
+C. UBL 2.1, UN/CEFACT CII D16B and Factur-X 1.09.2 XML schemas
+   Publisher: OASIS / UN/CEFACT / FNFE-MPE and FeRD
+   Licence:   see the respective schema headers
+   Used as:   XSD validation input, shipped unchanged under rulesets/xsd/.
+
+D. Test material, only in the development tree, never in a runtime export
+   XRechnung test suite 3.0.2 (KoSIT, Apache-2.0) and the test files of
+   phive-rules (Philip Helger, Apache-2.0; the files themselves come from the
+   publishers named above) are used unchanged as test fixtures under
+   tests/fixtures. See docs/developer/sources.md and docs/notes/phive-import.md.
+
+Message texts reproduced in validation output are quoted verbatim from the rule
+sets above, as required to stay comparable with the reference validator.

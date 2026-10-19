@@ -1,0 +1,5 @@
+{
+    "id": "test-duplicate-include-refused",
+    "include": [ { "ruleset": "CEN-EN16931-UBL@3.0.21", "rules": ["BR-02"] } ],
+    "note": "Testprofil (Aufgabe 5.8c): schaltet BR-02 aus Peppols CEN-Fassung zu, obwohl dieselbe Regel im Szenario bereits läuft. Das Zuschalten muss abgelehnt werden - mit Hinweis im Bericht, nicht stillschweigend."
+}

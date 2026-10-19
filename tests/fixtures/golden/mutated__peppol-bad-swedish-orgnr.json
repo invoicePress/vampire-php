@@ -1,0 +1,9 @@
+{
+    "file": "invoices/mutated/peppol-bad-swedish-orgnr.xml",
+    "scenario": "Peppol Billing BIS 3 - UBL Invoice",
+    "accept": false,
+    "messages": {
+        "PEPPOL-COMMON-R049": "error"
+    },
+    "engine": "KoSIT Validator 1.6.3"
+}

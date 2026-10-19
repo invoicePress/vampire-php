@@ -1,0 +1,217 @@
+{
+    "schemaVersion": 1,
+    "id": "custom-haus-regeln",
+    "version": "1.0",
+    "title": "Beispiel fuer eigene Regeln (Aufgaben 5.5/5.5a)",
+    "source": {
+        "file": "tests\\fixtures\\profiles\\haus-regeln.json",
+        "sha256": "8fc923ace5203c17185c023bc971469a2ec6c9f9e4d8029afdb27d4eed7d6b6e"
+    },
+    "namespaces": {
+        "cac": "urn:oasis:names:specification:ubl:schema:xsd:CommonAggregateComponents-2",
+        "cbc": "urn:oasis:names:specification:ubl:schema:xsd:CommonBasicComponents-2"
+    },
+    "globalLets": [],
+    "patterns": [
+        {
+            "id": "custom",
+            "name": "custom-haus-regeln",
+            "rules": [
+                {
+                    "context": {
+                        "node": "PathExpr",
+                        "pos": 0,
+                        "absolute": true,
+                        "steps": [
+                            {
+                                "axis": "child",
+                                "test": {
+                                    "kind": "wildcard",
+                                    "name": null,
+                                    "kindtestName": null
+                                },
+                                "predicates": [],
+                                "primary": null
+                            },
+                            {
+                                "axis": "child",
+                                "test": {
+                                    "kind": "name",
+                                    "name": {
+                                        "prefix": "cbc",
+                                        "local": "ID"
+                                    },
+                                    "kindtestName": null
+                                },
+                                "predicates": [],
+                                "primary": null
+                            }
+                        ]
+                    },
+                    "priority": 1000,
+                    "lets": [],
+                    "assertions": [
+                        {
+                            "id": "HAUS-01",
+                            "flag": "warning",
+                            "kind": "assert",
+                            "test": {
+                                "node": "BinaryOp",
+                                "pos": 34,
+                                "op": ">=",
+                                "left": {
+                                    "node": "FunctionCall",
+                                    "pos": 0,
+                                    "name": {
+                                        "prefix": null,
+                                        "local": "string-length"
+                                    },
+                                    "args": [
+                                        {
+                                            "node": "FunctionCall",
+                                            "pos": 14,
+                                            "name": {
+                                                "prefix": null,
+                                                "local": "normalize-space"
+                                            },
+                                            "args": [
+                                                {
+                                                    "node": "PathExpr",
+                                                    "pos": 30,
+                                                    "absolute": false,
+                                                    "steps": [
+                                                        {
+                                                            "axis": "self",
+                                                            "test": {
+                                                                "kind": "kindtest",
+                                                                "name": null,
+                                                                "kindtestName": "node"
+                                                            },
+                                                            "predicates": [],
+                                                            "primary": null
+                                                        }
+                                                    ]
+                                                }
+                                            ]
+                                        }
+                                    ]
+                                },
+                                "right": {
+                                    "node": "Literal",
+                                    "pos": 37,
+                                    "kind": "integer",
+                                    "value": "12"
+                                }
+                            },
+                            "message": [
+                                {
+                                    "kind": "literal",
+                                    "text": "[HAUS-01] Hausregel: Die Rechnungsnummer soll mindestens zwoelf Zeichen haben."
+                                }
+                            ],
+                            "fieldRefs": [
+                                "BT-1"
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "context": {
+                        "node": "PathExpr",
+                        "pos": 0,
+                        "absolute": true,
+                        "steps": [
+                            {
+                                "axis": "child",
+                                "test": {
+                                    "kind": "wildcard",
+                                    "name": null,
+                                    "kindtestName": null
+                                },
+                                "predicates": [],
+                                "primary": null
+                            },
+                            {
+                                "axis": "child",
+                                "test": {
+                                    "kind": "name",
+                                    "name": {
+                                        "prefix": "cac",
+                                        "local": "AccountingSupplierParty"
+                                    },
+                                    "kindtestName": null
+                                },
+                                "predicates": [],
+                                "primary": null
+                            },
+                            {
+                                "axis": "child",
+                                "test": {
+                                    "kind": "name",
+                                    "name": {
+                                        "prefix": "cac",
+                                        "local": "Party"
+                                    },
+                                    "kindtestName": null
+                                },
+                                "predicates": [],
+                                "primary": null
+                            },
+                            {
+                                "axis": "child",
+                                "test": {
+                                    "kind": "name",
+                                    "name": {
+                                        "prefix": "cac",
+                                        "local": "PartyLegalEntity"
+                                    },
+                                    "kindtestName": null
+                                },
+                                "predicates": [],
+                                "primary": null
+                            }
+                        ]
+                    },
+                    "priority": 999,
+                    "lets": [],
+                    "assertions": [
+                        {
+                            "id": "HAUS-02",
+                            "flag": "information",
+                            "kind": "assert",
+                            "test": {
+                                "node": "PathExpr",
+                                "pos": 0,
+                                "absolute": false,
+                                "steps": [
+                                    {
+                                        "axis": "child",
+                                        "test": {
+                                            "kind": "name",
+                                            "name": {
+                                                "prefix": "cbc",
+                                                "local": "CompanyID"
+                                            },
+                                            "kindtestName": null
+                                        },
+                                        "predicates": [],
+                                        "primary": null
+                                    }
+                                ]
+                            },
+                            "message": [
+                                {
+                                    "kind": "literal",
+                                    "text": "[HAUS-02] Hausregel: Zum Verkaeufer soll eine Registernummer hinterlegt sein."
+                                }
+                            ],
+                            "fieldRefs": [
+                                "BT-30"
+                            ]
+                        }
+                    ]
+                }
+            ]
+        }
+    ]
+}

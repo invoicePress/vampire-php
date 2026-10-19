@@ -1,0 +1,8 @@
+{
+    "file": "invoices/phive-zugferd-basic/factur-x-3.xml",
+    "scenario": "Factur-X / ZUGFeRD BASIC (CII)",
+    "accept": true,
+    "rules": [],
+    "mustNotBlock": [],
+    "note": "phive-rules-Testbestand, Gruppe phive-zugferd-basic - upstream als GoodCase gefuehrt, muss angenommen werden."
+}

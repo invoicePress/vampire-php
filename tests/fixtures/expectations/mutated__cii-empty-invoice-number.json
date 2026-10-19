@@ -1,0 +1,13 @@
+{
+    "file": "invoices/mutated/cii-empty-invoice-number.xml",
+    "scenario": "EN16931 XRechnung (CII)",
+    "accept": false,
+    "rules": [
+        {
+            "id": "BR-02",
+            "flag": "fatal"
+        }
+    ],
+    "mustNotBlock": [],
+    "note": "Negativtest (Aufgabe 4.2), erzeugt aus 01.01a-INVOICE_uncefact.xml: Rechnungsnummer (BT-1) geleert."
+}

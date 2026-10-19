@@ -1,0 +1,7 @@
+{
+    "file": "invoices/xrechnung-standard/03.06a-INVOICE_uncefact.xml",
+    "scenario": "EN16931 XRechnung (CII)",
+    "accept": true,
+    "messages": [],
+    "engine": "KoSIT Validator 1.6.3"
+}

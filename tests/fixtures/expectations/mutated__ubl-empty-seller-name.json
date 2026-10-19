@@ -1,0 +1,13 @@
+{
+    "file": "invoices/mutated/ubl-empty-seller-name.xml",
+    "scenario": "EN16931 XRechnung (UBL Invoice)",
+    "accept": false,
+    "rules": [
+        {
+            "id": "BR-06",
+            "flag": "fatal"
+        }
+    ],
+    "mustNotBlock": [],
+    "note": "Negativtest (Aufgabe 4.2), erzeugt aus 01.01a-INVOICE_ubl.xml: Verkäufername (BT-27) geleert."
+}

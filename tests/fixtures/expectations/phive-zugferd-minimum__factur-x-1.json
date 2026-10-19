@@ -1,0 +1,8 @@
+{
+    "file": "invoices/phive-zugferd-minimum/factur-x-1.xml",
+    "scenario": "Factur-X / ZUGFeRD MINIMUM (CII)",
+    "accept": true,
+    "rules": [],
+    "mustNotBlock": [],
+    "note": "phive-rules-Testbestand, Gruppe phive-zugferd-minimum - upstream als GoodCase gefuehrt, muss angenommen werden."
+}

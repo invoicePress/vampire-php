@@ -1,0 +1,13 @@
+{
+    "file": "invoices/mutated/ubl-broken-payable-amount.xml",
+    "scenario": "EN16931 XRechnung (UBL Invoice)",
+    "accept": false,
+    "rules": [
+        {
+            "id": "BR-CO-16",
+            "flag": "fatal"
+        }
+    ],
+    "mustNotBlock": [],
+    "note": "Negativtest (Aufgabe 4.2), erzeugt aus 01.01a-INVOICE_ubl.xml: Zahlbetrag (BT-115) passt nicht mehr zu BT-112 minus BT-113 plus BT-114."
+}

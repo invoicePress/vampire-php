@@ -1,0 +1,191 @@
+{
+    "_readme": [
+        "Shared refusal cases for rule profiles. Each case starts from one of the",
+        "example profiles in this folder, applies its operations in order and expects EXACTLY this set of",
+        "problem codes - from VAMPIRE PHP (tests/Unit/Profile/RuleProfileTest.php) and from VAMPIRE JS",
+        "( the rule profile test of VAMPIRE JS ) alike. A path is dot-separated; a number is a",
+        "list index. Operations: set (value), delete, nest (wrap the expression at path in ParenExpr `levels` times)."
+    ],
+    "cases": [
+        {
+            "name": "fn:document() opens a file and is refused although both engines have it",
+            "base": "muster-ust",
+            "ops": [ { "op": "set", "path": "rules.0.test", "value": { "node": "FunctionCall", "name": { "prefix": null, "local": "document" }, "args": [ { "node": "Literal", "kind": "string", "value": "codes.xml" } ] } } ],
+            "codes": [ "function-not-allowed" ]
+        },
+        {
+            "name": "a function only VAMPIRE JS knows",
+            "base": "muster-ust",
+            "ops": [ { "op": "set", "path": "rules.0.test", "value": { "node": "FunctionCall", "name": { "prefix": null, "local": "lower-case" }, "args": [ { "node": "Literal", "kind": "string", "value": "A" } ] } } ],
+            "codes": [ "function-not-allowed" ]
+        },
+        {
+            "name": "the fn: prefix is refused, not stripped",
+            "base": "muster-ust",
+            "ops": [ { "op": "set", "path": "rules.0.test", "value": { "node": "FunctionCall", "name": { "prefix": "fn", "local": "true" }, "args": [] } } ],
+            "codes": [ "function-not-allowed" ]
+        },
+        {
+            "name": "matches() with a flags argument",
+            "base": "muster-ust",
+            "ops": [ { "op": "set", "path": "rules.0.test", "value": { "node": "FunctionCall", "name": { "prefix": null, "local": "matches" }, "args": [ { "node": "Literal", "kind": "string", "value": "a" }, { "node": "Literal", "kind": "string", "value": "A" }, { "node": "Literal", "kind": "string", "value": "i" } ] } } ],
+            "codes": [ "arity" ]
+        },
+        {
+            "name": "an expression node the interpreter does not know",
+            "base": "muster-ust",
+            "ops": [ { "op": "set", "path": "rules.0.test", "value": { "node": "InstanceOfExpr", "operand": { "node": "Literal", "kind": "string", "value": "a" } } } ],
+            "codes": [ "node-not-allowed" ]
+        },
+        {
+            "name": "intersect exists only in VAMPIRE JS",
+            "base": "muster-ust",
+            "ops": [ { "op": "set", "path": "rules.0.test.op", "value": "intersect" } ],
+            "codes": [ "operator-not-allowed" ]
+        },
+        {
+            "name": "ancestor-or-self is not on the allow-list, although both engines know it since 09.10.2026",
+            "base": "muster-ust",
+            "ops": [ { "op": "set", "path": "rules.0.context.steps.0.axis", "value": "ancestor-or-self" } ],
+            "codes": [ "axis-not-allowed" ]
+        },
+        {
+            "name": "comment() as a kind test",
+            "base": "muster-ust",
+            "ops": [ { "op": "set", "path": "rules.0.context.steps.0.test", "value": { "kind": "kindtest", "name": null, "kindtestName": "comment" } } ],
+            "codes": [ "kindtest-not-allowed" ]
+        },
+        {
+            "name": "a cast to a type only one engine knows",
+            "base": "muster-ust",
+            "ops": [ { "op": "set", "path": "rules.0.test", "value": { "node": "CastableExpr", "operand": { "node": "Literal", "kind": "string", "value": "2026-10-08T10:00:00" }, "type": { "prefix": "xs", "local": "dateTime" }, "optional": false } } ],
+            "codes": [ "type-not-allowed" ]
+        },
+        {
+            "name": "a namespace prefix the profile does not declare",
+            "base": "muster-ust",
+            "ops": [ { "op": "set", "path": "rules.0.context.steps.1.test.name.prefix", "value": "ram" } ],
+            "codes": [ "prefix-unbound" ]
+        },
+        {
+            "name": "a variable that is not bound",
+            "base": "muster-ust",
+            "ops": [ { "op": "set", "path": "rules.5.test.left.name", "value": "betrag" } ],
+            "codes": [ "variable-unbound" ]
+        },
+        {
+            "name": "a rule-level variable used in the context, where only globals exist",
+            "base": "muster-ust",
+            "ops": [ { "op": "set", "path": "rules.4.context", "value": { "node": "VarRef", "name": "bezeichnung" } } ],
+            "codes": [ "variable-unbound" ]
+        },
+        {
+            "name": "a literal that is not a number",
+            "base": "muster-ust",
+            "ops": [ { "op": "set", "path": "rules.5.test.right", "value": { "node": "Literal", "kind": "decimal", "value": "1e5" } } ],
+            "codes": [ "literal" ]
+        },
+        {
+            "name": "an unknown field inside an expression",
+            "base": "muster-ust",
+            "ops": [ { "op": "set", "path": "rules.0.test.code", "value": "alert(1)" } ],
+            "codes": [ "unknown-key" ]
+        },
+        {
+            "name": "an unknown field at the top",
+            "base": "muster-ust",
+            "ops": [ { "op": "set", "path": "script", "value": "x" } ],
+            "codes": [ "unknown-key" ]
+        },
+        {
+            "name": "nested deeper than the limit",
+            "base": "muster-ust",
+            "ops": [ { "op": "nest", "path": "rules.0.test", "levels": 70 } ],
+            "codes": [ "depth" ]
+        },
+        {
+            "name": "a prefix that official rule sets use",
+            "base": "muster-ust",
+            "ops": [ { "op": "set", "path": "prefix", "value": "BR" } ],
+            "codes": [ "prefix-reserved", "rule-id-prefix" ]
+        },
+        {
+            "name": "an own rule without the profile's prefix",
+            "base": "muster-ust",
+            "ops": [ { "op": "set", "path": "rules.0.id", "value": "ANDERS-UST-002" } ],
+            "codes": [ "rule-id-prefix" ]
+        },
+        {
+            "name": "two own rules with the same id",
+            "base": "muster-ust",
+            "ops": [ { "op": "set", "path": "rules.1.id", "value": "MUSTER-UST-002" } ],
+            "codes": [ "rule-id-duplicate" ]
+        },
+        {
+            "name": "a UBL profile that names a CII rule set",
+            "base": "muster-ust",
+            "ops": [ { "op": "set", "path": "extends.0.ruleset", "value": "XRechnung-CII" } ],
+            "codes": [ "extends-syntax" ]
+        },
+        {
+            "name": "a range that is not in the grammar",
+            "base": "muster-ust",
+            "ops": [ { "op": "set", "path": "extends.0.versions", "value": "~3.0 || ^3.1" } ],
+            "codes": [ "range" ]
+        },
+        {
+            "name": "the profile name of the list file",
+            "base": "muster-ust",
+            "ops": [ { "op": "set", "path": "name", "value": "index" } ],
+            "codes": [ "name" ]
+        },
+        {
+            "name": "another format version",
+            "base": "muster-ust",
+            "ops": [ { "op": "set", "path": "formatVersion", "value": 2 } ],
+            "codes": [ "format-version" ]
+        },
+        {
+            "name": "an empty message",
+            "base": "muster-ust",
+            "ops": [ { "op": "set", "path": "rules.0.message", "value": "  " } ],
+            "codes": [ "message" ]
+        },
+        {
+            "name": "switching off without a reason",
+            "base": "kunde-lockerung",
+            "ops": [ { "op": "delete", "path": "disable.0.reason" } ],
+            "codes": [ "entry-reason" ]
+        },
+        {
+            "name": "replacing by a rule the profile does not have",
+            "base": "kunde-lockerung",
+            "ops": [ { "op": "set", "path": "replaces.0.by", "value": "KUNDE-UST-999" } ],
+            "codes": [ "replaces-by" ]
+        },
+        {
+            "name": "one official rule both switched off and re-ranked",
+            "base": "kunde-lockerung",
+            "ops": [ { "op": "set", "path": "severity.0.rule", "value": "CII-SR-475" } ],
+            "codes": [ "conflict" ]
+        },
+        {
+            "name": "switching off one of the profile's own rules",
+            "base": "kunde-lockerung",
+            "ops": [ { "op": "set", "path": "disable.0.rule", "value": "KUNDE-POS-001" } ],
+            "codes": [ "own-rule-entry" ]
+        },
+        {
+            "name": "an unknown severity",
+            "base": "kunde-lockerung",
+            "ops": [ { "op": "set", "path": "severity.1.level", "value": "error" } ],
+            "codes": [ "severity-level" ]
+        },
+        {
+            "name": "a profile that does nothing",
+            "base": "kunde-lockerung",
+            "ops": [ { "op": "delete", "path": "rules" }, { "op": "delete", "path": "disable" }, { "op": "delete", "path": "replaces" }, { "op": "delete", "path": "severity" } ],
+            "codes": [ "no-content" ]
+        }
+    ]
+}

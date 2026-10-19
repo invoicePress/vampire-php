@@ -1,0 +1,57 @@
+{
+    "rulesets": {
+        "CEN-EN16931-UBL@3.0.21": {
+            "rules": 979,
+            "fired": 0
+        },
+        "CIUS-HR-UBL@1.0.4": {
+            "rules": 62,
+            "fired": 0
+        },
+        "CIUS-RO-UBL@1.0.9": {
+            "rules": 1098,
+            "fired": 11
+        },
+        "EN16931-CII@1.3.16": {
+            "rules": 806,
+            "fired": 13
+        },
+        "EN16931-UBL@1.3.16": {
+            "rules": 979,
+            "fired": 17
+        },
+        "FACTURX-BASIC-CII@1.09.2": {
+            "rules": 385,
+            "fired": 0
+        },
+        "FACTURX-BASICWL-CII@1.09.2": {
+            "rules": 278,
+            "fired": 0
+        },
+        "FACTURX-EN16931-CII@1.09.2": {
+            "rules": 433,
+            "fired": 0
+        },
+        "FACTURX-EXTENDED-CII@1.09.2": {
+            "rules": 943,
+            "fired": 1
+        },
+        "FACTURX-MINIMUM-CII@1.09.2": {
+            "rules": 55,
+            "fired": 0
+        },
+        "PEPPOL-EN16931-UBL@3.0.21": {
+            "rules": 165,
+            "fired": 4
+        },
+        "XRechnung-CII@3.0.2": {
+            "rules": 71,
+            "fired": 3
+        },
+        "XRechnung-UBL@3.0.2": {
+            "rules": 76,
+            "fired": 3
+        }
+    },
+    "files": 230
+}

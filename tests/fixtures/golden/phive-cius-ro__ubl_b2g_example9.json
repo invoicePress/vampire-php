@@ -1,0 +1,9 @@
+{
+    "file": "invoices/phive-cius-ro/ubl_b2g_example9.xml",
+    "scenario": "CIUS-RO eFactura (UBL Invoice)",
+    "accept": false,
+    "messages": {
+        "BR-RO-001": "error"
+    },
+    "engine": "KoSIT Validator 1.6.3"
+}

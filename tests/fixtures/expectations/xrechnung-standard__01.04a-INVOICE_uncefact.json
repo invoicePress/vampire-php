@@ -1,0 +1,8 @@
+{
+    "file": "invoices/xrechnung-standard/01.04a-INVOICE_uncefact.xml",
+    "scenario": "EN16931 XRechnung (CII)",
+    "accept": true,
+    "rules": [],
+    "mustNotBlock": [],
+    "note": "Offizielle XRechnung-3.0.2-Testsuite, Gruppe xrechnung-standard - gueltiger Beleg, muss angenommen werden."
+}

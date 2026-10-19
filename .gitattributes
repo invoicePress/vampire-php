@@ -1,0 +1,11 @@
+# ⚠️ Entwickelt wird unter Windows, ausgeliefert wird auf Linux-Hostern. Ohne diese Datei landen
+# CRLF-Zeilenenden im Repository, und dann unterscheidet sich der sha256 einer Regeldatei zwischen
+# Arbeitsplatz und CI - genau die Prüfsumme, mit der `sourceHash` die Herkunft eines Regelpakets
+# belegt. Deshalb: im Repository immer LF.
+* text=auto eol=lf
+
+# Binär, nie umschreiben.
+*.png binary
+*.jpg binary
+*.pdf binary
+*.zip binary

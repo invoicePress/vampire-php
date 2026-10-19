@@ -1,0 +1,8 @@
+{
+    "file": "invoices/phive-zugferd-en16931/factur-x-19.xml",
+    "scenario": "EN16931 (CII)",
+    "accept": true,
+    "rules": [],
+    "mustNotBlock": [],
+    "note": "phive-rules-Testbestand, Gruppe phive-zugferd-en16931 - upstream als GoodCase gefuehrt, muss angenommen werden."
+}

@@ -1,0 +1,7 @@
+{
+    "file": "invoices/zugferd-en16931/E04_01_Betriebskostenabrechnung_NEU.XML",
+    "scenario": "EN16931 (CII)",
+    "accept": true,
+    "messages": [],
+    "engine": "KoSIT Validator 1.6.3"
+}

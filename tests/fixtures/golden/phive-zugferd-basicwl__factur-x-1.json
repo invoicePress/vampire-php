@@ -1,0 +1,7 @@
+{
+    "file": "invoices/phive-zugferd-basicwl/factur-x-1.xml",
+    "scenario": "Factur-X / ZUGFeRD BASIC WL (CII)",
+    "accept": true,
+    "messages": [],
+    "engine": "KoSIT Validator 1.6.3"
+}

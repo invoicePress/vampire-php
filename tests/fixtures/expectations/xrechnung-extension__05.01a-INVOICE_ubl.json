@@ -1,0 +1,13 @@
+{
+    "file": "invoices/xrechnung-extension/05.01a-INVOICE_ubl.xml",
+    "scenario": "EN16931 XRechnung Extension (UBL Invoice)",
+    "accept": true,
+    "rules": [],
+    "mustNotBlock": [
+        "BR-CL-10",
+        "BR-CL-21",
+        "BR-CO-16",
+        "UBL-CR-470"
+    ],
+    "note": "Offizielle XRechnung-3.0.2-Testsuite, Gruppe xrechnung-extension - gueltiger Beleg, muss angenommen werden."
+}

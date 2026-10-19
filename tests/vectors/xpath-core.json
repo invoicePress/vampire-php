@@ -1,0 +1,138 @@
+{
+  "schemaVersion": 1,
+  "id": "xpath-core",
+  "title": "XPath 2.0 core: paths, axes, arithmetic, binders, casts, sequence semantics",
+  "source": "tests/Unit/Xpath/InterpreterTest.php",
+  "namespaces": { "cac": "urn:cac", "cbc": "urn:cbc" },
+
+  "vectors": [
+
+    {
+      "id": "predicate-positional",
+      "xml": "<cac:Root xmlns:cac=\"urn:cac\"><cac:Item>a</cac:Item><cac:Item>b</cac:Item><cac:Item>c</cac:Item></cac:Root>",
+      "expr": "cac:Item[2]",
+      "expect": { "count": 1, "text": "b" }
+    },
+
+    { "id": "arith-add",   "xml": "<r xmlns=\"urn:x\"/>", "expr": "1 + 2",    "expect": { "string": "3" } },
+    { "id": "arith-sub",   "xml": "<r xmlns=\"urn:x\"/>", "expr": "1 - 2",    "expect": { "string": "-1" } },
+    { "id": "arith-mul",   "xml": "<r xmlns=\"urn:x\"/>", "expr": "2 * 3",    "expect": { "string": "6" } },
+    { "id": "arith-div",   "xml": "<r xmlns=\"urn:x\"/>", "expr": "4 div 2",  "expect": { "string": "2" } },
+    { "id": "arith-mod",   "xml": "<r xmlns=\"urn:x\"/>", "expr": "7 mod 3",  "expect": { "string": "1" } },
+    { "id": "arith-idiv",  "xml": "<r xmlns=\"urn:x\"/>", "expr": "7 idiv 3", "expect": { "string": "2" } },
+
+    {
+      "id": "arith-idiv-negative",
+      "xml": "<r xmlns=\"urn:x\"/>",
+      "expr": "-7 idiv 2",
+      "expect": { "string": "-3" },
+      "note": "⚠️ `idiv` TRUNCATES towards zero, it does not floor, and `mod` takes the sign of the dividend. VAMPIRE PHP floored until 09.10.2026 ( -4, 1 and -1 for the three vectors ); for two positive operands both agree ( source: InterpreterTest::testIdivTruncatesAndModTakesTheSignOfTheDividend )."
+    },
+    { "id": "arith-idiv-negative-divisor",  "xml": "<r xmlns=\"urn:x\"/>", "expr": "7 idiv -2",  "expect": { "string": "-3" } },
+    { "id": "arith-mod-negative-dividend",  "xml": "<r xmlns=\"urn:x\"/>", "expr": "-7 mod 2",   "expect": { "string": "-1" } },
+    { "id": "arith-mod-negative-divisor",   "xml": "<r xmlns=\"urn:x\"/>", "expr": "7 mod -2",   "expect": { "string": "1" } },
+    { "id": "arith-mod-negative-fraction",  "xml": "<r xmlns=\"urn:x\"/>", "expr": "-7.5 mod 2", "expect": { "string": "-1.5" } },
+
+    {
+      "id": "for-expr",
+      "xml": "<cac:Root xmlns:cac=\"urn:cac\"><cac:Item>1</cac:Item><cac:Item>2</cac:Item></cac:Root>",
+      "expr": "for $x in cac:Item return xs:decimal($x) * 2",
+      "expect": { "strings": [ "2", "4" ] }
+    },
+
+    { "id": "if-then", "xml": "<r xmlns=\"urn:x\"/>", "expr": "if (1 = 1) then 'yes' else 'no'", "expect": { "string": "yes" } },
+    { "id": "if-else", "xml": "<r xmlns=\"urn:x\"/>", "expr": "if (1 = 2) then 'yes' else 'no'", "expect": { "string": "no" } },
+
+    { "id": "let-expr", "xml": "<r xmlns=\"urn:x\"/>", "expr": "let $x := 5 return $x + 1", "expect": { "string": "6" } },
+
+    {
+      "id": "quantified-some",
+      "xml": "<cac:Root xmlns:cac=\"urn:cac\"><cac:Item>1</cac:Item><cac:Item>2</cac:Item></cac:Root>",
+      "expr": "some $x in cac:Item satisfies xs:decimal($x) = 2",
+      "expect": { "ebv": true }
+    },
+    {
+      "id": "quantified-every",
+      "xml": "<cac:Root xmlns:cac=\"urn:cac\"><cac:Item>1</cac:Item><cac:Item>2</cac:Item></cac:Root>",
+      "expr": "every $x in cac:Item satisfies xs:decimal($x) = 2",
+      "expect": { "ebv": false }
+    },
+
+    { "id": "castable-integer-yes", "xml": "<r xmlns=\"urn:x\"/>", "expr": "'5' castable as xs:integer",   "expect": { "ebv": true } },
+    { "id": "castable-integer-no",  "xml": "<r xmlns=\"urn:x\"/>", "expr": "'abc' castable as xs:integer", "expect": { "ebv": false } },
+    { "id": "cast-string",          "xml": "<r xmlns=\"urn:x\"/>", "expr": "'5' cast as xs:string",        "expect": { "string": "5" } },
+
+    {
+      "id": "cast-boolean-lexical-false",
+      "xml": "<r xmlns=\"urn:x\"/>",
+      "expr": "'false' cast as xs:boolean",
+      "expect": { "boolean": false },
+      "note": "⚠️ `cast as xs:boolean` follows the XML Schema LEXICAL rule ( true/1 -> true, false/0 -> false ), not effective-boolean-value's \"any non-empty string is true\". Conflating the two made a node whose text is literally \"false\" compare equal to true()."
+    },
+    { "id": "cast-boolean-lexical-true",  "xml": "<r xmlns=\"urn:x\"/>", "expr": "'true' cast as xs:boolean",  "expect": { "boolean": true } },
+    { "id": "cast-boolean-lexical-zero",  "xml": "<r xmlns=\"urn:x\"/>", "expr": "'0' cast as xs:boolean",     "expect": { "boolean": false } },
+    { "id": "cast-boolean-lexical-one",   "xml": "<r xmlns=\"urn:x\"/>", "expr": "'1' cast as xs:boolean",     "expect": { "boolean": true } },
+    { "id": "castable-boolean-garbage",   "xml": "<r xmlns=\"urn:x\"/>", "expr": "'not-a-boolean' castable as xs:boolean", "expect": { "ebv": false } },
+
+    {
+      "id": "function-step-keeps-duplicates",
+      "xml": "<cac:Root xmlns:cac=\"urn:cac\" xmlns:cbc=\"urn:cbc\"><cac:Item><cbc:Amount>400</cbc:Amount></cac:Item><cac:Item><cbc:Amount>240</cbc:Amount></cac:Item><cac:Item><cbc:Amount>400</cbc:Amount></cac:Item></cac:Root>",
+      "expr": "cac:Item/xs:decimal(cbc:Amount)",
+      "expect": { "count": 3 },
+      "note": "⚠️ A path step whose primary expression yields ATOMIC values is a plain sequence, not a node-set - every duplicate stays. Deduping by value collapsed three real \"400\" line amounts into one and made sum() under-count by 800 on a valid invoice ( BR-CO-10, XRechnung test suite )."
+    },
+    {
+      "id": "function-step-sum-over-duplicates",
+      "xml": "<cac:Root xmlns:cac=\"urn:cac\" xmlns:cbc=\"urn:cbc\"><cac:Item><cbc:Amount>400</cbc:Amount></cac:Item><cac:Item><cbc:Amount>240</cbc:Amount></cac:Item><cac:Item><cbc:Amount>400</cbc:Amount></cac:Item></cac:Root>",
+      "expr": "sum(cac:Item/xs:decimal(cbc:Amount))",
+      "expect": { "string": "1040" }
+    },
+
+    {
+      "id": "arith-empty-operand-plus",
+      "xml": "<cac:Root xmlns:cac=\"urn:cac\" xmlns:cbc=\"urn:cbc\"><cbc:Amount>5</cbc:Amount></cac:Root>",
+      "expr": "xs:decimal(cbc:Amount) + xs:decimal(cbc:Missing)",
+      "expect": { "empty": true },
+      "note": "⚠️ XPath 2.0 §3.4: an arithmetic operator with an EMPTY operand propagates empty, it does not throw. Throwing broke BR-CO-13 on every CII invoice without the optional ram:AllowanceTotalAmount. A genuinely MULTI-item operand is still an error - see arith-multi-operand-error."
+    },
+    { "id": "arith-empty-operand-minus", "xml": "<cac:Root xmlns:cac=\"urn:cac\" xmlns:cbc=\"urn:cbc\"><cbc:Amount>5</cbc:Amount></cac:Root>", "expr": "xs:decimal(cbc:Amount) - xs:decimal(cbc:Missing)",   "expect": { "empty": true } },
+    { "id": "arith-empty-operand-times", "xml": "<cac:Root xmlns:cac=\"urn:cac\" xmlns:cbc=\"urn:cbc\"><cbc:Amount>5</cbc:Amount></cac:Root>", "expr": "xs:decimal(cbc:Amount) * xs:decimal(cbc:Missing)",   "expect": { "empty": true } },
+    { "id": "arith-empty-operand-div",   "xml": "<cac:Root xmlns:cac=\"urn:cac\" xmlns:cbc=\"urn:cbc\"><cbc:Amount>5</cbc:Amount></cac:Root>", "expr": "xs:decimal(cbc:Amount) div xs:decimal(cbc:Missing)", "expect": { "empty": true } },
+    { "id": "arith-empty-operand-unary", "xml": "<cac:Root xmlns:cac=\"urn:cac\" xmlns:cbc=\"urn:cbc\"><cbc:Amount>5</cbc:Amount></cac:Root>", "expr": "-xs:decimal(cbc:Missing)",                          "expect": { "empty": true } },
+
+    { "id": "arith-multi-operand-error", "xml": "<r xmlns=\"urn:x\"/>", "expr": "(1, 2) + 3", "expect": { "error": true } },
+
+    { "id": "unbound-prefix-error",   "xml": "<r xmlns=\"urn:x\"/>", "expr": "unknownprefix:Foo", "expect": { "error": true } },
+    { "id": "undefined-variable-error", "xml": "<r xmlns=\"urn:x\"/>", "expr": "$doesNotExist",   "expect": { "error": true } },
+
+    {
+      "id": "axis-parent",
+      "xml": "<cac:A xmlns:cac=\"urn:cac\"><cac:B><cac:C/></cac:B></cac:A>",
+      "contextPath": "cac:B/cac:C",
+      "expr": "parent::cac:B",
+      "expect": { "ebv": true }
+    },
+    {
+      "id": "axis-ancestor",
+      "xml": "<cac:A xmlns:cac=\"urn:cac\"><cac:B><cac:C/></cac:B></cac:A>",
+      "contextPath": "cac:B/cac:C",
+      "expr": "ancestor::cac:A",
+      "expect": { "ebv": true }
+    },
+    {
+      "id": "axis-ancestor-absent",
+      "xml": "<cac:A xmlns:cac=\"urn:cac\"><cac:B><cac:C/></cac:B></cac:A>",
+      "contextPath": "cac:B/cac:C",
+      "expr": "ancestor::cac:NoSuchAncestor",
+      "expect": { "ebv": false }
+    },
+
+    {
+      "id": "axis-attribute",
+      "xml": "<r xmlns=\"urn:x\" schemeID=\"EM\">value</r>",
+      "expr": "@schemeID",
+      "expect": { "text": "EM" }
+    }
+
+  ]
+}

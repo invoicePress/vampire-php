@@ -1,0 +1,5 @@
+{
+    "id": "test-include-peppol",
+    "include": [ { "ruleset": "PEPPOL-EN16931-UBL@3.0.21", "rules": ["PEPPOL-EN16931-R004"] } ],
+    "note": "Testprofil (Aufgabe 5.4): schaltet eine Peppol-Regel in ein XRechnung-Szenario zu. R004 feuert auf der offiziellen XRechnung-Testrechnung wirklich (gemessen), PEPPOL-EN16931-CL008 ebenfalls - letztere darf NICHT mitkommen, weil sie nicht in der Liste steht."
+}

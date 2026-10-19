@@ -1,0 +1,2107 @@
+[
+    {
+        "id": "en16931-xrechnung-ubl-invoice",
+        "name": "EN16931 XRechnung (UBL Invoice)",
+        "match": {
+            "node": "FunctionCall",
+            "pos": 0,
+            "name": {
+                "prefix": null,
+                "local": "exists"
+            },
+            "args": [
+                {
+                    "node": "PathExpr",
+                    "pos": 7,
+                    "absolute": true,
+                    "steps": [
+                        {
+                            "axis": "child",
+                            "test": {
+                                "kind": "name",
+                                "name": {
+                                    "prefix": "invoice",
+                                    "local": "Invoice"
+                                },
+                                "kindtestName": null
+                            },
+                            "predicates": [],
+                            "primary": null
+                        },
+                        {
+                            "axis": "child",
+                            "test": {
+                                "kind": "name",
+                                "name": {
+                                    "prefix": "cbc",
+                                    "local": "CustomizationID"
+                                },
+                                "kindtestName": null
+                            },
+                            "predicates": [
+                                {
+                                    "node": "BinaryOp",
+                                    "pos": 47,
+                                    "op": "=",
+                                    "left": {
+                                        "node": "PathExpr",
+                                        "pos": 45,
+                                        "absolute": false,
+                                        "steps": [
+                                            {
+                                                "axis": "self",
+                                                "test": {
+                                                    "kind": "kindtest",
+                                                    "name": null,
+                                                    "kindtestName": "node"
+                                                },
+                                                "predicates": [],
+                                                "primary": null
+                                            }
+                                        ]
+                                    },
+                                    "right": {
+                                        "node": "Literal",
+                                        "pos": 49,
+                                        "kind": "string",
+                                        "value": "urn:cen.eu:en16931:2017#compliant#urn:xeinkauf.de:kosit:xrechnung_3.0"
+                                    }
+                                }
+                            ],
+                            "primary": null
+                        }
+                    ]
+                }
+            ]
+        },
+        "namespaces": {
+            "cbc": "urn:oasis:names:specification:ubl:schema:xsd:CommonBasicComponents-2",
+            "invoice": "urn:oasis:names:specification:ubl:schema:xsd:Invoice-2",
+            "rep": "http://www.xoev.de/de/validator/varl/1"
+        },
+        "xsdPath": "rulesets/xsd/ubl/maindoc/UBL-Invoice-2.1.xsd",
+        "rulesetRefs": [
+            "EN16931-UBL@1.3.16",
+            "XRechnung-UBL@3.0.2"
+        ],
+        "customLevels": {
+            "BR-CL-23": "warning",
+            "BR-CL-21": "warning",
+            "UBL-CR-646": "error"
+        },
+        "validFrom": null,
+        "validUntil": null
+    },
+    {
+        "id": "en16931-xrechnung-extension-ubl-invoice",
+        "name": "EN16931 XRechnung Extension (UBL Invoice)",
+        "match": {
+            "node": "FunctionCall",
+            "pos": 0,
+            "name": {
+                "prefix": null,
+                "local": "exists"
+            },
+            "args": [
+                {
+                    "node": "PathExpr",
+                    "pos": 7,
+                    "absolute": true,
+                    "steps": [
+                        {
+                            "axis": "child",
+                            "test": {
+                                "kind": "name",
+                                "name": {
+                                    "prefix": "invoice",
+                                    "local": "Invoice"
+                                },
+                                "kindtestName": null
+                            },
+                            "predicates": [],
+                            "primary": null
+                        },
+                        {
+                            "axis": "child",
+                            "test": {
+                                "kind": "name",
+                                "name": {
+                                    "prefix": "cbc",
+                                    "local": "CustomizationID"
+                                },
+                                "kindtestName": null
+                            },
+                            "predicates": [
+                                {
+                                    "node": "BinaryOp",
+                                    "pos": 47,
+                                    "op": "=",
+                                    "left": {
+                                        "node": "PathExpr",
+                                        "pos": 45,
+                                        "absolute": false,
+                                        "steps": [
+                                            {
+                                                "axis": "self",
+                                                "test": {
+                                                    "kind": "kindtest",
+                                                    "name": null,
+                                                    "kindtestName": "node"
+                                                },
+                                                "predicates": [],
+                                                "primary": null
+                                            }
+                                        ]
+                                    },
+                                    "right": {
+                                        "node": "Literal",
+                                        "pos": 49,
+                                        "kind": "string",
+                                        "value": "urn:cen.eu:en16931:2017#compliant#urn:xeinkauf.de:kosit:xrechnung_3.0#conformant#urn:xeinkauf.de:kosit:extension:xrechnung_3.0"
+                                    }
+                                }
+                            ],
+                            "primary": null
+                        }
+                    ]
+                }
+            ]
+        },
+        "namespaces": {
+            "cbc": "urn:oasis:names:specification:ubl:schema:xsd:CommonBasicComponents-2",
+            "invoice": "urn:oasis:names:specification:ubl:schema:xsd:Invoice-2",
+            "rep": "http://www.xoev.de/de/validator/varl/1"
+        },
+        "xsdPath": "rulesets/xsd/ubl/maindoc/UBL-Invoice-2.1.xsd",
+        "rulesetRefs": [
+            "EN16931-UBL@1.3.16",
+            "XRechnung-UBL@3.0.2"
+        ],
+        "customLevels": {
+            "BR-CL-21": "information",
+            "BR-CL-23": "warning",
+            "BR-CL-24": "information",
+            "BR-CL-10": "information",
+            "BR-CL-11": "information",
+            "BR-CL-25": "information",
+            "BR-CL-26": "information",
+            "BR-CO-16": "information",
+            "UBL-CR-470": "information",
+            "UBL-CR-646": "information"
+        },
+        "validFrom": null,
+        "validUntil": null
+    },
+    {
+        "id": "en16931-xrechnung-cvd-ubl-invoice",
+        "name": "EN16931 XRechnung CVD (UBL Invoice)",
+        "match": {
+            "node": "FunctionCall",
+            "pos": 0,
+            "name": {
+                "prefix": null,
+                "local": "exists"
+            },
+            "args": [
+                {
+                    "node": "PathExpr",
+                    "pos": 7,
+                    "absolute": true,
+                    "steps": [
+                        {
+                            "axis": "child",
+                            "test": {
+                                "kind": "name",
+                                "name": {
+                                    "prefix": "invoice",
+                                    "local": "Invoice"
+                                },
+                                "kindtestName": null
+                            },
+                            "predicates": [],
+                            "primary": null
+                        },
+                        {
+                            "axis": "child",
+                            "test": {
+                                "kind": "name",
+                                "name": {
+                                    "prefix": "cbc",
+                                    "local": "CustomizationID"
+                                },
+                                "kindtestName": null
+                            },
+                            "predicates": [
+                                {
+                                    "node": "BinaryOp",
+                                    "pos": 47,
+                                    "op": "=",
+                                    "left": {
+                                        "node": "PathExpr",
+                                        "pos": 45,
+                                        "absolute": false,
+                                        "steps": [
+                                            {
+                                                "axis": "self",
+                                                "test": {
+                                                    "kind": "kindtest",
+                                                    "name": null,
+                                                    "kindtestName": "node"
+                                                },
+                                                "predicates": [],
+                                                "primary": null
+                                            }
+                                        ]
+                                    },
+                                    "right": {
+                                        "node": "Literal",
+                                        "pos": 49,
+                                        "kind": "string",
+                                        "value": "urn:cen.eu:en16931:2017#compliant#urn:xeinkauf.de:kosit:xrechnung_3.0#compliant#urn:xeinkauf.de:kosit:xrechnung:cvd_0.9"
+                                    }
+                                }
+                            ],
+                            "primary": null
+                        }
+                    ]
+                }
+            ]
+        },
+        "namespaces": {
+            "cbc": "urn:oasis:names:specification:ubl:schema:xsd:CommonBasicComponents-2",
+            "invoice": "urn:oasis:names:specification:ubl:schema:xsd:Invoice-2",
+            "rep": "http://www.xoev.de/de/validator/varl/1"
+        },
+        "xsdPath": "rulesets/xsd/ubl/maindoc/UBL-Invoice-2.1.xsd",
+        "rulesetRefs": [
+            "EN16931-UBL@1.3.16",
+            "XRechnung-UBL@3.0.2"
+        ],
+        "customLevels": {
+            "BR-CL-13": "information",
+            "BR-CL-23": "warning",
+            "BR-CL-21": "warning",
+            "UBL-CR-646": "error"
+        },
+        "validFrom": null,
+        "validUntil": null
+    },
+    {
+        "id": "en16931-xrechnung-ubl-creditnote",
+        "name": "EN16931 XRechnung (UBL CreditNote)",
+        "match": {
+            "node": "FunctionCall",
+            "pos": 0,
+            "name": {
+                "prefix": null,
+                "local": "exists"
+            },
+            "args": [
+                {
+                    "node": "PathExpr",
+                    "pos": 7,
+                    "absolute": true,
+                    "steps": [
+                        {
+                            "axis": "child",
+                            "test": {
+                                "kind": "name",
+                                "name": {
+                                    "prefix": "creditnote",
+                                    "local": "CreditNote"
+                                },
+                                "kindtestName": null
+                            },
+                            "predicates": [
+                                {
+                                    "node": "BinaryOp",
+                                    "pos": 58,
+                                    "op": "=",
+                                    "left": {
+                                        "node": "PathExpr",
+                                        "pos": 31,
+                                        "absolute": false,
+                                        "steps": [
+                                            {
+                                                "axis": "child",
+                                                "test": {
+                                                    "kind": "name",
+                                                    "name": {
+                                                        "prefix": "cbc",
+                                                        "local": "CustomizationID"
+                                                    },
+                                                    "kindtestName": null
+                                                },
+                                                "predicates": [],
+                                                "primary": null
+                                            },
+                                            {
+                                                "axis": "child",
+                                                "test": {
+                                                    "kind": "kindtest",
+                                                    "name": null,
+                                                    "kindtestName": "text"
+                                                },
+                                                "predicates": [],
+                                                "primary": null
+                                            }
+                                        ]
+                                    },
+                                    "right": {
+                                        "node": "Literal",
+                                        "pos": 60,
+                                        "kind": "string",
+                                        "value": "urn:cen.eu:en16931:2017#compliant#urn:xeinkauf.de:kosit:xrechnung_3.0"
+                                    }
+                                }
+                            ],
+                            "primary": null
+                        }
+                    ]
+                }
+            ]
+        },
+        "namespaces": {
+            "cbc": "urn:oasis:names:specification:ubl:schema:xsd:CommonBasicComponents-2",
+            "creditnote": "urn:oasis:names:specification:ubl:schema:xsd:CreditNote-2",
+            "rep": "http://www.xoev.de/de/validator/varl/1"
+        },
+        "xsdPath": "rulesets/xsd/ubl/maindoc/UBL-CreditNote-2.1.xsd",
+        "rulesetRefs": [
+            "EN16931-UBL@1.3.16",
+            "XRechnung-UBL@3.0.2"
+        ],
+        "customLevels": {
+            "BR-CL-23": "warning",
+            "BR-CL-21": "warning"
+        },
+        "validFrom": null,
+        "validUntil": null
+    },
+    {
+        "id": "en16931-xrechnung-cvd-ubl-creditnote",
+        "name": "EN16931 XRechnung CVD (UBL CreditNote)",
+        "match": {
+            "node": "FunctionCall",
+            "pos": 0,
+            "name": {
+                "prefix": null,
+                "local": "exists"
+            },
+            "args": [
+                {
+                    "node": "PathExpr",
+                    "pos": 7,
+                    "absolute": true,
+                    "steps": [
+                        {
+                            "axis": "child",
+                            "test": {
+                                "kind": "name",
+                                "name": {
+                                    "prefix": "creditnote",
+                                    "local": "CreditNote"
+                                },
+                                "kindtestName": null
+                            },
+                            "predicates": [
+                                {
+                                    "node": "BinaryOp",
+                                    "pos": 58,
+                                    "op": "=",
+                                    "left": {
+                                        "node": "PathExpr",
+                                        "pos": 31,
+                                        "absolute": false,
+                                        "steps": [
+                                            {
+                                                "axis": "child",
+                                                "test": {
+                                                    "kind": "name",
+                                                    "name": {
+                                                        "prefix": "cbc",
+                                                        "local": "CustomizationID"
+                                                    },
+                                                    "kindtestName": null
+                                                },
+                                                "predicates": [],
+                                                "primary": null
+                                            },
+                                            {
+                                                "axis": "child",
+                                                "test": {
+                                                    "kind": "kindtest",
+                                                    "name": null,
+                                                    "kindtestName": "text"
+                                                },
+                                                "predicates": [],
+                                                "primary": null
+                                            }
+                                        ]
+                                    },
+                                    "right": {
+                                        "node": "Literal",
+                                        "pos": 60,
+                                        "kind": "string",
+                                        "value": "urn:cen.eu:en16931:2017#compliant#urn:xeinkauf.de:kosit:xrechnung_3.0#compliant#urn:xeinkauf.de:kosit:xrechnung:cvd_0.9"
+                                    }
+                                }
+                            ],
+                            "primary": null
+                        }
+                    ]
+                }
+            ]
+        },
+        "namespaces": {
+            "cbc": "urn:oasis:names:specification:ubl:schema:xsd:CommonBasicComponents-2",
+            "creditnote": "urn:oasis:names:specification:ubl:schema:xsd:CreditNote-2",
+            "rep": "http://www.xoev.de/de/validator/varl/1"
+        },
+        "xsdPath": "rulesets/xsd/ubl/maindoc/UBL-CreditNote-2.1.xsd",
+        "rulesetRefs": [
+            "EN16931-UBL@1.3.16",
+            "XRechnung-UBL@3.0.2"
+        ],
+        "customLevels": {
+            "BR-CL-13": "information",
+            "BR-CL-23": "warning",
+            "BR-CL-21": "warning",
+            "UBL-CR-646": "error"
+        },
+        "validFrom": null,
+        "validUntil": null
+    },
+    {
+        "id": "en16931-xrechnung-cii",
+        "name": "EN16931 XRechnung (CII)",
+        "match": {
+            "node": "FunctionCall",
+            "pos": 0,
+            "name": {
+                "prefix": null,
+                "local": "exists"
+            },
+            "args": [
+                {
+                    "node": "PathExpr",
+                    "pos": 7,
+                    "absolute": true,
+                    "steps": [
+                        {
+                            "axis": "child",
+                            "test": {
+                                "kind": "name",
+                                "name": {
+                                    "prefix": "rsm",
+                                    "local": "CrossIndustryInvoice"
+                                },
+                                "kindtestName": null
+                            },
+                            "predicates": [
+                                {
+                                    "node": "BinaryOp",
+                                    "pos": 123,
+                                    "op": "=",
+                                    "left": {
+                                        "node": "PathExpr",
+                                        "pos": 33,
+                                        "absolute": false,
+                                        "steps": [
+                                            {
+                                                "axis": "child",
+                                                "test": {
+                                                    "kind": "name",
+                                                    "name": {
+                                                        "prefix": "rsm",
+                                                        "local": "ExchangedDocumentContext"
+                                                    },
+                                                    "kindtestName": null
+                                                },
+                                                "predicates": [],
+                                                "primary": null
+                                            },
+                                            {
+                                                "axis": "child",
+                                                "test": {
+                                                    "kind": "name",
+                                                    "name": {
+                                                        "prefix": "ram",
+                                                        "local": "GuidelineSpecifiedDocumentContextParameter"
+                                                    },
+                                                    "kindtestName": null
+                                                },
+                                                "predicates": [],
+                                                "primary": null
+                                            },
+                                            {
+                                                "axis": "child",
+                                                "test": {
+                                                    "kind": "name",
+                                                    "name": {
+                                                        "prefix": "ram",
+                                                        "local": "ID"
+                                                    },
+                                                    "kindtestName": null
+                                                },
+                                                "predicates": [],
+                                                "primary": null
+                                            },
+                                            {
+                                                "axis": "child",
+                                                "test": {
+                                                    "kind": "kindtest",
+                                                    "name": null,
+                                                    "kindtestName": "text"
+                                                },
+                                                "predicates": [],
+                                                "primary": null
+                                            }
+                                        ]
+                                    },
+                                    "right": {
+                                        "node": "Literal",
+                                        "pos": 125,
+                                        "kind": "string",
+                                        "value": "urn:cen.eu:en16931:2017#compliant#urn:xeinkauf.de:kosit:xrechnung_3.0"
+                                    }
+                                }
+                            ],
+                            "primary": null
+                        }
+                    ]
+                }
+            ]
+        },
+        "namespaces": {
+            "rsm": "urn:un:unece:uncefact:data:standard:CrossIndustryInvoice:100",
+            "ram": "urn:un:unece:uncefact:data:standard:ReusableAggregateBusinessInformationEntity:100",
+            "rep": "http://www.xoev.de/de/validator/varl/1"
+        },
+        "xsdPath": "rulesets/xsd/cii/CrossIndustryInvoice_100pD16B.xsd",
+        "rulesetRefs": [
+            "EN16931-CII@1.3.16",
+            "XRechnung-CII@3.0.2"
+        ],
+        "customLevels": {
+            "BR-CL-23": "warning",
+            "BR-CL-21": "warning",
+            "CII-SR-452": "error",
+            "CII-SR-453": "error",
+            "CII-SR-454": "error"
+        },
+        "validFrom": null,
+        "validUntil": null
+    },
+    {
+        "id": "en16931-xrechnung-extension-cii",
+        "name": "EN16931 XRechnung Extension (CII)",
+        "match": {
+            "node": "FunctionCall",
+            "pos": 0,
+            "name": {
+                "prefix": null,
+                "local": "exists"
+            },
+            "args": [
+                {
+                    "node": "PathExpr",
+                    "pos": 7,
+                    "absolute": true,
+                    "steps": [
+                        {
+                            "axis": "child",
+                            "test": {
+                                "kind": "name",
+                                "name": {
+                                    "prefix": "rsm",
+                                    "local": "CrossIndustryInvoice"
+                                },
+                                "kindtestName": null
+                            },
+                            "predicates": [
+                                {
+                                    "node": "BinaryOp",
+                                    "pos": 123,
+                                    "op": "=",
+                                    "left": {
+                                        "node": "PathExpr",
+                                        "pos": 33,
+                                        "absolute": false,
+                                        "steps": [
+                                            {
+                                                "axis": "child",
+                                                "test": {
+                                                    "kind": "name",
+                                                    "name": {
+                                                        "prefix": "rsm",
+                                                        "local": "ExchangedDocumentContext"
+                                                    },
+                                                    "kindtestName": null
+                                                },
+                                                "predicates": [],
+                                                "primary": null
+                                            },
+                                            {
+                                                "axis": "child",
+                                                "test": {
+                                                    "kind": "name",
+                                                    "name": {
+                                                        "prefix": "ram",
+                                                        "local": "GuidelineSpecifiedDocumentContextParameter"
+                                                    },
+                                                    "kindtestName": null
+                                                },
+                                                "predicates": [],
+                                                "primary": null
+                                            },
+                                            {
+                                                "axis": "child",
+                                                "test": {
+                                                    "kind": "name",
+                                                    "name": {
+                                                        "prefix": "ram",
+                                                        "local": "ID"
+                                                    },
+                                                    "kindtestName": null
+                                                },
+                                                "predicates": [],
+                                                "primary": null
+                                            },
+                                            {
+                                                "axis": "child",
+                                                "test": {
+                                                    "kind": "kindtest",
+                                                    "name": null,
+                                                    "kindtestName": "text"
+                                                },
+                                                "predicates": [],
+                                                "primary": null
+                                            }
+                                        ]
+                                    },
+                                    "right": {
+                                        "node": "Literal",
+                                        "pos": 125,
+                                        "kind": "string",
+                                        "value": "urn:cen.eu:en16931:2017#compliant#urn:xeinkauf.de:kosit:xrechnung_3.0#conformant#urn:xeinkauf.de:kosit:extension:xrechnung_3.0"
+                                    }
+                                }
+                            ],
+                            "primary": null
+                        }
+                    ]
+                }
+            ]
+        },
+        "namespaces": {
+            "rsm": "urn:un:unece:uncefact:data:standard:CrossIndustryInvoice:100",
+            "ram": "urn:un:unece:uncefact:data:standard:ReusableAggregateBusinessInformationEntity:100",
+            "rep": "http://www.xoev.de/de/validator/varl/1"
+        },
+        "xsdPath": "rulesets/xsd/cii/CrossIndustryInvoice_100pD16B.xsd",
+        "rulesetRefs": [
+            "EN16931-CII@1.3.16",
+            "XRechnung-CII@3.0.2"
+        ],
+        "customLevels": {
+            "BR-CL-23": "warning",
+            "BR-CL-21": "information",
+            "BR-CL-11": "information",
+            "BR-CL-10": "information",
+            "BR-CL-24": "information",
+            "BR-CL-25": "information",
+            "BR-CL-26": "information",
+            "CII-SR-452": "error",
+            "CII-SR-453": "error",
+            "CII-SR-454": "error"
+        },
+        "validFrom": null,
+        "validUntil": null
+    },
+    {
+        "id": "en16931-xrechnung-cvd-cii",
+        "name": "EN16931 XRechnung CVD (CII)",
+        "match": {
+            "node": "FunctionCall",
+            "pos": 0,
+            "name": {
+                "prefix": null,
+                "local": "exists"
+            },
+            "args": [
+                {
+                    "node": "PathExpr",
+                    "pos": 7,
+                    "absolute": true,
+                    "steps": [
+                        {
+                            "axis": "child",
+                            "test": {
+                                "kind": "name",
+                                "name": {
+                                    "prefix": "rsm",
+                                    "local": "CrossIndustryInvoice"
+                                },
+                                "kindtestName": null
+                            },
+                            "predicates": [
+                                {
+                                    "node": "BinaryOp",
+                                    "pos": 123,
+                                    "op": "=",
+                                    "left": {
+                                        "node": "PathExpr",
+                                        "pos": 33,
+                                        "absolute": false,
+                                        "steps": [
+                                            {
+                                                "axis": "child",
+                                                "test": {
+                                                    "kind": "name",
+                                                    "name": {
+                                                        "prefix": "rsm",
+                                                        "local": "ExchangedDocumentContext"
+                                                    },
+                                                    "kindtestName": null
+                                                },
+                                                "predicates": [],
+                                                "primary": null
+                                            },
+                                            {
+                                                "axis": "child",
+                                                "test": {
+                                                    "kind": "name",
+                                                    "name": {
+                                                        "prefix": "ram",
+                                                        "local": "GuidelineSpecifiedDocumentContextParameter"
+                                                    },
+                                                    "kindtestName": null
+                                                },
+                                                "predicates": [],
+                                                "primary": null
+                                            },
+                                            {
+                                                "axis": "child",
+                                                "test": {
+                                                    "kind": "name",
+                                                    "name": {
+                                                        "prefix": "ram",
+                                                        "local": "ID"
+                                                    },
+                                                    "kindtestName": null
+                                                },
+                                                "predicates": [],
+                                                "primary": null
+                                            },
+                                            {
+                                                "axis": "child",
+                                                "test": {
+                                                    "kind": "kindtest",
+                                                    "name": null,
+                                                    "kindtestName": "text"
+                                                },
+                                                "predicates": [],
+                                                "primary": null
+                                            }
+                                        ]
+                                    },
+                                    "right": {
+                                        "node": "Literal",
+                                        "pos": 125,
+                                        "kind": "string",
+                                        "value": "urn:cen.eu:en16931:2017#compliant#urn:xeinkauf.de:kosit:xrechnung_3.0#compliant#urn:xeinkauf.de:kosit:xrechnung:cvd_0.9"
+                                    }
+                                }
+                            ],
+                            "primary": null
+                        }
+                    ]
+                }
+            ]
+        },
+        "namespaces": {
+            "rsm": "urn:un:unece:uncefact:data:standard:CrossIndustryInvoice:100",
+            "ram": "urn:un:unece:uncefact:data:standard:ReusableAggregateBusinessInformationEntity:100",
+            "rep": "http://www.xoev.de/de/validator/varl/1"
+        },
+        "xsdPath": "rulesets/xsd/cii/CrossIndustryInvoice_100pD16B.xsd",
+        "rulesetRefs": [
+            "EN16931-CII@1.3.16",
+            "XRechnung-CII@3.0.2"
+        ],
+        "customLevels": {
+            "BR-CL-13": "information",
+            "BR-CL-23": "warning",
+            "BR-CL-21": "warning",
+            "CII-SR-452": "error",
+            "CII-SR-453": "error",
+            "CII-SR-454": "error"
+        },
+        "validFrom": null,
+        "validUntil": null
+    },
+    {
+        "id": "en16931-ubl-invoice",
+        "name": "EN16931 (UBL Invoice)",
+        "match": {
+            "node": "FunctionCall",
+            "pos": 0,
+            "name": {
+                "prefix": null,
+                "local": "exists"
+            },
+            "args": [
+                {
+                    "node": "PathExpr",
+                    "pos": 7,
+                    "absolute": true,
+                    "steps": [
+                        {
+                            "axis": "child",
+                            "test": {
+                                "kind": "name",
+                                "name": {
+                                    "prefix": "invoice",
+                                    "local": "Invoice"
+                                },
+                                "kindtestName": null
+                            },
+                            "predicates": [
+                                {
+                                    "node": "BinaryOp",
+                                    "pos": 52,
+                                    "op": "=",
+                                    "left": {
+                                        "node": "PathExpr",
+                                        "pos": 25,
+                                        "absolute": false,
+                                        "steps": [
+                                            {
+                                                "axis": "child",
+                                                "test": {
+                                                    "kind": "name",
+                                                    "name": {
+                                                        "prefix": "cbc",
+                                                        "local": "CustomizationID"
+                                                    },
+                                                    "kindtestName": null
+                                                },
+                                                "predicates": [],
+                                                "primary": null
+                                            },
+                                            {
+                                                "axis": "child",
+                                                "test": {
+                                                    "kind": "kindtest",
+                                                    "name": null,
+                                                    "kindtestName": "text"
+                                                },
+                                                "predicates": [],
+                                                "primary": null
+                                            }
+                                        ]
+                                    },
+                                    "right": {
+                                        "node": "Literal",
+                                        "pos": 54,
+                                        "kind": "string",
+                                        "value": "urn:cen.eu:en16931:2017"
+                                    }
+                                }
+                            ],
+                            "primary": null
+                        }
+                    ]
+                }
+            ]
+        },
+        "namespaces": {
+            "cbc": "urn:oasis:names:specification:ubl:schema:xsd:CommonBasicComponents-2",
+            "invoice": "urn:oasis:names:specification:ubl:schema:xsd:Invoice-2",
+            "rep": "http://www.xoev.de/de/validator/varl/1"
+        },
+        "xsdPath": "rulesets/xsd/ubl/maindoc/UBL-Invoice-2.1.xsd",
+        "rulesetRefs": [
+            "EN16931-UBL@1.3.16"
+        ],
+        "customLevels": [],
+        "validFrom": null,
+        "validUntil": null
+    },
+    {
+        "id": "en16931-ubl-creditnote",
+        "name": "EN16931 (UBL CreditNote)",
+        "match": {
+            "node": "FunctionCall",
+            "pos": 0,
+            "name": {
+                "prefix": null,
+                "local": "exists"
+            },
+            "args": [
+                {
+                    "node": "PathExpr",
+                    "pos": 7,
+                    "absolute": true,
+                    "steps": [
+                        {
+                            "axis": "child",
+                            "test": {
+                                "kind": "name",
+                                "name": {
+                                    "prefix": "creditnote",
+                                    "local": "CreditNote"
+                                },
+                                "kindtestName": null
+                            },
+                            "predicates": [
+                                {
+                                    "node": "BinaryOp",
+                                    "pos": 57,
+                                    "op": "=",
+                                    "left": {
+                                        "node": "PathExpr",
+                                        "pos": 30,
+                                        "absolute": false,
+                                        "steps": [
+                                            {
+                                                "axis": "child",
+                                                "test": {
+                                                    "kind": "name",
+                                                    "name": {
+                                                        "prefix": "cbc",
+                                                        "local": "CustomizationID"
+                                                    },
+                                                    "kindtestName": null
+                                                },
+                                                "predicates": [],
+                                                "primary": null
+                                            },
+                                            {
+                                                "axis": "child",
+                                                "test": {
+                                                    "kind": "kindtest",
+                                                    "name": null,
+                                                    "kindtestName": "text"
+                                                },
+                                                "predicates": [],
+                                                "primary": null
+                                            }
+                                        ]
+                                    },
+                                    "right": {
+                                        "node": "Literal",
+                                        "pos": 59,
+                                        "kind": "string",
+                                        "value": "urn:cen.eu:en16931:2017"
+                                    }
+                                }
+                            ],
+                            "primary": null
+                        }
+                    ]
+                }
+            ]
+        },
+        "namespaces": {
+            "cbc": "urn:oasis:names:specification:ubl:schema:xsd:CommonBasicComponents-2",
+            "creditnote": "urn:oasis:names:specification:ubl:schema:xsd:CreditNote-2",
+            "rep": "http://www.xoev.de/de/validator/varl/1"
+        },
+        "xsdPath": "rulesets/xsd/ubl/maindoc/UBL-CreditNote-2.1.xsd",
+        "rulesetRefs": [
+            "EN16931-UBL@1.3.16"
+        ],
+        "customLevels": [],
+        "validFrom": null,
+        "validUntil": null
+    },
+    {
+        "id": "en16931-cii",
+        "name": "EN16931 (CII)",
+        "match": {
+            "node": "FunctionCall",
+            "pos": 0,
+            "name": {
+                "prefix": null,
+                "local": "exists"
+            },
+            "args": [
+                {
+                    "node": "PathExpr",
+                    "pos": 7,
+                    "absolute": true,
+                    "steps": [
+                        {
+                            "axis": "child",
+                            "test": {
+                                "kind": "name",
+                                "name": {
+                                    "prefix": "rsm",
+                                    "local": "CrossIndustryInvoice"
+                                },
+                                "kindtestName": null
+                            },
+                            "predicates": [
+                                {
+                                    "node": "BinaryOp",
+                                    "pos": 124,
+                                    "op": "=",
+                                    "left": {
+                                        "node": "PathExpr",
+                                        "pos": 34,
+                                        "absolute": false,
+                                        "steps": [
+                                            {
+                                                "axis": "child",
+                                                "test": {
+                                                    "kind": "name",
+                                                    "name": {
+                                                        "prefix": "rsm",
+                                                        "local": "ExchangedDocumentContext"
+                                                    },
+                                                    "kindtestName": null
+                                                },
+                                                "predicates": [],
+                                                "primary": null
+                                            },
+                                            {
+                                                "axis": "child",
+                                                "test": {
+                                                    "kind": "name",
+                                                    "name": {
+                                                        "prefix": "ram",
+                                                        "local": "GuidelineSpecifiedDocumentContextParameter"
+                                                    },
+                                                    "kindtestName": null
+                                                },
+                                                "predicates": [],
+                                                "primary": null
+                                            },
+                                            {
+                                                "axis": "child",
+                                                "test": {
+                                                    "kind": "name",
+                                                    "name": {
+                                                        "prefix": "ram",
+                                                        "local": "ID"
+                                                    },
+                                                    "kindtestName": null
+                                                },
+                                                "predicates": [],
+                                                "primary": null
+                                            },
+                                            {
+                                                "axis": "child",
+                                                "test": {
+                                                    "kind": "kindtest",
+                                                    "name": null,
+                                                    "kindtestName": "text"
+                                                },
+                                                "predicates": [],
+                                                "primary": null
+                                            }
+                                        ]
+                                    },
+                                    "right": {
+                                        "node": "Literal",
+                                        "pos": 126,
+                                        "kind": "string",
+                                        "value": "urn:cen.eu:en16931:2017"
+                                    }
+                                }
+                            ],
+                            "primary": null
+                        }
+                    ]
+                }
+            ]
+        },
+        "namespaces": {
+            "rsm": "urn:un:unece:uncefact:data:standard:CrossIndustryInvoice:100",
+            "ram": "urn:un:unece:uncefact:data:standard:ReusableAggregateBusinessInformationEntity:100",
+            "rep": "http://www.xoev.de/de/validator/varl/1"
+        },
+        "xsdPath": "rulesets/xsd/cii/CrossIndustryInvoice_100pD16B.xsd",
+        "rulesetRefs": [
+            "EN16931-CII@1.3.16"
+        ],
+        "customLevels": [],
+        "validFrom": null,
+        "validUntil": null
+    },
+    {
+        "id": "peppol-italia-agid-ubl-invoice",
+        "name": "Peppol Italia AGID (UBL Invoice)",
+        "match": {
+            "node": "PathExpr",
+            "pos": 0,
+            "absolute": true,
+            "steps": [
+                {
+                    "axis": "child",
+                    "test": {
+                        "kind": "name",
+                        "name": {
+                            "prefix": "invoice",
+                            "local": "Invoice"
+                        },
+                        "kindtestName": null
+                    },
+                    "predicates": [
+                        {
+                            "node": "FunctionCall",
+                            "pos": 17,
+                            "name": {
+                                "prefix": null,
+                                "local": "contains"
+                            },
+                            "args": [
+                                {
+                                    "node": "PathExpr",
+                                    "pos": 26,
+                                    "absolute": false,
+                                    "steps": [
+                                        {
+                                            "axis": "child",
+                                            "test": {
+                                                "kind": "name",
+                                                "name": {
+                                                    "prefix": "cbc",
+                                                    "local": "CustomizationID"
+                                                },
+                                                "kindtestName": null
+                                            },
+                                            "predicates": [],
+                                            "primary": null
+                                        }
+                                    ]
+                                },
+                                {
+                                    "node": "Literal",
+                                    "pos": 46,
+                                    "kind": "string",
+                                    "value": "urn:www.agid.gov.it:trns:fattura"
+                                }
+                            ]
+                        }
+                    ],
+                    "primary": null
+                }
+            ]
+        },
+        "namespaces": {
+            "cbc": "urn:oasis:names:specification:ubl:schema:xsd:CommonBasicComponents-2",
+            "invoice": "urn:oasis:names:specification:ubl:schema:xsd:Invoice-2",
+            "rep": "http://www.xoev.de/de/validator/varl/1"
+        },
+        "xsdPath": "rulesets/xsd/ubl/maindoc/UBL-Invoice-2.1.xsd",
+        "rulesetRefs": [
+            "CEN-EN16931-UBL@3.0.21",
+            "PEPPOL-EN16931-UBL@3.0.21",
+            "AGID-EN16931-UBL@3.0.2"
+        ],
+        "customLevels": [],
+        "validFrom": null,
+        "validUntil": null
+    },
+    {
+        "id": "cius-ro-efactura-ubl-invoice",
+        "name": "CIUS-RO eFactura (UBL Invoice)",
+        "match": {
+            "node": "PathExpr",
+            "pos": 0,
+            "absolute": true,
+            "steps": [
+                {
+                    "axis": "child",
+                    "test": {
+                        "kind": "name",
+                        "name": {
+                            "prefix": "invoice",
+                            "local": "Invoice"
+                        },
+                        "kindtestName": null
+                    },
+                    "predicates": [
+                        {
+                            "node": "FunctionCall",
+                            "pos": 17,
+                            "name": {
+                                "prefix": null,
+                                "local": "starts-with"
+                            },
+                            "args": [
+                                {
+                                    "node": "PathExpr",
+                                    "pos": 29,
+                                    "absolute": false,
+                                    "steps": [
+                                        {
+                                            "axis": "child",
+                                            "test": {
+                                                "kind": "name",
+                                                "name": {
+                                                    "prefix": "cbc",
+                                                    "local": "CustomizationID"
+                                                },
+                                                "kindtestName": null
+                                            },
+                                            "predicates": [],
+                                            "primary": null
+                                        }
+                                    ]
+                                },
+                                {
+                                    "node": "Literal",
+                                    "pos": 49,
+                                    "kind": "string",
+                                    "value": "urn:cen.eu:en16931:2017#compliant#urn:efactura.mfinante.ro:CIUS-RO:"
+                                }
+                            ]
+                        }
+                    ],
+                    "primary": null
+                }
+            ]
+        },
+        "namespaces": {
+            "cbc": "urn:oasis:names:specification:ubl:schema:xsd:CommonBasicComponents-2",
+            "invoice": "urn:oasis:names:specification:ubl:schema:xsd:Invoice-2",
+            "rep": "http://www.xoev.de/de/validator/varl/1"
+        },
+        "xsdPath": "rulesets/xsd/ubl/maindoc/UBL-Invoice-2.1.xsd",
+        "rulesetRefs": [
+            "EN16931-UBL@1.3.16",
+            "CIUS-RO-UBL@1.0.9"
+        ],
+        "customLevels": [],
+        "validFrom": null,
+        "validUntil": null
+    },
+    {
+        "id": "cius-pt-ubl-invoice",
+        "name": "CIUS-PT (UBL Invoice)",
+        "match": {
+            "node": "PathExpr",
+            "pos": 0,
+            "absolute": true,
+            "steps": [
+                {
+                    "axis": "child",
+                    "test": {
+                        "kind": "name",
+                        "name": {
+                            "prefix": "invoice",
+                            "local": "Invoice"
+                        },
+                        "kindtestName": null
+                    },
+                    "predicates": [
+                        {
+                            "node": "FunctionCall",
+                            "pos": 17,
+                            "name": {
+                                "prefix": null,
+                                "local": "starts-with"
+                            },
+                            "args": [
+                                {
+                                    "node": "PathExpr",
+                                    "pos": 29,
+                                    "absolute": false,
+                                    "steps": [
+                                        {
+                                            "axis": "child",
+                                            "test": {
+                                                "kind": "name",
+                                                "name": {
+                                                    "prefix": "cbc",
+                                                    "local": "CustomizationID"
+                                                },
+                                                "kindtestName": null
+                                            },
+                                            "predicates": [],
+                                            "primary": null
+                                        }
+                                    ]
+                                },
+                                {
+                                    "node": "Literal",
+                                    "pos": 49,
+                                    "kind": "string",
+                                    "value": "urn:cen.eu:en16931:2017#compliant#urn:feap.gov.pt:CIUS-PT:"
+                                }
+                            ]
+                        }
+                    ],
+                    "primary": null
+                }
+            ]
+        },
+        "namespaces": {
+            "cbc": "urn:oasis:names:specification:ubl:schema:xsd:CommonBasicComponents-2",
+            "invoice": "urn:oasis:names:specification:ubl:schema:xsd:Invoice-2",
+            "rep": "http://www.xoev.de/de/validator/varl/1"
+        },
+        "xsdPath": "rulesets/xsd/ubl/maindoc/UBL-Invoice-2.1.xsd",
+        "rulesetRefs": [
+            "EN16931-UBL@1.3.16",
+            "CIUS-PT-UBL@2.1.1"
+        ],
+        "customLevels": [],
+        "validFrom": null,
+        "validUntil": null
+    },
+    {
+        "id": "ubl-be-ubl-invoice",
+        "name": "UBL.BE (UBL Invoice)",
+        "match": {
+            "node": "PathExpr",
+            "pos": 0,
+            "absolute": true,
+            "steps": [
+                {
+                    "axis": "child",
+                    "test": {
+                        "kind": "name",
+                        "name": {
+                            "prefix": "invoice",
+                            "local": "Invoice"
+                        },
+                        "kindtestName": null
+                    },
+                    "predicates": [
+                        {
+                            "node": "FunctionCall",
+                            "pos": 17,
+                            "name": {
+                                "prefix": null,
+                                "local": "contains"
+                            },
+                            "args": [
+                                {
+                                    "node": "PathExpr",
+                                    "pos": 26,
+                                    "absolute": false,
+                                    "steps": [
+                                        {
+                                            "axis": "child",
+                                            "test": {
+                                                "kind": "name",
+                                                "name": {
+                                                    "prefix": "cbc",
+                                                    "local": "CustomizationID"
+                                                },
+                                                "kindtestName": null
+                                            },
+                                            "predicates": [],
+                                            "primary": null
+                                        }
+                                    ]
+                                },
+                                {
+                                    "node": "Literal",
+                                    "pos": 46,
+                                    "kind": "string",
+                                    "value": "urn:UBL.BE:"
+                                }
+                            ]
+                        }
+                    ],
+                    "primary": null
+                }
+            ]
+        },
+        "namespaces": {
+            "cbc": "urn:oasis:names:specification:ubl:schema:xsd:CommonBasicComponents-2",
+            "invoice": "urn:oasis:names:specification:ubl:schema:xsd:Invoice-2",
+            "rep": "http://www.xoev.de/de/validator/varl/1"
+        },
+        "xsdPath": "rulesets/xsd/ubl/maindoc/UBL-Invoice-2.1.xsd",
+        "rulesetRefs": [
+            "EN16931-UBL@1.3.16",
+            "UBLBE-UBL@1.31"
+        ],
+        "customLevels": [],
+        "validFrom": null,
+        "validUntil": null
+    },
+    {
+        "id": "cius-rs-srbdt-ubl-invoice",
+        "name": "CIUS-RS srbdt (UBL Invoice)",
+        "match": {
+            "node": "PathExpr",
+            "pos": 0,
+            "absolute": true,
+            "steps": [
+                {
+                    "axis": "child",
+                    "test": {
+                        "kind": "name",
+                        "name": {
+                            "prefix": "invoice",
+                            "local": "Invoice"
+                        },
+                        "kindtestName": null
+                    },
+                    "predicates": [
+                        {
+                            "node": "FunctionCall",
+                            "pos": 17,
+                            "name": {
+                                "prefix": null,
+                                "local": "starts-with"
+                            },
+                            "args": [
+                                {
+                                    "node": "PathExpr",
+                                    "pos": 29,
+                                    "absolute": false,
+                                    "steps": [
+                                        {
+                                            "axis": "child",
+                                            "test": {
+                                                "kind": "name",
+                                                "name": {
+                                                    "prefix": "cbc",
+                                                    "local": "CustomizationID"
+                                                },
+                                                "kindtestName": null
+                                            },
+                                            "predicates": [],
+                                            "primary": null
+                                        }
+                                    ]
+                                },
+                                {
+                                    "node": "Literal",
+                                    "pos": 49,
+                                    "kind": "string",
+                                    "value": "urn:cen.eu:en16931:2017#compliant#urn:mfin.gov.rs:srbdt"
+                                }
+                            ]
+                        }
+                    ],
+                    "primary": null
+                }
+            ]
+        },
+        "namespaces": {
+            "cbc": "urn:oasis:names:specification:ubl:schema:xsd:CommonBasicComponents-2",
+            "invoice": "urn:oasis:names:specification:ubl:schema:xsd:Invoice-2",
+            "rep": "http://www.xoev.de/de/validator/varl/1"
+        },
+        "xsdPath": "rulesets/xsd/ubl/maindoc/UBL-Invoice-2.1.xsd",
+        "rulesetRefs": [
+            "EN16931-UBL@1.3.16",
+            "CIUS-RS-UBL@1.0.0"
+        ],
+        "customLevels": [],
+        "validFrom": null,
+        "validUntil": null
+    },
+    {
+        "id": "peppol-billing-bis-3-ubl-invoice",
+        "name": "Peppol Billing BIS 3 - UBL Invoice",
+        "match": {
+            "node": "PathExpr",
+            "pos": 0,
+            "absolute": true,
+            "steps": [
+                {
+                    "axis": "child",
+                    "test": {
+                        "kind": "name",
+                        "name": {
+                            "prefix": "invoice",
+                            "local": "Invoice"
+                        },
+                        "kindtestName": null
+                    },
+                    "predicates": [
+                        {
+                            "node": "FunctionCall",
+                            "pos": 17,
+                            "name": {
+                                "prefix": null,
+                                "local": "starts-with"
+                            },
+                            "args": [
+                                {
+                                    "node": "PathExpr",
+                                    "pos": 29,
+                                    "absolute": false,
+                                    "steps": [
+                                        {
+                                            "axis": "child",
+                                            "test": {
+                                                "kind": "name",
+                                                "name": {
+                                                    "prefix": "cbc",
+                                                    "local": "CustomizationID"
+                                                },
+                                                "kindtestName": null
+                                            },
+                                            "predicates": [],
+                                            "primary": null
+                                        }
+                                    ]
+                                },
+                                {
+                                    "node": "Literal",
+                                    "pos": 49,
+                                    "kind": "string",
+                                    "value": "urn:cen.eu:en16931:2017#compliant#urn:fdc:peppol.eu:2017:poacc:billing:3.0"
+                                }
+                            ]
+                        }
+                    ],
+                    "primary": null
+                }
+            ]
+        },
+        "namespaces": {
+            "cbc": "urn:oasis:names:specification:ubl:schema:xsd:CommonBasicComponents-2",
+            "invoice": "urn:oasis:names:specification:ubl:schema:xsd:Invoice-2"
+        },
+        "xsdPath": "rulesets/xsd/ubl/maindoc/UBL-Invoice-2.1.xsd",
+        "rulesetRefs": [
+            "CEN-EN16931-UBL@3.0.21",
+            "PEPPOL-EN16931-UBL@3.0.21"
+        ],
+        "customLevels": [],
+        "validFrom": null,
+        "validUntil": null
+    },
+    {
+        "id": "peppol-billing-bis-3-ubl-creditnote",
+        "name": "Peppol Billing BIS 3 - UBL CreditNote",
+        "match": {
+            "node": "PathExpr",
+            "pos": 0,
+            "absolute": true,
+            "steps": [
+                {
+                    "axis": "child",
+                    "test": {
+                        "kind": "name",
+                        "name": {
+                            "prefix": "creditnote",
+                            "local": "CreditNote"
+                        },
+                        "kindtestName": null
+                    },
+                    "predicates": [
+                        {
+                            "node": "FunctionCall",
+                            "pos": 23,
+                            "name": {
+                                "prefix": null,
+                                "local": "starts-with"
+                            },
+                            "args": [
+                                {
+                                    "node": "PathExpr",
+                                    "pos": 35,
+                                    "absolute": false,
+                                    "steps": [
+                                        {
+                                            "axis": "child",
+                                            "test": {
+                                                "kind": "name",
+                                                "name": {
+                                                    "prefix": "cbc",
+                                                    "local": "CustomizationID"
+                                                },
+                                                "kindtestName": null
+                                            },
+                                            "predicates": [],
+                                            "primary": null
+                                        }
+                                    ]
+                                },
+                                {
+                                    "node": "Literal",
+                                    "pos": 55,
+                                    "kind": "string",
+                                    "value": "urn:cen.eu:en16931:2017#compliant#urn:fdc:peppol.eu:2017:poacc:billing:3.0"
+                                }
+                            ]
+                        }
+                    ],
+                    "primary": null
+                }
+            ]
+        },
+        "namespaces": {
+            "cbc": "urn:oasis:names:specification:ubl:schema:xsd:CommonBasicComponents-2",
+            "creditnote": "urn:oasis:names:specification:ubl:schema:xsd:CreditNote-2"
+        },
+        "xsdPath": "rulesets/xsd/ubl/maindoc/UBL-CreditNote-2.1.xsd",
+        "rulesetRefs": [
+            "CEN-EN16931-UBL@3.0.21",
+            "PEPPOL-EN16931-UBL@3.0.21"
+        ],
+        "customLevels": [],
+        "validFrom": null,
+        "validUntil": null
+    },
+    {
+        "id": "factur-x-zugferd-extended-cii",
+        "name": "Factur-X / ZUGFeRD EXTENDED (CII)",
+        "match": {
+            "node": "FunctionCall",
+            "pos": 0,
+            "name": {
+                "prefix": null,
+                "local": "exists"
+            },
+            "args": [
+                {
+                    "node": "PathExpr",
+                    "pos": 7,
+                    "absolute": true,
+                    "steps": [
+                        {
+                            "axis": "child",
+                            "test": {
+                                "kind": "name",
+                                "name": {
+                                    "prefix": "rsm",
+                                    "local": "CrossIndustryInvoice"
+                                },
+                                "kindtestName": null
+                            },
+                            "predicates": [
+                                {
+                                    "node": "BinaryOp",
+                                    "pos": 124,
+                                    "op": "=",
+                                    "left": {
+                                        "node": "PathExpr",
+                                        "pos": 34,
+                                        "absolute": false,
+                                        "steps": [
+                                            {
+                                                "axis": "child",
+                                                "test": {
+                                                    "kind": "name",
+                                                    "name": {
+                                                        "prefix": "rsm",
+                                                        "local": "ExchangedDocumentContext"
+                                                    },
+                                                    "kindtestName": null
+                                                },
+                                                "predicates": [],
+                                                "primary": null
+                                            },
+                                            {
+                                                "axis": "child",
+                                                "test": {
+                                                    "kind": "name",
+                                                    "name": {
+                                                        "prefix": "ram",
+                                                        "local": "GuidelineSpecifiedDocumentContextParameter"
+                                                    },
+                                                    "kindtestName": null
+                                                },
+                                                "predicates": [],
+                                                "primary": null
+                                            },
+                                            {
+                                                "axis": "child",
+                                                "test": {
+                                                    "kind": "name",
+                                                    "name": {
+                                                        "prefix": "ram",
+                                                        "local": "ID"
+                                                    },
+                                                    "kindtestName": null
+                                                },
+                                                "predicates": [],
+                                                "primary": null
+                                            },
+                                            {
+                                                "axis": "child",
+                                                "test": {
+                                                    "kind": "kindtest",
+                                                    "name": null,
+                                                    "kindtestName": "text"
+                                                },
+                                                "predicates": [],
+                                                "primary": null
+                                            }
+                                        ]
+                                    },
+                                    "right": {
+                                        "node": "Literal",
+                                        "pos": 126,
+                                        "kind": "string",
+                                        "value": "urn:cen.eu:en16931:2017#conformant#urn:factur-x.eu:1p0:extended"
+                                    }
+                                }
+                            ],
+                            "primary": null
+                        }
+                    ]
+                }
+            ]
+        },
+        "namespaces": {
+            "rsm": "urn:un:unece:uncefact:data:standard:CrossIndustryInvoice:100",
+            "ram": "urn:un:unece:uncefact:data:standard:ReusableAggregateBusinessInformationEntity:100",
+            "rep": "http://www.xoev.de/de/validator/varl/1"
+        },
+        "xsdPath": "rulesets/xsd/facturx/extended/Factur-X_1.09.2_EXTENDED.xsd",
+        "rulesetRefs": [
+            "FACTURX-EXTENDED-CII@1.09.2"
+        ],
+        "customLevels": [],
+        "validFrom": null,
+        "validUntil": null
+    },
+    {
+        "id": "factur-x-zugferd-minimum-cii",
+        "name": "Factur-X / ZUGFeRD MINIMUM (CII)",
+        "match": {
+            "node": "FunctionCall",
+            "pos": 0,
+            "name": {
+                "prefix": null,
+                "local": "exists"
+            },
+            "args": [
+                {
+                    "node": "PathExpr",
+                    "pos": 7,
+                    "absolute": true,
+                    "steps": [
+                        {
+                            "axis": "child",
+                            "test": {
+                                "kind": "name",
+                                "name": {
+                                    "prefix": "rsm",
+                                    "local": "CrossIndustryInvoice"
+                                },
+                                "kindtestName": null
+                            },
+                            "predicates": [
+                                {
+                                    "node": "BinaryOp",
+                                    "pos": 124,
+                                    "op": "=",
+                                    "left": {
+                                        "node": "PathExpr",
+                                        "pos": 34,
+                                        "absolute": false,
+                                        "steps": [
+                                            {
+                                                "axis": "child",
+                                                "test": {
+                                                    "kind": "name",
+                                                    "name": {
+                                                        "prefix": "rsm",
+                                                        "local": "ExchangedDocumentContext"
+                                                    },
+                                                    "kindtestName": null
+                                                },
+                                                "predicates": [],
+                                                "primary": null
+                                            },
+                                            {
+                                                "axis": "child",
+                                                "test": {
+                                                    "kind": "name",
+                                                    "name": {
+                                                        "prefix": "ram",
+                                                        "local": "GuidelineSpecifiedDocumentContextParameter"
+                                                    },
+                                                    "kindtestName": null
+                                                },
+                                                "predicates": [],
+                                                "primary": null
+                                            },
+                                            {
+                                                "axis": "child",
+                                                "test": {
+                                                    "kind": "name",
+                                                    "name": {
+                                                        "prefix": "ram",
+                                                        "local": "ID"
+                                                    },
+                                                    "kindtestName": null
+                                                },
+                                                "predicates": [],
+                                                "primary": null
+                                            },
+                                            {
+                                                "axis": "child",
+                                                "test": {
+                                                    "kind": "kindtest",
+                                                    "name": null,
+                                                    "kindtestName": "text"
+                                                },
+                                                "predicates": [],
+                                                "primary": null
+                                            }
+                                        ]
+                                    },
+                                    "right": {
+                                        "node": "Literal",
+                                        "pos": 126,
+                                        "kind": "string",
+                                        "value": "urn:factur-x.eu:1p0:minimum"
+                                    }
+                                }
+                            ],
+                            "primary": null
+                        }
+                    ]
+                }
+            ]
+        },
+        "namespaces": {
+            "rsm": "urn:un:unece:uncefact:data:standard:CrossIndustryInvoice:100",
+            "ram": "urn:un:unece:uncefact:data:standard:ReusableAggregateBusinessInformationEntity:100",
+            "rep": "http://www.xoev.de/de/validator/varl/1"
+        },
+        "xsdPath": "rulesets/xsd/facturx/minimum/Factur-X_1.09.2_MINIMUM.xsd",
+        "rulesetRefs": [
+            "FACTURX-MINIMUM-CII@1.09.2"
+        ],
+        "customLevels": [],
+        "validFrom": null,
+        "validUntil": null
+    },
+    {
+        "id": "factur-x-zugferd-basic-wl-cii",
+        "name": "Factur-X / ZUGFeRD BASIC WL (CII)",
+        "match": {
+            "node": "FunctionCall",
+            "pos": 0,
+            "name": {
+                "prefix": null,
+                "local": "exists"
+            },
+            "args": [
+                {
+                    "node": "PathExpr",
+                    "pos": 7,
+                    "absolute": true,
+                    "steps": [
+                        {
+                            "axis": "child",
+                            "test": {
+                                "kind": "name",
+                                "name": {
+                                    "prefix": "rsm",
+                                    "local": "CrossIndustryInvoice"
+                                },
+                                "kindtestName": null
+                            },
+                            "predicates": [
+                                {
+                                    "node": "BinaryOp",
+                                    "pos": 124,
+                                    "op": "=",
+                                    "left": {
+                                        "node": "PathExpr",
+                                        "pos": 34,
+                                        "absolute": false,
+                                        "steps": [
+                                            {
+                                                "axis": "child",
+                                                "test": {
+                                                    "kind": "name",
+                                                    "name": {
+                                                        "prefix": "rsm",
+                                                        "local": "ExchangedDocumentContext"
+                                                    },
+                                                    "kindtestName": null
+                                                },
+                                                "predicates": [],
+                                                "primary": null
+                                            },
+                                            {
+                                                "axis": "child",
+                                                "test": {
+                                                    "kind": "name",
+                                                    "name": {
+                                                        "prefix": "ram",
+                                                        "local": "GuidelineSpecifiedDocumentContextParameter"
+                                                    },
+                                                    "kindtestName": null
+                                                },
+                                                "predicates": [],
+                                                "primary": null
+                                            },
+                                            {
+                                                "axis": "child",
+                                                "test": {
+                                                    "kind": "name",
+                                                    "name": {
+                                                        "prefix": "ram",
+                                                        "local": "ID"
+                                                    },
+                                                    "kindtestName": null
+                                                },
+                                                "predicates": [],
+                                                "primary": null
+                                            },
+                                            {
+                                                "axis": "child",
+                                                "test": {
+                                                    "kind": "kindtest",
+                                                    "name": null,
+                                                    "kindtestName": "text"
+                                                },
+                                                "predicates": [],
+                                                "primary": null
+                                            }
+                                        ]
+                                    },
+                                    "right": {
+                                        "node": "Literal",
+                                        "pos": 126,
+                                        "kind": "string",
+                                        "value": "urn:factur-x.eu:1p0:basicwl"
+                                    }
+                                }
+                            ],
+                            "primary": null
+                        }
+                    ]
+                }
+            ]
+        },
+        "namespaces": {
+            "rsm": "urn:un:unece:uncefact:data:standard:CrossIndustryInvoice:100",
+            "ram": "urn:un:unece:uncefact:data:standard:ReusableAggregateBusinessInformationEntity:100",
+            "rep": "http://www.xoev.de/de/validator/varl/1"
+        },
+        "xsdPath": "rulesets/xsd/facturx/basicwl/Factur-X_1.09.2_BASICWL.xsd",
+        "rulesetRefs": [
+            "FACTURX-BASICWL-CII@1.09.2"
+        ],
+        "customLevels": [],
+        "validFrom": null,
+        "validUntil": null
+    },
+    {
+        "id": "factur-x-zugferd-basic-cii",
+        "name": "Factur-X / ZUGFeRD BASIC (CII)",
+        "match": {
+            "node": "FunctionCall",
+            "pos": 0,
+            "name": {
+                "prefix": null,
+                "local": "exists"
+            },
+            "args": [
+                {
+                    "node": "PathExpr",
+                    "pos": 7,
+                    "absolute": true,
+                    "steps": [
+                        {
+                            "axis": "child",
+                            "test": {
+                                "kind": "name",
+                                "name": {
+                                    "prefix": "rsm",
+                                    "local": "CrossIndustryInvoice"
+                                },
+                                "kindtestName": null
+                            },
+                            "predicates": [
+                                {
+                                    "node": "BinaryOp",
+                                    "pos": 124,
+                                    "op": "=",
+                                    "left": {
+                                        "node": "PathExpr",
+                                        "pos": 34,
+                                        "absolute": false,
+                                        "steps": [
+                                            {
+                                                "axis": "child",
+                                                "test": {
+                                                    "kind": "name",
+                                                    "name": {
+                                                        "prefix": "rsm",
+                                                        "local": "ExchangedDocumentContext"
+                                                    },
+                                                    "kindtestName": null
+                                                },
+                                                "predicates": [],
+                                                "primary": null
+                                            },
+                                            {
+                                                "axis": "child",
+                                                "test": {
+                                                    "kind": "name",
+                                                    "name": {
+                                                        "prefix": "ram",
+                                                        "local": "GuidelineSpecifiedDocumentContextParameter"
+                                                    },
+                                                    "kindtestName": null
+                                                },
+                                                "predicates": [],
+                                                "primary": null
+                                            },
+                                            {
+                                                "axis": "child",
+                                                "test": {
+                                                    "kind": "name",
+                                                    "name": {
+                                                        "prefix": "ram",
+                                                        "local": "ID"
+                                                    },
+                                                    "kindtestName": null
+                                                },
+                                                "predicates": [],
+                                                "primary": null
+                                            },
+                                            {
+                                                "axis": "child",
+                                                "test": {
+                                                    "kind": "kindtest",
+                                                    "name": null,
+                                                    "kindtestName": "text"
+                                                },
+                                                "predicates": [],
+                                                "primary": null
+                                            }
+                                        ]
+                                    },
+                                    "right": {
+                                        "node": "Literal",
+                                        "pos": 126,
+                                        "kind": "string",
+                                        "value": "urn:cen.eu:en16931:2017#compliant#urn:factur-x.eu:1p0:basic"
+                                    }
+                                }
+                            ],
+                            "primary": null
+                        }
+                    ]
+                }
+            ]
+        },
+        "namespaces": {
+            "rsm": "urn:un:unece:uncefact:data:standard:CrossIndustryInvoice:100",
+            "ram": "urn:un:unece:uncefact:data:standard:ReusableAggregateBusinessInformationEntity:100",
+            "rep": "http://www.xoev.de/de/validator/varl/1"
+        },
+        "xsdPath": "rulesets/xsd/facturx/basic/Factur-X_1.09.2_BASIC.xsd",
+        "rulesetRefs": [
+            "FACTURX-BASIC-CII@1.09.2"
+        ],
+        "customLevels": [],
+        "validFrom": null,
+        "validUntil": null
+    }
+]

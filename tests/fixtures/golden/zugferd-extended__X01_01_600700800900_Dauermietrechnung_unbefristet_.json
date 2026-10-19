@@ -1,0 +1,7 @@
+{
+    "file": "invoices/zugferd-extended/X01_01_600700800900_Dauermietrechnung_unbefristet_.xml",
+    "scenario": "Factur-X / ZUGFeRD EXTENDED (CII)",
+    "accept": true,
+    "messages": [],
+    "engine": "KoSIT Validator 1.6.3"
+}

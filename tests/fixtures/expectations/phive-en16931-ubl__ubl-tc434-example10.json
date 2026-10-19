@@ -1,0 +1,8 @@
+{
+    "file": "invoices/phive-en16931-ubl/ubl-tc434-example10.xml",
+    "scenario": "EN16931 (UBL Invoice)",
+    "accept": true,
+    "rules": [],
+    "mustNotBlock": [],
+    "note": "phive-rules-Testbestand, Gruppe phive-en16931-ubl - upstream als GoodCase gefuehrt, muss angenommen werden."
+}

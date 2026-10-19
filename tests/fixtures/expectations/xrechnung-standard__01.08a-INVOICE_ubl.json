@@ -1,0 +1,8 @@
+{
+    "file": "invoices/xrechnung-standard/01.08a-INVOICE_ubl.xml",
+    "scenario": "EN16931 XRechnung (UBL Invoice)",
+    "accept": true,
+    "rules": [],
+    "mustNotBlock": [],
+    "note": "Offizielle XRechnung-3.0.2-Testsuite, Gruppe xrechnung-standard - gueltiger Beleg, muss angenommen werden."
+}

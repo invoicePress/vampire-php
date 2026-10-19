@@ -1,0 +1,6 @@
+{
+    "id": "test-duplicate-disable",
+    "disable": ["BR-02"],
+    "include": [ { "ruleset": "CEN-EN16931-UBL@3.0.21" } ],
+    "note": "Testprofil (Aufgabe 5.8b): schaltet BR-02 ab und gleichzeitig ein zweites Regelwerk zu, das dieselbe Regel enthält. Abgeschaltet heißt abgeschaltet - in beiden."
+}

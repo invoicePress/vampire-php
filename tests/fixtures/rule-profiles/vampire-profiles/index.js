@@ -1,0 +1,2 @@
+// VAMPIRE rule profiles - the list the add-on loads. Written by the Rule Studio. Do not edit by hand.
+(function(g){(g.einvoiceData=g.einvoiceData||{})["vampire/profiles/index.json"]="{\"format\":\"vampire-profile-index\",\"formatVersion\":1,\"profiles\":[{\"name\":\"muster-ust\",\"version\":\"1.0.0\"},{\"name\":\"kunde-lockerung\",\"version\":\"2.1\"}]}";})(typeof globalThis!=='undefined'?globalThis:this);

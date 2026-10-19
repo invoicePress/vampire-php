@@ -1,0 +1,8 @@
+{
+    "file": "invoices/xrechnung-cius/01.02_comprehensive_test_uncefact.xml",
+    "scenario": "EN16931 XRechnung (CII)",
+    "accept": true,
+    "rules": [],
+    "mustNotBlock": [],
+    "note": "Offizielle XRechnung-3.0.2-Testsuite, Gruppe xrechnung-cius - gueltiger Beleg, muss angenommen werden."
+}

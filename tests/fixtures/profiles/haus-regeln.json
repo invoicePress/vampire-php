@@ -1,0 +1,24 @@
+{
+    "id": "haus-regeln",
+    "version": "1.0",
+    "syntax": "ubl",
+    "title": "Beispiel fuer eigene Regeln (Aufgaben 5.5/5.5a)",
+    "rules": [
+        {
+            "id": "HAUS-01",
+            "flag": "warning",
+            "contextBt": "BT-1",
+            "test": "string-length(normalize-space(.)) >= 12",
+            "message": "Hausregel: Die Rechnungsnummer soll mindestens zwoelf Zeichen haben.",
+            "fields": ["BT-1"]
+        },
+        {
+            "id": "HAUS-02",
+            "flag": "information",
+            "context": "/*/cac:AccountingSupplierParty/cac:Party/cac:PartyLegalEntity",
+            "test": "cbc:CompanyID",
+            "message": "Hausregel: Zum Verkaeufer soll eine Registernummer hinterlegt sein.",
+            "fields": ["BT-30"]
+        }
+    ]
+}

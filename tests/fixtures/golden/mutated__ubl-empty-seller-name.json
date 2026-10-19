@@ -1,0 +1,11 @@
+{
+    "file": "invoices/mutated/ubl-empty-seller-name.xml",
+    "scenario": "EN16931 XRechnung (UBL Invoice)",
+    "accept": false,
+    "messages": {
+        "BR-06": "error",
+        "BR-DE-TMP-32": "information",
+        "PEPPOL-EN16931-R008": "error"
+    },
+    "engine": "KoSIT Validator 1.6.3"
+}

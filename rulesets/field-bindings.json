@@ -1,0 +1,1118 @@
+{
+    "BG-1": {
+        "cii": "/rsm:CrossIndustryInvoice/rsm:ExchangedDocument/ram:IncludedNote"
+    },
+    "BG-10": {
+        "ubl": "/*/cac:PayeeParty",
+        "cii": "/rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction/ram:ApplicableHeaderTradeSettlement/ram:PayeeTradeParty"
+    },
+    "BG-11": {
+        "ubl": "/*/cac:TaxRepresentativeParty",
+        "cii": "/rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction/ram:ApplicableHeaderTradeAgreement/ram:SellerTaxRepresentativeTradeParty"
+    },
+    "BG-12": {
+        "cii": "/rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction/ram:ApplicableHeaderTradeAgreement/ram:SellerTaxRepresentativeTradeParty/ram:PostalTradeAddress"
+    },
+    "BG-13": {
+        "cii": "/rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction/ram:ApplicableHeaderTradeDelivery/ram:ShipToTradeParty"
+    },
+    "BG-13-00": {
+        "cii": "/rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction/ram:ApplicableHeaderTradeDelivery"
+    },
+    "BG-14": {
+        "ubl": "/*/cac:InvoicePeriod",
+        "cii": "/rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction/ram:ApplicableHeaderTradeSettlement/ram:BillingSpecifiedPeriod"
+    },
+    "BG-15": {
+        "cii": "/rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction/ram:ApplicableHeaderTradeDelivery/ram:ShipToTradeParty/ram:PostalTradeAddress"
+    },
+    "BG-16": {
+        "ubl": "/*/cac:PaymentMeans",
+        "cii": "/rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction/ram:ApplicableHeaderTradeSettlement/ram:SpecifiedTradeSettlementPaymentMeans"
+    },
+    "BG-17": {
+        "cii": "/rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction/ram:ApplicableHeaderTradeSettlement/ram:SpecifiedTradeSettlementPaymentMeans/ram:PayeePartyCreditorFinancialAccount"
+    },
+    "BG-18": {
+        "ubl": "/*/cac:PaymentMeans/cac:CardAccount/cbc:PrimaryAccountNumberID",
+        "cii": "/rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction/ram:ApplicableHeaderTradeSettlement/ram:SpecifiedTradeSettlementPaymentMeans/ram:ApplicableTradeSettlementFinancialCard"
+    },
+    "BG-19": {
+        "cii": "/rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction/ram:ApplicableHeaderTradeSettlement"
+    },
+    "BG-2": {
+        "cii": "/rsm:CrossIndustryInvoice/rsm:ExchangedDocumentContext"
+    },
+    "BG-20": {
+        "ubl": "/*/cac:AllowanceCharge[cbc:ChargeIndicator = false()]",
+        "cii": "/rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction/ram:ApplicableHeaderTradeSettlement/ram:SpecifiedTradeAllowanceCharge"
+    },
+    "BG-20-0": {
+        "cii": "/rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction/ram:ApplicableHeaderTradeSettlement/ram:SpecifiedTradeAllowanceCharge/ram:ChargeIndicator"
+    },
+    "BG-20-1": {
+        "cii": "/rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction/ram:ApplicableHeaderTradeSettlement/ram:SpecifiedTradeAllowanceCharge/ram:ChargeIndicator/udt:Indicator"
+    },
+    "BG-21": {
+        "ubl": "/*/cac:AllowanceCharge[cbc:ChargeIndicator = true()]",
+        "cii": "/rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction/ram:ApplicableHeaderTradeSettlement/ram:SpecifiedTradeAllowanceCharge"
+    },
+    "BG-21-0": {
+        "cii": "/rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction/ram:ApplicableHeaderTradeSettlement/ram:SpecifiedTradeAllowanceCharge/ram:ChargeIndicator"
+    },
+    "BG-21-1": {
+        "cii": "/rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction/ram:ApplicableHeaderTradeSettlement/ram:SpecifiedTradeAllowanceCharge/ram:ChargeIndicator/udt:Indicator"
+    },
+    "BG-22": {
+        "ubl": "/*/cac:LegalMonetaryTotal",
+        "cii": "/rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction/ram:ApplicableHeaderTradeSettlement/ram:SpecifiedTradeSettlementHeaderMonetarySummation"
+    },
+    "BG-23": {
+        "ubl": "/*/cac:TaxTotal/cac:TaxSubtotal",
+        "cii": "/rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction/ram:ApplicableHeaderTradeSettlement/ram:ApplicableTradeTax"
+    },
+    "BG-24": {
+        "ubl": "/*/cac:AdditionalDocumentReference",
+        "cii": "/rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction/ram:ApplicableHeaderTradeAgreement/ram:AdditionalReferencedDocument"
+    },
+    "BG-25": {
+        "ubl": "/*/cac:InvoiceLine",
+        "cii": "/rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction/ram:IncludedSupplyChainTradeLineItem"
+    },
+    "BG-25-00": {
+        "cii": "/rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction"
+    },
+    "BG-26": {
+        "ubl": "/*/cac:InvoiceLine/cac:InvoicePeriod",
+        "cii": "/rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction/ram:IncludedSupplyChainTradeLineItem/ram:SpecifiedLineTradeSettlement/ram:BillingSpecifiedPeriod"
+    },
+    "BG-27": {
+        "ubl": "/*/cac:InvoiceLine/cac:AllowanceCharge[cbc:ChargeIndicator = false()]",
+        "cii": "/rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction/ram:IncludedSupplyChainTradeLineItem/ram:SpecifiedLineTradeSettlement/ram:SpecifiedTradeAllowanceCharge"
+    },
+    "BG-27-0": {
+        "cii": "/rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction/ram:IncludedSupplyChainTradeLineItem/ram:SpecifiedLineTradeSettlement/ram:SpecifiedTradeAllowanceCharge/ram:ChargeIndicator"
+    },
+    "BG-27-1": {
+        "cii": "/rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction/ram:IncludedSupplyChainTradeLineItem/ram:SpecifiedLineTradeSettlement/ram:SpecifiedTradeAllowanceCharge/ram:ChargeIndicator/udt:Indicator"
+    },
+    "BG-28": {
+        "ubl": "/*/cac:InvoiceLine/cac:AllowanceCharge[cbc:ChargeIndicator = true()]",
+        "cii": "/rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction/ram:IncludedSupplyChainTradeLineItem/ram:SpecifiedLineTradeSettlement/ram:SpecifiedTradeAllowanceCharge"
+    },
+    "BG-28-0": {
+        "cii": "/rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction/ram:IncludedSupplyChainTradeLineItem/ram:SpecifiedLineTradeSettlement/ram:SpecifiedTradeAllowanceCharge/ram:ChargeIndicator"
+    },
+    "BG-28-1": {
+        "cii": "/rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction/ram:IncludedSupplyChainTradeLineItem/ram:SpecifiedLineTradeSettlement/ram:SpecifiedTradeAllowanceCharge/ram:ChargeIndicator/udt:Indicator"
+    },
+    "BG-29": {
+        "cii": "/rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction/ram:IncludedSupplyChainTradeLineItem/ram:SpecifiedLineTradeAgreement"
+    },
+    "BG-3": {
+        "ubl": "/*/cac:BillingReference",
+        "cii": "/rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction/ram:ApplicableHeaderTradeSettlement/ram:InvoiceReferencedDocument"
+    },
+    "BG-30": {
+        "cii": "/rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction/ram:IncludedSupplyChainTradeLineItem/ram:SpecifiedLineTradeSettlement/ram:ApplicableTradeTax"
+    },
+    "BG-30-00": {
+        "cii": "/rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction/ram:IncludedSupplyChainTradeLineItem/ram:SpecifiedLineTradeSettlement"
+    },
+    "BG-31": {
+        "cii": "/rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction/ram:IncludedSupplyChainTradeLineItem/ram:SpecifiedTradeProduct"
+    },
+    "BG-32": {
+        "ubl": "/*/cac:AdditionalItemProperty",
+        "cii": "/rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction/ram:IncludedSupplyChainTradeLineItem/ram:SpecifiedTradeProduct/ram:ApplicableProductCharacteristic"
+    },
+    "BG-4": {
+        "ubl": "/*/cac:AccountingSupplierParty",
+        "cii": "/rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction/ram:ApplicableHeaderTradeAgreement/ram:SellerTradeParty"
+    },
+    "BG-5": {
+        "ubl": "/*/cac:AccountingSupplierParty/cac:Party/cac:PostalAddress",
+        "cii": "/rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction/ram:ApplicableHeaderTradeAgreement/ram:SellerTradeParty/ram:PostalTradeAddress"
+    },
+    "BG-6": {
+        "cii": "/rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction/ram:ApplicableHeaderTradeAgreement/ram:SellerTradeParty/ram:DefinedTradeContact"
+    },
+    "BG-7": {
+        "cii": "/rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction/ram:ApplicableHeaderTradeAgreement/ram:BuyerTradeParty"
+    },
+    "BG-8": {
+        "ubl": "/*/cac:AccountingCustomerParty/cac:Party/cac:PostalAddress",
+        "cii": "/rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction/ram:ApplicableHeaderTradeAgreement/ram:BuyerTradeParty/ram:PostalTradeAddress"
+    },
+    "BG-9": {
+        "cii": "/rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction/ram:ApplicableHeaderTradeAgreement/ram:BuyerTradeParty/ram:DefinedTradeContact"
+    },
+    "BT-1": {
+        "ubl": "/*/cbc:ID",
+        "cii": "/rsm:CrossIndustryInvoice/rsm:ExchangedDocument/ram:ID"
+    },
+    "BT-1-00": {
+        "cii": "/rsm:CrossIndustryInvoice/rsm:ExchangedDocument"
+    },
+    "BT-10": {
+        "ubl": "/*/cbc:BuyerReference",
+        "cii": "/rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction/ram:ApplicableHeaderTradeAgreement/ram:BuyerReference"
+    },
+    "BT-10-00": {
+        "cii": "/rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction/ram:ApplicableHeaderTradeAgreement"
+    },
+    "BT-100": {
+        "ubl": "/*/cac:AllowanceCharge/cbc:BaseAmount (ChargeIndicator=true)",
+        "cii": "/rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction/ram:ApplicableHeaderTradeSettlement/ram:SpecifiedTradeAllowanceCharge/ram:BasisAmount"
+    },
+    "BT-101": {
+        "ubl": "/*/cac:AllowanceCharge/cbc:MultiplierFactorNumeric (ChargeIndicator=true)",
+        "cii": "/rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction/ram:ApplicableHeaderTradeSettlement/ram:SpecifiedTradeAllowanceCharge/ram:CalculationPercent"
+    },
+    "BT-102": {
+        "ubl": "/*/cac:AllowanceCharge/cac:TaxCategory/cbc:ID (ChargeIndicator=true)",
+        "cii": "/rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction/ram:ApplicableHeaderTradeSettlement/ram:SpecifiedTradeAllowanceCharge/ram:CategoryTradeTax/ram:CategoryCode"
+    },
+    "BT-102-0": {
+        "cii": "/rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction/ram:ApplicableHeaderTradeSettlement/ram:SpecifiedTradeAllowanceCharge/ram:CategoryTradeTax/ram:TypeCode"
+    },
+    "BT-102-00": {
+        "cii": "/rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction/ram:ApplicableHeaderTradeSettlement/ram:SpecifiedTradeAllowanceCharge/ram:CategoryTradeTax"
+    },
+    "BT-103": {
+        "ubl": "/*/cac:AllowanceCharge/cac:TaxCategory/cbc:Percent (ChargeIndicator=true)",
+        "cii": "/rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction/ram:ApplicableHeaderTradeSettlement/ram:SpecifiedTradeAllowanceCharge/ram:CategoryTradeTax/ram:RateApplicablePercent"
+    },
+    "BT-104": {
+        "ubl": "/*/cac:AllowanceCharge/cbc:AllowanceChargeReason (ChargeIndicator=true)",
+        "cii": "/rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction/ram:ApplicableHeaderTradeSettlement/ram:SpecifiedTradeAllowanceCharge/ram:Reason"
+    },
+    "BT-105": {
+        "ubl": "/*/cac:AllowanceCharge/cbc:AllowanceChargeReasonCode (ChargeIndicator=true)",
+        "cii": "/rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction/ram:ApplicableHeaderTradeSettlement/ram:SpecifiedTradeAllowanceCharge/ram:ReasonCode"
+    },
+    "BT-106": {
+        "ubl": "/*/cac:LegalMonetaryTotal/cbc:LineExtensionAmount",
+        "cii": "/rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction/ram:ApplicableHeaderTradeSettlement/ram:SpecifiedTradeSettlementHeaderMonetarySummation/ram:LineTotalAmount"
+    },
+    "BT-107": {
+        "ubl": "/*/cac:LegalMonetaryTotal/cbc:AllowanceTotalAmount",
+        "cii": "/rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction/ram:ApplicableHeaderTradeSettlement/ram:SpecifiedTradeSettlementHeaderMonetarySummation/ram:AllowanceTotalAmount"
+    },
+    "BT-108": {
+        "ubl": "/*/cac:LegalMonetaryTotal/cbc:ChargeTotalAmount",
+        "cii": "/rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction/ram:ApplicableHeaderTradeSettlement/ram:SpecifiedTradeSettlementHeaderMonetarySummation/ram:ChargeTotalAmount"
+    },
+    "BT-109": {
+        "ubl": "/*/cac:LegalMonetaryTotal/cbc:TaxExclusiveAmount",
+        "cii": "/rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction/ram:ApplicableHeaderTradeSettlement/ram:SpecifiedTradeSettlementHeaderMonetarySummation/ram:TaxBasisTotalAmount"
+    },
+    "BT-11": {
+        "ubl": "/*/cac:ProjectReference/cbc:ID",
+        "cii": "/rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction/ram:ApplicableHeaderTradeAgreement/ram:SpecifiedProcuringProject/ram:ID"
+    },
+    "BT-11-0": {
+        "cii": "/rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction/ram:ApplicableHeaderTradeAgreement/ram:SpecifiedProcuringProject/ram:Name"
+    },
+    "BT-11-00": {
+        "cii": "/rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction/ram:ApplicableHeaderTradeAgreement/ram:SpecifiedProcuringProject"
+    },
+    "BT-110": {
+        "ubl": "/*/cac:TaxTotal/cbc:TaxAmount",
+        "cii": "/rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction/ram:ApplicableHeaderTradeSettlement/ram:SpecifiedTradeSettlementHeaderMonetarySummation/ram:TaxTotalAmount"
+    },
+    "BT-110-0": {
+        "cii": "/rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction/ram:ApplicableHeaderTradeSettlement/ram:SpecifiedTradeSettlementHeaderMonetarySummation/ram:TaxTotalAmount/@currencyID"
+    },
+    "BT-111": {
+        "ubl": "/*/cac:TaxTotal/cbc:TaxAmount",
+        "cii": "/rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction/ram:ApplicableHeaderTradeSettlement/ram:SpecifiedTradeSettlementHeaderMonetarySummation/ram:TaxTotalAmount"
+    },
+    "BT-111-0": {
+        "cii": "/rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction/ram:ApplicableHeaderTradeSettlement/ram:SpecifiedTradeSettlementHeaderMonetarySummation/ram:TaxTotalAmount/@currencyID"
+    },
+    "BT-112": {
+        "ubl": "/*/cac:LegalMonetaryTotal/cbc:TaxInclusiveAmount",
+        "cii": "/rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction/ram:ApplicableHeaderTradeSettlement/ram:SpecifiedTradeSettlementHeaderMonetarySummation/ram:GrandTotalAmount"
+    },
+    "BT-113": {
+        "ubl": "/*/cac:LegalMonetaryTotal/cbc:PrepaidAmount",
+        "cii": "/rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction/ram:ApplicableHeaderTradeSettlement/ram:SpecifiedTradeSettlementHeaderMonetarySummation/ram:TotalPrepaidAmount"
+    },
+    "BT-114": {
+        "ubl": "/*/cac:LegalMonetaryTotal/cbc:PayableRoundingAmount",
+        "cii": "/rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction/ram:ApplicableHeaderTradeSettlement/ram:SpecifiedTradeSettlementHeaderMonetarySummation/ram:RoundingAmount"
+    },
+    "BT-115": {
+        "ubl": "/*/cac:LegalMonetaryTotal/cbc:PayableAmount",
+        "cii": "/rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction/ram:ApplicableHeaderTradeSettlement/ram:SpecifiedTradeSettlementHeaderMonetarySummation/ram:DuePayableAmount"
+    },
+    "BT-116": {
+        "ubl": "/*/cac:TaxTotal/cac:TaxSubtotal/cbc:TaxableAmount",
+        "cii": "/rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction/ram:ApplicableHeaderTradeSettlement/ram:ApplicableTradeTax/ram:BasisAmount"
+    },
+    "BT-117": {
+        "ubl": "/*/cac:TaxTotal/cac:TaxSubtotal/cbc:TaxAmount",
+        "cii": "/rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction/ram:ApplicableHeaderTradeSettlement/ram:ApplicableTradeTax/ram:CalculatedAmount"
+    },
+    "BT-118": {
+        "ubl": "/*/cac:TaxTotal/cac:TaxSubtotal/cac:TaxCategory/cbc:ID",
+        "cii": "/rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction/ram:ApplicableHeaderTradeSettlement/ram:ApplicableTradeTax/ram:CategoryCode"
+    },
+    "BT-118-0": {
+        "cii": "/rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction/ram:ApplicableHeaderTradeSettlement/ram:ApplicableTradeTax/ram:TypeCode"
+    },
+    "BT-119": {
+        "ubl": "/*/cac:TaxTotal/cac:TaxSubtotal/cac:TaxCategory/cbc:Percent",
+        "cii": "/rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction/ram:ApplicableHeaderTradeSettlement/ram:ApplicableTradeTax/ram:RateApplicablePercent"
+    },
+    "BT-12": {
+        "ubl": "/*/cac:ContractDocumentReference/cbc:ID",
+        "cii": "/rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction/ram:ApplicableHeaderTradeAgreement/ram:ContractReferencedDocument/ram:IssuerAssignedID"
+    },
+    "BT-12-00": {
+        "cii": "/rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction/ram:ApplicableHeaderTradeAgreement/ram:ContractReferencedDocument"
+    },
+    "BT-120": {
+        "ubl": "/*/cac:TaxTotal/cac:TaxSubtotal/cac:TaxCategory/cbc:TaxExemptionReason",
+        "cii": "/rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction/ram:ApplicableHeaderTradeSettlement/ram:ApplicableTradeTax/ram:ExemptionReason"
+    },
+    "BT-121": {
+        "ubl": "/*/cac:TaxTotal/cac:TaxSubtotal/cac:TaxCategory/cbc:TaxExemptionReasonCode",
+        "cii": "/rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction/ram:ApplicableHeaderTradeSettlement/ram:ApplicableTradeTax/ram:ExemptionReasonCode"
+    },
+    "BT-122": {
+        "ubl": "/*/cac:AdditionalDocumentReference/cbc:ID",
+        "cii": "/rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction/ram:ApplicableHeaderTradeAgreement/ram:AdditionalReferencedDocument/ram:IssuerAssignedID"
+    },
+    "BT-122-0": {
+        "cii": "/rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction/ram:ApplicableHeaderTradeAgreement/ram:AdditionalReferencedDocument/ram:TypeCode"
+    },
+    "BT-123": {
+        "ubl": "/*/cac:AdditionalDocumentReference/cbc:DocumentDescription",
+        "cii": "/rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction/ram:ApplicableHeaderTradeAgreement/ram:AdditionalReferencedDocument/ram:Name"
+    },
+    "BT-124": {
+        "ubl": "/*/cac:AdditionalDocumentReference/cac:Attachment/cac:ExternalReference/cbc:URI",
+        "cii": "/rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction/ram:ApplicableHeaderTradeAgreement/ram:AdditionalReferencedDocument/ram:URIID"
+    },
+    "BT-125": {
+        "ubl": "/*/cac:AdditionalDocumentReference/cac:Attachment/cbc:EmbeddedDocumentBinaryObject",
+        "cii": "/rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction/ram:ApplicableHeaderTradeAgreement/ram:AdditionalReferencedDocument/ram:AttachmentBinaryObject"
+    },
+    "BT-125-1": {
+        "cii": "/rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction/ram:ApplicableHeaderTradeAgreement/ram:AdditionalReferencedDocument/ram:AttachmentBinaryObject/@mimeCode"
+    },
+    "BT-125-2": {
+        "cii": "/rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction/ram:ApplicableHeaderTradeAgreement/ram:AdditionalReferencedDocument/ram:AttachmentBinaryObject/@filename"
+    },
+    "BT-126": {
+        "ubl": "/*/cac:InvoiceLine/cbc:ID",
+        "cii": "/rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction/ram:IncludedSupplyChainTradeLineItem/ram:AssociatedDocumentLineDocument/ram:LineID"
+    },
+    "BT-126-00": {
+        "cii": "/rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction/ram:IncludedSupplyChainTradeLineItem/ram:AssociatedDocumentLineDocument"
+    },
+    "BT-127": {
+        "ubl": "/*/cac:InvoiceLine/cbc:Note",
+        "cii": "/rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction/ram:IncludedSupplyChainTradeLineItem/ram:AssociatedDocumentLineDocument/ram:IncludedNote/ram:Content"
+    },
+    "BT-127-00": {
+        "cii": "/rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction/ram:IncludedSupplyChainTradeLineItem/ram:AssociatedDocumentLineDocument/ram:IncludedNote"
+    },
+    "BT-128": {
+        "ubl": "/*/cac:InvoiceLine/cac:DocumentReference/cbc:ID (DocumentTypeCode=130)",
+        "cii": "/rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction/ram:IncludedSupplyChainTradeLineItem/ram:SpecifiedLineTradeSettlement/ram:AdditionalReferencedDocument/ram:IssuerAssignedID"
+    },
+    "BT-128-0": {
+        "cii": "/rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction/ram:IncludedSupplyChainTradeLineItem/ram:SpecifiedLineTradeSettlement/ram:AdditionalReferencedDocument/ram:TypeCode"
+    },
+    "BT-128-00": {
+        "cii": "/rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction/ram:IncludedSupplyChainTradeLineItem/ram:SpecifiedLineTradeSettlement/ram:AdditionalReferencedDocument"
+    },
+    "BT-128-1": {
+        "cii": "/rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction/ram:IncludedSupplyChainTradeLineItem/ram:SpecifiedLineTradeSettlement/ram:AdditionalReferencedDocument/ram:ReferenceTypeCode"
+    },
+    "BT-129": {
+        "ubl": "/*/cac:InvoiceLine/cbc:InvoicedQuantity",
+        "cii": "/rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction/ram:IncludedSupplyChainTradeLineItem/ram:SpecifiedLineTradeDelivery/ram:BilledQuantity"
+    },
+    "BT-129-00": {
+        "cii": "/rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction/ram:IncludedSupplyChainTradeLineItem/ram:SpecifiedLineTradeDelivery"
+    },
+    "BT-13": {
+        "ubl": "/*/cac:OrderReference/cbc:ID",
+        "cii": "/rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction/ram:ApplicableHeaderTradeAgreement/ram:BuyerOrderReferencedDocument/ram:IssuerAssignedID"
+    },
+    "BT-13-00": {
+        "cii": "/rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction/ram:ApplicableHeaderTradeAgreement/ram:BuyerOrderReferencedDocument"
+    },
+    "BT-130": {
+        "ubl": "/*/cac:InvoiceLine/cbc:InvoicedQuantity/@unitCode",
+        "cii": "/rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction/ram:IncludedSupplyChainTradeLineItem/ram:SpecifiedLineTradeDelivery/ram:BilledQuantity/@unitCode"
+    },
+    "BT-131": {
+        "ubl": "/*/cac:InvoiceLine/cbc:LineExtensionAmount",
+        "cii": "/rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction/ram:IncludedSupplyChainTradeLineItem/ram:SpecifiedLineTradeSettlement/ram:SpecifiedTradeSettlementLineMonetarySummation/ram:LineTotalAmount"
+    },
+    "BT-131-00": {
+        "cii": "/rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction/ram:IncludedSupplyChainTradeLineItem/ram:SpecifiedLineTradeSettlement/ram:SpecifiedTradeSettlementLineMonetarySummation"
+    },
+    "BT-132": {
+        "ubl": "/*/cac:InvoiceLine/cac:OrderLineReference/cbc:LineID",
+        "cii": "/rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction/ram:IncludedSupplyChainTradeLineItem/ram:SpecifiedLineTradeAgreement/ram:BuyerOrderReferencedDocument/ram:LineID"
+    },
+    "BT-132-00": {
+        "cii": "/rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction/ram:IncludedSupplyChainTradeLineItem/ram:SpecifiedLineTradeAgreement/ram:BuyerOrderReferencedDocument"
+    },
+    "BT-133": {
+        "ubl": "/*/cac:InvoiceLine/cbc:AccountingCost",
+        "cii": "/rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction/ram:IncludedSupplyChainTradeLineItem/ram:SpecifiedLineTradeSettlement/ram:ReceivableSpecifiedTradeAccountingAccount/ram:ID"
+    },
+    "BT-133-00": {
+        "cii": "/rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction/ram:IncludedSupplyChainTradeLineItem/ram:SpecifiedLineTradeSettlement/ram:ReceivableSpecifiedTradeAccountingAccount"
+    },
+    "BT-134": {
+        "ubl": "/*/cac:InvoiceLine/cac:InvoicePeriod/cbc:StartDate",
+        "cii": "/rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction/ram:IncludedSupplyChainTradeLineItem/ram:SpecifiedLineTradeSettlement/ram:BillingSpecifiedPeriod/ram:StartDateTime/udt:DateTimeString"
+    },
+    "BT-134-0": {
+        "cii": "/rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction/ram:IncludedSupplyChainTradeLineItem/ram:SpecifiedLineTradeSettlement/ram:BillingSpecifiedPeriod/ram:StartDateTime/udt:DateTimeString/@format"
+    },
+    "BT-134-00": {
+        "cii": "/rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction/ram:IncludedSupplyChainTradeLineItem/ram:SpecifiedLineTradeSettlement/ram:BillingSpecifiedPeriod/ram:StartDateTime"
+    },
+    "BT-135": {
+        "ubl": "/*/cac:InvoiceLine/cac:InvoicePeriod/cbc:EndDate",
+        "cii": "/rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction/ram:IncludedSupplyChainTradeLineItem/ram:SpecifiedLineTradeSettlement/ram:BillingSpecifiedPeriod/ram:EndDateTime/udt:DateTimeString"
+    },
+    "BT-135-0": {
+        "cii": "/rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction/ram:IncludedSupplyChainTradeLineItem/ram:SpecifiedLineTradeSettlement/ram:BillingSpecifiedPeriod/ram:EndDateTime/udt:DateTimeString/@format"
+    },
+    "BT-135-00": {
+        "cii": "/rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction/ram:IncludedSupplyChainTradeLineItem/ram:SpecifiedLineTradeSettlement/ram:BillingSpecifiedPeriod/ram:EndDateTime"
+    },
+    "BT-136": {
+        "ubl": "/*/cac:InvoiceLine/cac:AllowanceCharge/cbc:Amount (ChargeIndicator=false)",
+        "cii": "/rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction/ram:IncludedSupplyChainTradeLineItem/ram:SpecifiedLineTradeSettlement/ram:SpecifiedTradeAllowanceCharge/ram:ActualAmount"
+    },
+    "BT-137": {
+        "ubl": "/*/cac:InvoiceLine/cac:AllowanceCharge/cbc:BaseAmount (ChargeIndicator=false)",
+        "cii": "/rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction/ram:IncludedSupplyChainTradeLineItem/ram:SpecifiedLineTradeSettlement/ram:SpecifiedTradeAllowanceCharge/ram:BasisAmount"
+    },
+    "BT-138": {
+        "ubl": "/*/cac:InvoiceLine/cac:AllowanceCharge/cbc:MultiplierFactorNumeric (ChargeIndicator=false)",
+        "cii": "/rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction/ram:IncludedSupplyChainTradeLineItem/ram:SpecifiedLineTradeSettlement/ram:SpecifiedTradeAllowanceCharge/ram:CalculationPercent"
+    },
+    "BT-139": {
+        "ubl": "/*/cac:InvoiceLine/cac:AllowanceCharge/cbc:AllowanceChargeReason (ChargeIndicator=false)",
+        "cii": "/rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction/ram:IncludedSupplyChainTradeLineItem/ram:SpecifiedLineTradeSettlement/ram:SpecifiedTradeAllowanceCharge/ram:Reason"
+    },
+    "BT-14": {
+        "ubl": "/*/cac:OrderReference/cbc:SalesOrderID",
+        "cii": "/rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction/ram:ApplicableHeaderTradeAgreement/ram:SellerOrderReferencedDocument/ram:IssuerAssignedID"
+    },
+    "BT-14-00": {
+        "cii": "/rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction/ram:ApplicableHeaderTradeAgreement/ram:SellerOrderReferencedDocument"
+    },
+    "BT-140": {
+        "ubl": "/*/cac:InvoiceLine/cac:AllowanceCharge/cbc:AllowanceChargeReasonCode (ChargeIndicator=false)",
+        "cii": "/rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction/ram:IncludedSupplyChainTradeLineItem/ram:SpecifiedLineTradeSettlement/ram:SpecifiedTradeAllowanceCharge/ram:ReasonCode"
+    },
+    "BT-141": {
+        "ubl": "/*/cac:InvoiceLine/cac:AllowanceCharge/cbc:Amount (ChargeIndicator=true)",
+        "cii": "/rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction/ram:IncludedSupplyChainTradeLineItem/ram:SpecifiedLineTradeSettlement/ram:SpecifiedTradeAllowanceCharge/ram:ActualAmount"
+    },
+    "BT-142": {
+        "ubl": "/*/cac:InvoiceLine/cac:AllowanceCharge/cbc:BaseAmount (ChargeIndicator=true)",
+        "cii": "/rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction/ram:IncludedSupplyChainTradeLineItem/ram:SpecifiedLineTradeSettlement/ram:SpecifiedTradeAllowanceCharge/ram:BasisAmount"
+    },
+    "BT-143": {
+        "ubl": "/*/cac:InvoiceLine/cac:AllowanceCharge/cbc:MultiplierFactorNumeric (ChargeIndicator=true)",
+        "cii": "/rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction/ram:IncludedSupplyChainTradeLineItem/ram:SpecifiedLineTradeSettlement/ram:SpecifiedTradeAllowanceCharge/ram:CalculationPercent"
+    },
+    "BT-144": {
+        "ubl": "/*/cac:InvoiceLine/cac:AllowanceCharge/cbc:AllowanceChargeReason (ChargeIndicator=true)",
+        "cii": "/rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction/ram:IncludedSupplyChainTradeLineItem/ram:SpecifiedLineTradeSettlement/ram:SpecifiedTradeAllowanceCharge/ram:Reason"
+    },
+    "BT-145": {
+        "ubl": "/*/cac:InvoiceLine/cac:AllowanceCharge/cbc:AllowanceChargeReasonCode (ChargeIndicator=true)",
+        "cii": "/rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction/ram:IncludedSupplyChainTradeLineItem/ram:SpecifiedLineTradeSettlement/ram:SpecifiedTradeAllowanceCharge/ram:ReasonCode"
+    },
+    "BT-146": {
+        "ubl": "/*/cac:InvoiceLine/cac:Price/cbc:PriceAmount",
+        "cii": "/rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction/ram:IncludedSupplyChainTradeLineItem/ram:SpecifiedLineTradeAgreement/ram:NetPriceProductTradePrice/ram:ChargeAmount"
+    },
+    "BT-146-00": {
+        "cii": "/rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction/ram:IncludedSupplyChainTradeLineItem/ram:SpecifiedLineTradeAgreement/ram:NetPriceProductTradePrice"
+    },
+    "BT-147": {
+        "ubl": "/*/cac:InvoiceLine/cac:Price/cac:AllowanceCharge/cbc:Amount",
+        "cii": "/rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction/ram:IncludedSupplyChainTradeLineItem/ram:SpecifiedLineTradeAgreement/ram:GrossPriceProductTradePrice/ram:AppliedTradeAllowanceCharge/ram:ActualAmount"
+    },
+    "BT-147-00": {
+        "cii": "/rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction/ram:IncludedSupplyChainTradeLineItem/ram:SpecifiedLineTradeAgreement/ram:GrossPriceProductTradePrice/ram:AppliedTradeAllowanceCharge"
+    },
+    "BT-147-01": {
+        "cii": "/rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction/ram:IncludedSupplyChainTradeLineItem/ram:SpecifiedLineTradeAgreement/ram:GrossPriceProductTradePrice/ram:AppliedTradeAllowanceCharge/ram:ChargeIndicator"
+    },
+    "BT-147-02": {
+        "cii": "/rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction/ram:IncludedSupplyChainTradeLineItem/ram:SpecifiedLineTradeAgreement/ram:GrossPriceProductTradePrice/ram:AppliedTradeAllowanceCharge/ram:ChargeIndicator/udt:Indicator"
+    },
+    "BT-148": {
+        "ubl": "/*/cac:InvoiceLine/cac:Price/cac:AllowanceCharge/cbc:BaseAmount",
+        "cii": "/rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction/ram:IncludedSupplyChainTradeLineItem/ram:SpecifiedLineTradeAgreement/ram:GrossPriceProductTradePrice/ram:ChargeAmount"
+    },
+    "BT-148-00": {
+        "cii": "/rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction/ram:IncludedSupplyChainTradeLineItem/ram:SpecifiedLineTradeAgreement/ram:GrossPriceProductTradePrice"
+    },
+    "BT-149": {
+        "ubl": "/*/cac:InvoiceLine/cac:Price/cbc:BaseQuantity",
+        "cii": "/rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction/ram:IncludedSupplyChainTradeLineItem/ram:SpecifiedLineTradeAgreement/ram:NetPriceProductTradePrice/ram:BasisQuantity"
+    },
+    "BT-149-1": {
+        "cii": "/rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction/ram:IncludedSupplyChainTradeLineItem/ram:SpecifiedLineTradeAgreement/ram:GrossPriceProductTradePrice/ram:BasisQuantity"
+    },
+    "BT-15": {
+        "ubl": "/*/cac:ReceiptDocumentReference/cbc:ID",
+        "cii": "/rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction/ram:ApplicableHeaderTradeDelivery/ram:ReceivingAdviceReferencedDocument/ram:IssuerAssignedID"
+    },
+    "BT-15-00": {
+        "cii": "/rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction/ram:ApplicableHeaderTradeDelivery/ram:ReceivingAdviceReferencedDocument"
+    },
+    "BT-150": {
+        "ubl": "/*/cac:InvoiceLine/cac:Price/cbc:BaseQuantity/@unitCode",
+        "cii": "/rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction/ram:IncludedSupplyChainTradeLineItem/ram:SpecifiedLineTradeAgreement/ram:NetPriceProductTradePrice/ram:BasisQuantity/@unitCode"
+    },
+    "BT-150-1": {
+        "cii": "/rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction/ram:IncludedSupplyChainTradeLineItem/ram:SpecifiedLineTradeAgreement/ram:GrossPriceProductTradePrice/ram:BasisQuantity/@unitCode"
+    },
+    "BT-151": {
+        "ubl": "/*/cac:InvoiceLine/cac:Item/cac:ClassifiedTaxCategory/cbc:ID",
+        "cii": "/rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction/ram:IncludedSupplyChainTradeLineItem/ram:SpecifiedLineTradeSettlement/ram:ApplicableTradeTax/ram:CategoryCode"
+    },
+    "BT-151-0": {
+        "cii": "/rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction/ram:IncludedSupplyChainTradeLineItem/ram:SpecifiedLineTradeSettlement/ram:ApplicableTradeTax/ram:TypeCode"
+    },
+    "BT-152": {
+        "ubl": "/*/cac:InvoiceLine/cac:Item/cac:ClassifiedTaxCategory/cbc:Percent",
+        "cii": "/rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction/ram:IncludedSupplyChainTradeLineItem/ram:SpecifiedLineTradeSettlement/ram:ApplicableTradeTax/ram:RateApplicablePercent"
+    },
+    "BT-153": {
+        "ubl": "/*/cac:InvoiceLine/cac:Item/cbc:Name",
+        "cii": "/rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction/ram:IncludedSupplyChainTradeLineItem/ram:SpecifiedTradeProduct/ram:Name"
+    },
+    "BT-154": {
+        "ubl": "/*/cac:InvoiceLine/cac:Item/cbc:Description",
+        "cii": "/rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction/ram:IncludedSupplyChainTradeLineItem/ram:SpecifiedTradeProduct/ram:Description"
+    },
+    "BT-155": {
+        "ubl": "/*/cac:InvoiceLine/cac:Item/cac:SellersItemIdentification/cbc:ID",
+        "cii": "/rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction/ram:IncludedSupplyChainTradeLineItem/ram:SpecifiedTradeProduct/ram:SellerAssignedID"
+    },
+    "BT-156": {
+        "ubl": "/*/cac:InvoiceLine/cac:Item/cac:BuyersItemIdentification/cbc:ID",
+        "cii": "/rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction/ram:IncludedSupplyChainTradeLineItem/ram:SpecifiedTradeProduct/ram:BuyerAssignedID"
+    },
+    "BT-157": {
+        "ubl": "/*/cac:InvoiceLine/cac:Item/cac:StandardItemIdentification/cbc:ID",
+        "cii": "/rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction/ram:IncludedSupplyChainTradeLineItem/ram:SpecifiedTradeProduct/ram:GlobalID"
+    },
+    "BT-157-1": {
+        "cii": "/rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction/ram:IncludedSupplyChainTradeLineItem/ram:SpecifiedTradeProduct/ram:GlobalID/@schemeID"
+    },
+    "BT-158": {
+        "ubl": "/*/cac:InvoiceLine/cac:Item/cac:CommodityClassification/cbc:ItemClassificationCode",
+        "cii": "/rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction/ram:IncludedSupplyChainTradeLineItem/ram:SpecifiedTradeProduct/ram:DesignatedProductClassification/ram:ClassCode"
+    },
+    "BT-158-00": {
+        "cii": "/rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction/ram:IncludedSupplyChainTradeLineItem/ram:SpecifiedTradeProduct/ram:DesignatedProductClassification"
+    },
+    "BT-158-1": {
+        "cii": "/rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction/ram:IncludedSupplyChainTradeLineItem/ram:SpecifiedTradeProduct/ram:DesignatedProductClassification/ram:ClassCode/@listID"
+    },
+    "BT-158-2": {
+        "cii": "/rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction/ram:IncludedSupplyChainTradeLineItem/ram:SpecifiedTradeProduct/ram:DesignatedProductClassification/ram:ClassCode/@listVersionID"
+    },
+    "BT-159": {
+        "ubl": "/*/cac:InvoiceLine/cac:Item/cac:OriginCountry/cbc:IdentificationCode",
+        "cii": "/rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction/ram:IncludedSupplyChainTradeLineItem/ram:SpecifiedTradeProduct/ram:OriginTradeCountry/ram:ID"
+    },
+    "BT-159-00": {
+        "cii": "/rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction/ram:IncludedSupplyChainTradeLineItem/ram:SpecifiedTradeProduct/ram:OriginTradeCountry"
+    },
+    "BT-16": {
+        "ubl": "/*/cac:DespatchDocumentReference/cbc:ID",
+        "cii": "/rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction/ram:ApplicableHeaderTradeDelivery/ram:DespatchAdviceReferencedDocument/ram:IssuerAssignedID"
+    },
+    "BT-16-00": {
+        "cii": "/rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction/ram:ApplicableHeaderTradeDelivery/ram:DespatchAdviceReferencedDocument"
+    },
+    "BT-160": {
+        "ubl": "/*/cac:InvoiceLine/cac:Item/cac:AdditionalItemProperty/cbc:Name",
+        "cii": "/rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction/ram:IncludedSupplyChainTradeLineItem/ram:SpecifiedTradeProduct/ram:ApplicableProductCharacteristic/ram:Description"
+    },
+    "BT-161": {
+        "ubl": "/*/cac:InvoiceLine/cac:Item/cac:AdditionalItemProperty/cbc:Value",
+        "cii": "/rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction/ram:IncludedSupplyChainTradeLineItem/ram:SpecifiedTradeProduct/ram:ApplicableProductCharacteristic/ram:Value"
+    },
+    "BT-162": {
+        "ubl": "/*/cac:AccountingSupplierParty/cac:Party/cac:PostalAddress/cac:AddressLine/cbc:Line",
+        "cii": "/rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction/ram:ApplicableHeaderTradeAgreement/ram:SellerTradeParty/ram:PostalTradeAddress/ram:LineThree"
+    },
+    "BT-163": {
+        "ubl": "/*/cac:AccountingCustomerParty/cac:Party/cac:PostalAddress/cac:AddressLine/cbc:Line",
+        "cii": "/rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction/ram:ApplicableHeaderTradeAgreement/ram:BuyerTradeParty/ram:PostalTradeAddress/ram:LineThree"
+    },
+    "BT-164": {
+        "ubl": "/*/cac:TaxRepresentativeParty/cac:PostalAddress/cac:AddressLine/cbc:Line",
+        "cii": "/rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction/ram:ApplicableHeaderTradeAgreement/ram:SellerTaxRepresentativeTradeParty/ram:PostalTradeAddress/ram:LineThree"
+    },
+    "BT-165": {
+        "ubl": "/*/cac:Delivery/cac:DeliveryLocation/cac:Address/cac:AddressLine/cbc:Line",
+        "cii": "/rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction/ram:ApplicableHeaderTradeDelivery/ram:ShipToTradeParty/ram:PostalTradeAddress/ram:LineThree"
+    },
+    "BT-17": {
+        "ubl": "/*/cac:OriginatorDocumentReference/cbc:ID",
+        "cii": "/rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction/ram:ApplicableHeaderTradeAgreement/ram:AdditionalReferencedDocument/ram:IssuerAssignedID"
+    },
+    "BT-17-0": {
+        "cii": "/rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction/ram:ApplicableHeaderTradeAgreement/ram:AdditionalReferencedDocument/ram:TypeCode"
+    },
+    "BT-17-00": {
+        "cii": "/rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction/ram:ApplicableHeaderTradeAgreement/ram:AdditionalReferencedDocument"
+    },
+    "BT-18": {
+        "ubl": "/*/cac:AdditionalDocumentReference/cbc:ID (DocumentTypeCode=130)",
+        "cii": "/rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction/ram:ApplicableHeaderTradeAgreement/ram:AdditionalReferencedDocument/ram:IssuerAssignedID"
+    },
+    "BT-18-0": {
+        "cii": "/rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction/ram:ApplicableHeaderTradeAgreement/ram:AdditionalReferencedDocument/ram:TypeCode"
+    },
+    "BT-18-00": {
+        "cii": "/rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction/ram:ApplicableHeaderTradeAgreement/ram:AdditionalReferencedDocument"
+    },
+    "BT-18-1": {
+        "cii": "/rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction/ram:ApplicableHeaderTradeAgreement/ram:AdditionalReferencedDocument/ram:ReferenceTypeCode"
+    },
+    "BT-19": {
+        "ubl": "/*/cbc:AccountingCost",
+        "cii": "/rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction/ram:ApplicableHeaderTradeSettlement/ram:ReceivableSpecifiedTradeAccountingAccount/ram:ID"
+    },
+    "BT-19-00": {
+        "cii": "/rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction/ram:ApplicableHeaderTradeSettlement/ram:ReceivableSpecifiedTradeAccountingAccount"
+    },
+    "BT-2": {
+        "ubl": "/*/cbc:IssueDate",
+        "cii": "/rsm:CrossIndustryInvoice/rsm:ExchangedDocument/ram:IssueDateTime/udt:DateTimeString"
+    },
+    "BT-2-0": {
+        "cii": "/rsm:CrossIndustryInvoice/rsm:ExchangedDocument/ram:IssueDateTime/udt:DateTimeString/@format"
+    },
+    "BT-2-00": {
+        "cii": "/rsm:CrossIndustryInvoice/rsm:ExchangedDocument/ram:IssueDateTime"
+    },
+    "BT-20": {
+        "ubl": "/*/cac:PaymentTerms/cbc:Note",
+        "cii": "/rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction/ram:ApplicableHeaderTradeSettlement/ram:SpecifiedTradePaymentTerms/ram:Description"
+    },
+    "BT-20-00": {
+        "cii": "/rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction/ram:ApplicableHeaderTradeSettlement/ram:SpecifiedTradePaymentTerms"
+    },
+    "BT-21": {
+        "ubl": "/*/cbc:Note (Themencode-Praefix vor '#')",
+        "cii": "/rsm:CrossIndustryInvoice/rsm:ExchangedDocument/ram:IncludedNote/ram:SubjectCode"
+    },
+    "BT-22": {
+        "ubl": "/*/cbc:Note",
+        "cii": "/rsm:CrossIndustryInvoice/rsm:ExchangedDocument/ram:IncludedNote/ram:Content"
+    },
+    "BT-23": {
+        "ubl": "/*/cbc:ProfileID",
+        "cii": "/rsm:CrossIndustryInvoice/rsm:ExchangedDocumentContext/ram:BusinessProcessSpecifiedDocumentContextParameter/ram:ID"
+    },
+    "BT-23-00": {
+        "cii": "/rsm:CrossIndustryInvoice/rsm:ExchangedDocumentContext/ram:BusinessProcessSpecifiedDocumentContextParameter"
+    },
+    "BT-24": {
+        "ubl": "/*/cbc:CustomizationID",
+        "cii": "/rsm:CrossIndustryInvoice/rsm:ExchangedDocumentContext/ram:GuidelineSpecifiedDocumentContextParameter/ram:ID"
+    },
+    "BT-24-00": {
+        "cii": "/rsm:CrossIndustryInvoice/rsm:ExchangedDocumentContext/ram:GuidelineSpecifiedDocumentContextParameter"
+    },
+    "BT-25": {
+        "ubl": "/*/cac:BillingReference/cac:InvoiceDocumentReference/cbc:ID",
+        "cii": "/rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction/ram:ApplicableHeaderTradeSettlement/ram:InvoiceReferencedDocument/ram:IssuerAssignedID"
+    },
+    "BT-26": {
+        "ubl": "/*/cac:BillingReference/cac:InvoiceDocumentReference/cbc:IssueDate",
+        "cii": "/rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction/ram:ApplicableHeaderTradeSettlement/ram:InvoiceReferencedDocument/ram:FormattedIssueDateTime/qdt:DateTimeString"
+    },
+    "BT-26-0": {
+        "cii": "/rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction/ram:ApplicableHeaderTradeSettlement/ram:InvoiceReferencedDocument/ram:FormattedIssueDateTime/qdt:DateTimeString/@format"
+    },
+    "BT-26-00": {
+        "cii": "/rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction/ram:ApplicableHeaderTradeSettlement/ram:InvoiceReferencedDocument/ram:FormattedIssueDateTime"
+    },
+    "BT-27": {
+        "ubl": "/*/cac:AccountingSupplierParty/cac:Party/cac:PartyLegalEntity/cbc:RegistrationName",
+        "cii": "/rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction/ram:ApplicableHeaderTradeAgreement/ram:SellerTradeParty/ram:Name"
+    },
+    "BT-28": {
+        "ubl": "/*/cac:AccountingSupplierParty/cac:Party/cac:PartyName/cbc:Name",
+        "cii": "/rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction/ram:ApplicableHeaderTradeAgreement/ram:SellerTradeParty/ram:SpecifiedLegalOrganization/ram:TradingBusinessName"
+    },
+    "BT-29": {
+        "ubl": "/*/cac:AccountingSupplierParty/cac:Party/cac:PartyIdentification/cbc:ID",
+        "cii": "/rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction/ram:ApplicableHeaderTradeAgreement/ram:SellerTradeParty/ram:ID"
+    },
+    "BT-29-0": {
+        "cii": "/rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction/ram:ApplicableHeaderTradeAgreement/ram:SellerTradeParty/ram:GlobalID"
+    },
+    "BT-29-1": {
+        "cii": "/rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction/ram:ApplicableHeaderTradeAgreement/ram:SellerTradeParty/ram:GlobalID/@schemeID"
+    },
+    "BT-3": {
+        "ubl": "/*/cbc:InvoiceTypeCode",
+        "cii": "/rsm:CrossIndustryInvoice/rsm:ExchangedDocument/ram:TypeCode"
+    },
+    "BT-30": {
+        "ubl": "/*/cac:AccountingSupplierParty/cac:Party/cac:PartyLegalEntity/cbc:CompanyID",
+        "cii": "/rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction/ram:ApplicableHeaderTradeAgreement/ram:SellerTradeParty/ram:SpecifiedLegalOrganization/ram:ID"
+    },
+    "BT-30-00": {
+        "cii": "/rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction/ram:ApplicableHeaderTradeAgreement/ram:SellerTradeParty/ram:SpecifiedLegalOrganization"
+    },
+    "BT-30-1": {
+        "cii": "/rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction/ram:ApplicableHeaderTradeAgreement/ram:SellerTradeParty/ram:SpecifiedLegalOrganization/ram:ID/@schemeID"
+    },
+    "BT-31": {
+        "ubl": "/*/cac:AccountingSupplierParty/cac:Party/cac:PartyTaxScheme/cbc:CompanyID (TaxScheme/ID=VAT)",
+        "cii": "/rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction/ram:ApplicableHeaderTradeAgreement/ram:SellerTradeParty/ram:SpecifiedTaxRegistration/ram:ID"
+    },
+    "BT-31-0": {
+        "cii": "/rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction/ram:ApplicableHeaderTradeAgreement/ram:SellerTradeParty/ram:SpecifiedTaxRegistration/ram:ID/@schemeID"
+    },
+    "BT-31-00": {
+        "cii": "/rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction/ram:ApplicableHeaderTradeAgreement/ram:SellerTradeParty/ram:SpecifiedTaxRegistration"
+    },
+    "BT-32": {
+        "ubl": "/*/cac:AccountingSupplierParty/cac:Party/cac:PartyTaxScheme/cbc:CompanyID (TaxScheme/ID=TAX)",
+        "cii": "/rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction/ram:ApplicableHeaderTradeAgreement/ram:SellerTradeParty/ram:SpecifiedTaxRegistration/ram:ID"
+    },
+    "BT-32-0": {
+        "cii": "/rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction/ram:ApplicableHeaderTradeAgreement/ram:SellerTradeParty/ram:SpecifiedTaxRegistration/ram:ID/@schemeID"
+    },
+    "BT-32-00": {
+        "cii": "/rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction/ram:ApplicableHeaderTradeAgreement/ram:SellerTradeParty/ram:SpecifiedTaxRegistration"
+    },
+    "BT-33": {
+        "ubl": "/*/cac:AccountingSupplierParty/cac:Party/cac:PartyLegalEntity/cbc:CompanyLegalForm",
+        "cii": "/rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction/ram:ApplicableHeaderTradeAgreement/ram:SellerTradeParty/ram:Description"
+    },
+    "BT-34": {
+        "ubl": "/*/cac:AccountingSupplierParty/cac:Party/cbc:EndpointID",
+        "cii": "/rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction/ram:ApplicableHeaderTradeAgreement/ram:SellerTradeParty/ram:URIUniversalCommunication/ram:URIID"
+    },
+    "BT-34-00": {
+        "cii": "/rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction/ram:ApplicableHeaderTradeAgreement/ram:SellerTradeParty/ram:URIUniversalCommunication"
+    },
+    "BT-34-1": {
+        "cii": "/rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction/ram:ApplicableHeaderTradeAgreement/ram:SellerTradeParty/ram:URIUniversalCommunication/ram:URIID/@schemeID"
+    },
+    "BT-35": {
+        "ubl": "/*/cac:AccountingSupplierParty/cac:Party/cac:PostalAddress/cbc:StreetName",
+        "cii": "/rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction/ram:ApplicableHeaderTradeAgreement/ram:SellerTradeParty/ram:PostalTradeAddress/ram:LineOne"
+    },
+    "BT-36": {
+        "ubl": "/*/cac:AccountingSupplierParty/cac:Party/cac:PostalAddress/cbc:AdditionalStreetName",
+        "cii": "/rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction/ram:ApplicableHeaderTradeAgreement/ram:SellerTradeParty/ram:PostalTradeAddress/ram:LineTwo"
+    },
+    "BT-37": {
+        "ubl": "/*/cac:AccountingSupplierParty/cac:Party/cac:PostalAddress/cbc:CityName",
+        "cii": "/rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction/ram:ApplicableHeaderTradeAgreement/ram:SellerTradeParty/ram:PostalTradeAddress/ram:CityName"
+    },
+    "BT-38": {
+        "ubl": "/*/cac:AccountingSupplierParty/cac:Party/cac:PostalAddress/cbc:PostalZone",
+        "cii": "/rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction/ram:ApplicableHeaderTradeAgreement/ram:SellerTradeParty/ram:PostalTradeAddress/ram:PostcodeCode"
+    },
+    "BT-39": {
+        "ubl": "/*/cac:AccountingSupplierParty/cac:Party/cac:PostalAddress/cbc:CountrySubentity",
+        "cii": "/rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction/ram:ApplicableHeaderTradeAgreement/ram:SellerTradeParty/ram:PostalTradeAddress/ram:CountrySubDivisionName"
+    },
+    "BT-40": {
+        "ubl": "/*/cac:AccountingSupplierParty/cac:Party/cac:PostalAddress/cac:Country/cbc:IdentificationCode",
+        "cii": "/rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction/ram:ApplicableHeaderTradeAgreement/ram:SellerTradeParty/ram:PostalTradeAddress/ram:CountryID"
+    },
+    "BT-41": {
+        "ubl": "/*/cac:AccountingSupplierParty/cac:Party/cac:Contact/cbc:Name",
+        "cii": "/rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction/ram:ApplicableHeaderTradeAgreement/ram:SellerTradeParty/ram:DefinedTradeContact/ram:PersonName"
+    },
+    "BT-41-0": {
+        "cii": "/rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction/ram:ApplicableHeaderTradeAgreement/ram:SellerTradeParty/ram:DefinedTradeContact/ram:DepartmentName"
+    },
+    "BT-42": {
+        "ubl": "/*/cac:AccountingSupplierParty/cac:Party/cac:Contact/cbc:Telephone",
+        "cii": "/rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction/ram:ApplicableHeaderTradeAgreement/ram:SellerTradeParty/ram:DefinedTradeContact/ram:TelephoneUniversalCommunication/ram:CompleteNumber"
+    },
+    "BT-42-00": {
+        "cii": "/rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction/ram:ApplicableHeaderTradeAgreement/ram:SellerTradeParty/ram:DefinedTradeContact/ram:TelephoneUniversalCommunication"
+    },
+    "BT-43": {
+        "ubl": "/*/cac:AccountingSupplierParty/cac:Party/cac:Contact/cbc:ElectronicMail",
+        "cii": "/rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction/ram:ApplicableHeaderTradeAgreement/ram:SellerTradeParty/ram:DefinedTradeContact/ram:EmailURIUniversalCommunication/ram:URIID"
+    },
+    "BT-43-00": {
+        "cii": "/rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction/ram:ApplicableHeaderTradeAgreement/ram:SellerTradeParty/ram:DefinedTradeContact/ram:EmailURIUniversalCommunication"
+    },
+    "BT-44": {
+        "ubl": "/*/cac:AccountingCustomerParty/cac:Party/cac:PartyLegalEntity/cbc:RegistrationName",
+        "cii": "/rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction/ram:ApplicableHeaderTradeAgreement/ram:BuyerTradeParty/ram:Name"
+    },
+    "BT-45": {
+        "ubl": "/*/cac:AccountingCustomerParty/cac:Party/cac:PartyName/cbc:Name",
+        "cii": "/rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction/ram:ApplicableHeaderTradeAgreement/ram:BuyerTradeParty/ram:SpecifiedLegalOrganization/ram:TradingBusinessName"
+    },
+    "BT-46": {
+        "ubl": "/*/cac:AccountingCustomerParty/cac:Party/cac:PartyIdentification/cbc:ID",
+        "cii": "/rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction/ram:ApplicableHeaderTradeAgreement/ram:BuyerTradeParty/ram:ID"
+    },
+    "BT-46-0": {
+        "cii": "/rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction/ram:ApplicableHeaderTradeAgreement/ram:BuyerTradeParty/ram:GlobalID"
+    },
+    "BT-46-1": {
+        "cii": "/rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction/ram:ApplicableHeaderTradeAgreement/ram:BuyerTradeParty/ram:GlobalID/@schemeID"
+    },
+    "BT-47": {
+        "ubl": "/*/cac:AccountingCustomerParty/cac:Party/cac:PartyLegalEntity/cbc:CompanyID",
+        "cii": "/rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction/ram:ApplicableHeaderTradeAgreement/ram:BuyerTradeParty/ram:SpecifiedLegalOrganization/ram:ID"
+    },
+    "BT-47-00": {
+        "cii": "/rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction/ram:ApplicableHeaderTradeAgreement/ram:BuyerTradeParty/ram:SpecifiedLegalOrganization"
+    },
+    "BT-47-1": {
+        "cii": "/rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction/ram:ApplicableHeaderTradeAgreement/ram:BuyerTradeParty/ram:SpecifiedLegalOrganization/ram:ID/@schemeID"
+    },
+    "BT-48": {
+        "ubl": "/*/cac:AccountingCustomerParty/cac:Party/cac:PartyTaxScheme/cbc:CompanyID",
+        "cii": "/rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction/ram:ApplicableHeaderTradeAgreement/ram:BuyerTradeParty/ram:SpecifiedTaxRegistration/ram:ID"
+    },
+    "BT-48-0": {
+        "cii": "/rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction/ram:ApplicableHeaderTradeAgreement/ram:BuyerTradeParty/ram:SpecifiedTaxRegistration/ram:ID/@schemeID"
+    },
+    "BT-48-00": {
+        "cii": "/rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction/ram:ApplicableHeaderTradeAgreement/ram:BuyerTradeParty/ram:SpecifiedTaxRegistration"
+    },
+    "BT-49": {
+        "ubl": "/*/cac:AccountingCustomerParty/cac:Party/cbc:EndpointID",
+        "cii": "/rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction/ram:ApplicableHeaderTradeAgreement/ram:BuyerTradeParty/ram:URIUniversalCommunication/ram:URIID"
+    },
+    "BT-49-00": {
+        "cii": "/rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction/ram:ApplicableHeaderTradeAgreement/ram:BuyerTradeParty/ram:URIUniversalCommunication"
+    },
+    "BT-49-1": {
+        "cii": "/rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction/ram:ApplicableHeaderTradeAgreement/ram:BuyerTradeParty/ram:URIUniversalCommunication/ram:URIID/@schemeID"
+    },
+    "BT-5": {
+        "ubl": "/*/cbc:DocumentCurrencyCode",
+        "cii": "/rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction/ram:ApplicableHeaderTradeSettlement/ram:InvoiceCurrencyCode"
+    },
+    "BT-50": {
+        "ubl": "/*/cac:AccountingCustomerParty/cac:Party/cac:PostalAddress/cbc:StreetName",
+        "cii": "/rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction/ram:ApplicableHeaderTradeAgreement/ram:BuyerTradeParty/ram:PostalTradeAddress/ram:LineOne"
+    },
+    "BT-51": {
+        "ubl": "/*/cac:AccountingCustomerParty/cac:Party/cac:PostalAddress/cbc:AdditionalStreetName",
+        "cii": "/rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction/ram:ApplicableHeaderTradeAgreement/ram:BuyerTradeParty/ram:PostalTradeAddress/ram:LineTwo"
+    },
+    "BT-52": {
+        "ubl": "/*/cac:AccountingCustomerParty/cac:Party/cac:PostalAddress/cbc:CityName",
+        "cii": "/rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction/ram:ApplicableHeaderTradeAgreement/ram:BuyerTradeParty/ram:PostalTradeAddress/ram:CityName"
+    },
+    "BT-53": {
+        "ubl": "/*/cac:AccountingCustomerParty/cac:Party/cac:PostalAddress/cbc:PostalZone",
+        "cii": "/rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction/ram:ApplicableHeaderTradeAgreement/ram:BuyerTradeParty/ram:PostalTradeAddress/ram:PostcodeCode"
+    },
+    "BT-54": {
+        "ubl": "/*/cac:AccountingCustomerParty/cac:Party/cac:PostalAddress/cbc:CountrySubentity",
+        "cii": "/rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction/ram:ApplicableHeaderTradeAgreement/ram:BuyerTradeParty/ram:PostalTradeAddress/ram:CountrySubDivisionName"
+    },
+    "BT-55": {
+        "ubl": "/*/cac:AccountingCustomerParty/cac:Party/cac:PostalAddress/cac:Country/cbc:IdentificationCode",
+        "cii": "/rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction/ram:ApplicableHeaderTradeAgreement/ram:BuyerTradeParty/ram:PostalTradeAddress/ram:CountryID"
+    },
+    "BT-56": {
+        "ubl": "/*/cac:AccountingCustomerParty/cac:Party/cac:Contact/cbc:Name",
+        "cii": "/rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction/ram:ApplicableHeaderTradeAgreement/ram:BuyerTradeParty/ram:DefinedTradeContact/ram:PersonName"
+    },
+    "BT-56-0": {
+        "cii": "/rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction/ram:ApplicableHeaderTradeAgreement/ram:BuyerTradeParty/ram:DefinedTradeContact/ram:DepartmentName"
+    },
+    "BT-57": {
+        "ubl": "/*/cac:AccountingCustomerParty/cac:Party/cac:Contact/cbc:Telephone",
+        "cii": "/rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction/ram:ApplicableHeaderTradeAgreement/ram:BuyerTradeParty/ram:DefinedTradeContact/ram:TelephoneUniversalCommunication/ram:CompleteNumber"
+    },
+    "BT-57-00": {
+        "cii": "/rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction/ram:ApplicableHeaderTradeAgreement/ram:BuyerTradeParty/ram:DefinedTradeContact/ram:TelephoneUniversalCommunication"
+    },
+    "BT-58": {
+        "ubl": "/*/cac:AccountingCustomerParty/cac:Party/cac:Contact/cbc:ElectronicMail",
+        "cii": "/rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction/ram:ApplicableHeaderTradeAgreement/ram:BuyerTradeParty/ram:DefinedTradeContact/ram:EmailURIUniversalCommunication/ram:URIID"
+    },
+    "BT-58-00": {
+        "cii": "/rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction/ram:ApplicableHeaderTradeAgreement/ram:BuyerTradeParty/ram:DefinedTradeContact/ram:EmailURIUniversalCommunication"
+    },
+    "BT-59": {
+        "ubl": "/*/cac:PayeeParty/cac:PartyName/cbc:Name",
+        "cii": "/rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction/ram:ApplicableHeaderTradeSettlement/ram:PayeeTradeParty/ram:Name"
+    },
+    "BT-6": {
+        "ubl": "/*/cbc:TaxCurrencyCode",
+        "cii": "/rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction/ram:ApplicableHeaderTradeSettlement/ram:TaxCurrencyCode"
+    },
+    "BT-60": {
+        "ubl": "/*/cac:PayeeParty/cac:PartyIdentification/cbc:ID",
+        "cii": "/rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction/ram:ApplicableHeaderTradeSettlement/ram:PayeeTradeParty/ram:ID"
+    },
+    "BT-60-0": {
+        "cii": "/rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction/ram:ApplicableHeaderTradeSettlement/ram:PayeeTradeParty/ram:GlobalID"
+    },
+    "BT-60-1": {
+        "cii": "/rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction/ram:ApplicableHeaderTradeSettlement/ram:PayeeTradeParty/ram:GlobalID/@schemeID"
+    },
+    "BT-61": {
+        "ubl": "/*/cac:PayeeParty/cac:PartyLegalEntity/cbc:CompanyID",
+        "cii": "/rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction/ram:ApplicableHeaderTradeSettlement/ram:PayeeTradeParty/ram:SpecifiedLegalOrganization/ram:ID"
+    },
+    "BT-61-00": {
+        "cii": "/rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction/ram:ApplicableHeaderTradeSettlement/ram:PayeeTradeParty/ram:SpecifiedLegalOrganization"
+    },
+    "BT-61-1": {
+        "cii": "/rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction/ram:ApplicableHeaderTradeSettlement/ram:PayeeTradeParty/ram:SpecifiedLegalOrganization/ram:ID/@schemeID"
+    },
+    "BT-62": {
+        "ubl": "/*/cac:TaxRepresentativeParty/cac:PartyName/cbc:Name",
+        "cii": "/rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction/ram:ApplicableHeaderTradeAgreement/ram:SellerTaxRepresentativeTradeParty/ram:Name"
+    },
+    "BT-63": {
+        "ubl": "/*/cac:TaxRepresentativeParty/cac:PartyTaxScheme/cbc:CompanyID",
+        "cii": "/rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction/ram:ApplicableHeaderTradeAgreement/ram:SellerTaxRepresentativeTradeParty/ram:SpecifiedTaxRegistration/ram:ID"
+    },
+    "BT-63-0": {
+        "cii": "/rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction/ram:ApplicableHeaderTradeAgreement/ram:SellerTaxRepresentativeTradeParty/ram:SpecifiedTaxRegistration/ram:ID/@schemeID"
+    },
+    "BT-63-00": {
+        "cii": "/rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction/ram:ApplicableHeaderTradeAgreement/ram:SellerTaxRepresentativeTradeParty/ram:SpecifiedTaxRegistration"
+    },
+    "BT-64": {
+        "ubl": "/*/cac:TaxRepresentativeParty/cac:PostalAddress/cbc:StreetName",
+        "cii": "/rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction/ram:ApplicableHeaderTradeAgreement/ram:SellerTaxRepresentativeTradeParty/ram:PostalTradeAddress/ram:LineOne"
+    },
+    "BT-65": {
+        "ubl": "/*/cac:TaxRepresentativeParty/cac:PostalAddress/cbc:AdditionalStreetName",
+        "cii": "/rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction/ram:ApplicableHeaderTradeAgreement/ram:SellerTaxRepresentativeTradeParty/ram:PostalTradeAddress/ram:LineTwo"
+    },
+    "BT-66": {
+        "ubl": "/*/cac:TaxRepresentativeParty/cac:PostalAddress/cbc:CityName",
+        "cii": "/rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction/ram:ApplicableHeaderTradeAgreement/ram:SellerTaxRepresentativeTradeParty/ram:PostalTradeAddress/ram:CityName"
+    },
+    "BT-67": {
+        "ubl": "/*/cac:TaxRepresentativeParty/cac:PostalAddress/cbc:PostalZone",
+        "cii": "/rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction/ram:ApplicableHeaderTradeAgreement/ram:SellerTaxRepresentativeTradeParty/ram:PostalTradeAddress/ram:PostcodeCode"
+    },
+    "BT-68": {
+        "ubl": "/*/cac:TaxRepresentativeParty/cac:PostalAddress/cbc:CountrySubentity",
+        "cii": "/rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction/ram:ApplicableHeaderTradeAgreement/ram:SellerTaxRepresentativeTradeParty/ram:PostalTradeAddress/ram:CountrySubDivisionName"
+    },
+    "BT-69": {
+        "ubl": "/*/cac:TaxRepresentativeParty/cac:PostalAddress/cac:Country/cbc:IdentificationCode",
+        "cii": "/rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction/ram:ApplicableHeaderTradeAgreement/ram:SellerTaxRepresentativeTradeParty/ram:PostalTradeAddress/ram:CountryID"
+    },
+    "BT-7": {
+        "ubl": "/*/cac:TaxTotal/cac:TaxSubtotal/cac:TaxCategory/cbc:TaxPointDate",
+        "cii": "/rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction/ram:ApplicableHeaderTradeSettlement/ram:ApplicableTradeTax/ram:TaxPointDate/udt:DateString"
+    },
+    "BT-7-0": {
+        "cii": "/rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction/ram:ApplicableHeaderTradeSettlement/ram:ApplicableTradeTax/ram:TaxPointDate/udt:DateString/@format"
+    },
+    "BT-7-00": {
+        "cii": "/rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction/ram:ApplicableHeaderTradeSettlement/ram:ApplicableTradeTax/ram:TaxPointDate"
+    },
+    "BT-70": {
+        "ubl": "/*/cac:Delivery/cac:DeliveryParty/cac:PartyName/cbc:Name",
+        "cii": "/rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction/ram:ApplicableHeaderTradeDelivery/ram:ShipToTradeParty/ram:Name"
+    },
+    "BT-71": {
+        "ubl": "/*/cac:Delivery/cac:DeliveryLocation/cbc:ID",
+        "cii": "/rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction/ram:ApplicableHeaderTradeDelivery/ram:ShipToTradeParty/ram:ID"
+    },
+    "BT-71-0": {
+        "cii": "/rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction/ram:ApplicableHeaderTradeDelivery/ram:ShipToTradeParty/ram:GlobalID"
+    },
+    "BT-71-1": {
+        "cii": "/rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction/ram:ApplicableHeaderTradeDelivery/ram:ShipToTradeParty/ram:GlobalID/@schemeID"
+    },
+    "BT-72": {
+        "ubl": "/*/cac:Delivery/cbc:ActualDeliveryDate",
+        "cii": "/rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction/ram:ApplicableHeaderTradeDelivery/ram:ActualDeliverySupplyChainEvent/ram:OccurrenceDateTime/udt:DateTimeString"
+    },
+    "BT-72-0": {
+        "cii": "/rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction/ram:ApplicableHeaderTradeDelivery/ram:ActualDeliverySupplyChainEvent/ram:OccurrenceDateTime/udt:DateTimeString/@format"
+    },
+    "BT-72-00": {
+        "cii": "/rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction/ram:ApplicableHeaderTradeDelivery/ram:ActualDeliverySupplyChainEvent/ram:OccurrenceDateTime"
+    },
+    "BT-72-000": {
+        "cii": "/rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction/ram:ApplicableHeaderTradeDelivery/ram:ActualDeliverySupplyChainEvent"
+    },
+    "BT-73": {
+        "ubl": "/*/cac:InvoicePeriod/cbc:StartDate",
+        "cii": "/rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction/ram:ApplicableHeaderTradeSettlement/ram:BillingSpecifiedPeriod/ram:StartDateTime/udt:DateTimeString"
+    },
+    "BT-73-0": {
+        "cii": "/rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction/ram:ApplicableHeaderTradeSettlement/ram:BillingSpecifiedPeriod/ram:StartDateTime/udt:DateTimeString/@format"
+    },
+    "BT-73-00": {
+        "cii": "/rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction/ram:ApplicableHeaderTradeSettlement/ram:BillingSpecifiedPeriod/ram:StartDateTime"
+    },
+    "BT-74": {
+        "ubl": "/*/cac:InvoicePeriod/cbc:EndDate",
+        "cii": "/rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction/ram:ApplicableHeaderTradeSettlement/ram:BillingSpecifiedPeriod/ram:EndDateTime/udt:DateTimeString"
+    },
+    "BT-74-0": {
+        "cii": "/rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction/ram:ApplicableHeaderTradeSettlement/ram:BillingSpecifiedPeriod/ram:EndDateTime/udt:DateTimeString/@format"
+    },
+    "BT-74-00": {
+        "cii": "/rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction/ram:ApplicableHeaderTradeSettlement/ram:BillingSpecifiedPeriod/ram:EndDateTime"
+    },
+    "BT-75": {
+        "ubl": "/*/cac:Delivery/cac:DeliveryLocation/cac:Address/cbc:StreetName",
+        "cii": "/rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction/ram:ApplicableHeaderTradeDelivery/ram:ShipToTradeParty/ram:PostalTradeAddress/ram:LineOne"
+    },
+    "BT-76": {
+        "ubl": "/*/cac:Delivery/cac:DeliveryLocation/cac:Address/cbc:AdditionalStreetName",
+        "cii": "/rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction/ram:ApplicableHeaderTradeDelivery/ram:ShipToTradeParty/ram:PostalTradeAddress/ram:LineTwo"
+    },
+    "BT-77": {
+        "ubl": "/*/cac:Delivery/cac:DeliveryLocation/cac:Address/cbc:CityName",
+        "cii": "/rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction/ram:ApplicableHeaderTradeDelivery/ram:ShipToTradeParty/ram:PostalTradeAddress/ram:CityName"
+    },
+    "BT-78": {
+        "ubl": "/*/cac:Delivery/cac:DeliveryLocation/cac:Address/cbc:PostalZone",
+        "cii": "/rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction/ram:ApplicableHeaderTradeDelivery/ram:ShipToTradeParty/ram:PostalTradeAddress/ram:PostcodeCode"
+    },
+    "BT-79": {
+        "ubl": "/*/cac:Delivery/cac:DeliveryLocation/cac:Address/cbc:CountrySubentity",
+        "cii": "/rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction/ram:ApplicableHeaderTradeDelivery/ram:ShipToTradeParty/ram:PostalTradeAddress/ram:CountrySubDivisionName"
+    },
+    "BT-8": {
+        "ubl": "/*/cbc:TaxPointDate (Codewert)",
+        "cii": "/rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction/ram:ApplicableHeaderTradeSettlement/ram:ApplicableTradeTax/ram:DueDateTypeCode"
+    },
+    "BT-80": {
+        "ubl": "/*/cac:Delivery/cac:DeliveryLocation/cac:Address/cac:Country/cbc:IdentificationCode",
+        "cii": "/rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction/ram:ApplicableHeaderTradeDelivery/ram:ShipToTradeParty/ram:PostalTradeAddress/ram:CountryID"
+    },
+    "BT-81": {
+        "ubl": "/*/cac:PaymentMeans/cbc:PaymentMeansCode",
+        "cii": "/rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction/ram:ApplicableHeaderTradeSettlement/ram:SpecifiedTradeSettlementPaymentMeans/ram:TypeCode"
+    },
+    "BT-82": {
+        "ubl": "/*/cac:PaymentMeans/cbc:PaymentMeansCode/@name",
+        "cii": "/rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction/ram:ApplicableHeaderTradeSettlement/ram:SpecifiedTradeSettlementPaymentMeans/ram:Information"
+    },
+    "BT-83": {
+        "ubl": "/*/cac:PaymentMeans/cbc:PaymentID",
+        "cii": "/rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction/ram:ApplicableHeaderTradeSettlement/ram:PaymentReference"
+    },
+    "BT-84": {
+        "ubl": "/*/cac:PaymentMeans/cac:PayeeFinancialAccount/cbc:ID",
+        "cii": "/rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction/ram:ApplicableHeaderTradeSettlement/ram:SpecifiedTradeSettlementPaymentMeans/ram:PayeePartyCreditorFinancialAccount/ram:IBANID"
+    },
+    "BT-84-0": {
+        "cii": "/rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction/ram:ApplicableHeaderTradeSettlement/ram:SpecifiedTradeSettlementPaymentMeans/ram:PayeePartyCreditorFinancialAccount/ram:ProprietaryID"
+    },
+    "BT-85": {
+        "ubl": "/*/cac:PaymentMeans/cac:PayeeFinancialAccount/cbc:Name",
+        "cii": "/rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction/ram:ApplicableHeaderTradeSettlement/ram:SpecifiedTradeSettlementPaymentMeans/ram:PayeePartyCreditorFinancialAccount/ram:AccountName"
+    },
+    "BT-86": {
+        "ubl": "/*/cac:PaymentMeans/cac:PayeeFinancialAccount/cac:FinancialInstitutionBranch/cbc:ID",
+        "cii": "/rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction/ram:ApplicableHeaderTradeSettlement/ram:SpecifiedTradeSettlementPaymentMeans/ram:PayeeSpecifiedCreditorFinancialInstitution/ram:BICID"
+    },
+    "BT-86-00": {
+        "cii": "/rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction/ram:ApplicableHeaderTradeSettlement/ram:SpecifiedTradeSettlementPaymentMeans/ram:PayeeSpecifiedCreditorFinancialInstitution"
+    },
+    "BT-87": {
+        "ubl": "/*/cac:PaymentMeans/cac:CardAccount/cbc:PrimaryAccountNumberID",
+        "cii": "/rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction/ram:ApplicableHeaderTradeSettlement/ram:SpecifiedTradeSettlementPaymentMeans/ram:ApplicableTradeSettlementFinancialCard/ram:ID"
+    },
+    "BT-88": {
+        "ubl": "/*/cac:PaymentMeans/cac:CardAccount/cbc:HolderName",
+        "cii": "/rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction/ram:ApplicableHeaderTradeSettlement/ram:SpecifiedTradeSettlementPaymentMeans/ram:ApplicableTradeSettlementFinancialCard/ram:CardholderName"
+    },
+    "BT-89": {
+        "ubl": "/*/cac:PaymentMeans/cac:PaymentMandate/cbc:ID",
+        "cii": "/rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction/ram:ApplicableHeaderTradeSettlement/ram:SpecifiedTradePaymentTerms/ram:DirectDebitMandateID"
+    },
+    "BT-9": {
+        "ubl": "/*/cbc:DueDate",
+        "cii": "/rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction/ram:ApplicableHeaderTradeSettlement/ram:SpecifiedTradePaymentTerms/ram:DueDateDateTime/udt:DateTimeString"
+    },
+    "BT-9-0": {
+        "cii": "/rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction/ram:ApplicableHeaderTradeSettlement/ram:SpecifiedTradePaymentTerms/ram:DueDateDateTime/udt:DateTimeString/@format"
+    },
+    "BT-9-00": {
+        "cii": "/rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction/ram:ApplicableHeaderTradeSettlement/ram:SpecifiedTradePaymentTerms/ram:DueDateDateTime"
+    },
+    "BT-90": {
+        "ubl": "/*/cac:PaymentMeans/cac:PaymentMandate/cac:PayerFinancialAccount/",
+        "cii": "/rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction/ram:ApplicableHeaderTradeSettlement/ram:CreditorReferenceID"
+    },
+    "BT-91": {
+        "ubl": "/*/cac:PaymentMeans/cac:PaymentMandate/cac:PayerFinancialAccount/cbc:ID",
+        "cii": "/rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction/ram:ApplicableHeaderTradeSettlement/ram:SpecifiedTradeSettlementPaymentMeans/ram:PayerPartyDebtorFinancialAccount/ram:IBANID"
+    },
+    "BT-91-00": {
+        "cii": "/rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction/ram:ApplicableHeaderTradeSettlement/ram:SpecifiedTradeSettlementPaymentMeans/ram:PayerPartyDebtorFinancialAccount"
+    },
+    "BT-92": {
+        "ubl": "/*/cac:AllowanceCharge/cbc:Amount (ChargeIndicator=false)",
+        "cii": "/rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction/ram:ApplicableHeaderTradeSettlement/ram:SpecifiedTradeAllowanceCharge/ram:ActualAmount"
+    },
+    "BT-93": {
+        "ubl": "/*/cac:AllowanceCharge/cbc:BaseAmount (ChargeIndicator=false)",
+        "cii": "/rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction/ram:ApplicableHeaderTradeSettlement/ram:SpecifiedTradeAllowanceCharge/ram:BasisAmount"
+    },
+    "BT-94": {
+        "ubl": "/*/cac:AllowanceCharge/cbc:MultiplierFactorNumeric (ChargeIndicator=false)",
+        "cii": "/rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction/ram:ApplicableHeaderTradeSettlement/ram:SpecifiedTradeAllowanceCharge/ram:CalculationPercent"
+    },
+    "BT-95": {
+        "ubl": "/*/cac:AllowanceCharge/cac:TaxCategory/cbc:ID (ChargeIndicator=false)",
+        "cii": "/rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction/ram:ApplicableHeaderTradeSettlement/ram:SpecifiedTradeAllowanceCharge/ram:CategoryTradeTax/ram:CategoryCode"
+    },
+    "BT-95-0": {
+        "cii": "/rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction/ram:ApplicableHeaderTradeSettlement/ram:SpecifiedTradeAllowanceCharge/ram:CategoryTradeTax/ram:TypeCode"
+    },
+    "BT-95-00": {
+        "cii": "/rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction/ram:ApplicableHeaderTradeSettlement/ram:SpecifiedTradeAllowanceCharge/ram:CategoryTradeTax"
+    },
+    "BT-96": {
+        "ubl": "/*/cac:AllowanceCharge/cac:TaxCategory/cbc:Percent (ChargeIndicator=false)",
+        "cii": "/rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction/ram:ApplicableHeaderTradeSettlement/ram:SpecifiedTradeAllowanceCharge/ram:CategoryTradeTax/ram:RateApplicablePercent"
+    },
+    "BT-97": {
+        "ubl": "/*/cac:AllowanceCharge/cbc:AllowanceChargeReason (ChargeIndicator=false)",
+        "cii": "/rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction/ram:ApplicableHeaderTradeSettlement/ram:SpecifiedTradeAllowanceCharge/ram:Reason"
+    },
+    "BT-98": {
+        "ubl": "/*/cac:AllowanceCharge/cbc:AllowanceChargeReasonCode (ChargeIndicator=false)",
+        "cii": "/rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction/ram:ApplicableHeaderTradeSettlement/ram:SpecifiedTradeAllowanceCharge/ram:ReasonCode"
+    },
+    "BT-99": {
+        "ubl": "/*/cac:AllowanceCharge/cbc:Amount (ChargeIndicator=true)",
+        "cii": "/rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction/ram:ApplicableHeaderTradeSettlement/ram:SpecifiedTradeAllowanceCharge/ram:ActualAmount"
+    }
+}

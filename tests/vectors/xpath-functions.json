@@ -1,0 +1,207 @@
+{
+  "schemaVersion": 1,
+  "id": "xpath-functions",
+  "title": "The XPath 2.0 function library, as the rule corpus actually uses it",
+  "source": "tests/Unit/Xpath/Runtime/FunctionLibraryTest.php",
+  "namespaces": { "cac": "urn:cac", "cbc": "urn:cbc" },
+
+  "vectors": [
+
+    { "id": "normalize-space",         "xml": "<r/>", "expr": "normalize-space('  a   b  ')", "expect": { "string": "a b" } },
+    {
+      "id": "normalize-space-context",
+      "xml": "<r>  hello  </r>",
+      "expr": "normalize-space()",
+      "expect": { "string": "hello" },
+      "note": "Without an argument the function reads the context node."
+    },
+
+    { "id": "upper-case", "xml": "<r/>", "expr": "upper-case('abc')",        "expect": { "string": "ABC" } },
+    { "id": "concat",     "xml": "<r/>", "expr": "concat('a', 'b', 'c')",    "expect": { "string": "abc" } },
+
+    { "id": "starts-with", "xml": "<r/>", "expr": "starts-with('hello', 'he')", "expect": { "boolean": true } },
+    { "id": "contains",    "xml": "<r/>", "expr": "contains('hello', 'ell')",   "expect": { "boolean": true } },
+    { "id": "ends-with",   "xml": "<r/>", "expr": "ends-with('hello', 'lo')",   "expect": { "boolean": true } },
+
+    { "id": "substring-after",  "xml": "<r/>", "expr": "substring-after('a-bc', '-')",  "expect": { "string": "bc" } },
+    { "id": "substring-before", "xml": "<r/>", "expr": "substring-before('a-bc', '-')", "expect": { "string": "a" } },
+
+    {
+      "id": "substring-two-arg",
+      "xml": "<r/>",
+      "expr": "substring('abcde', 2)",
+      "expect": { "string": "bcde" },
+      "note": "1-based: from position 2 to the end."
+    },
+    { "id": "substring-three-arg", "xml": "<r/>", "expr": "substring('abcde', 2, 2)", "expect": { "string": "bc" } },
+
+    { "id": "string-length", "xml": "<r/>", "expr": "string-length('hello')", "expect": { "string": "5" } },
+
+    { "id": "fn-not",   "xml": "<r/>", "expr": "not(true())", "expect": { "boolean": false } },
+    { "id": "fn-true",  "xml": "<r/>", "expr": "true()",      "expect": { "boolean": true } },
+    { "id": "fn-false", "xml": "<r/>", "expr": "false()",     "expect": { "boolean": false } },
+
+    { "id": "fn-exists-nonempty", "xml": "<r/>", "expr": "exists('x')", "expect": { "boolean": true } },
+    { "id": "fn-exists-empty",    "xml": "<cac:Root xmlns:cac=\"urn:cac\"/>", "expr": "exists(cac:NoSuchChild)", "expect": { "boolean": false } },
+
+    {
+      "id": "count-and-sum",
+      "xml": "<cac:Root xmlns:cac=\"urn:cac\"><cac:Item>1</cac:Item><cac:Item>2</cac:Item></cac:Root>",
+      "expr": "count(cac:Item)",
+      "expect": { "string": "2" }
+    },
+    {
+      "id": "sum-over-nodes",
+      "xml": "<cac:Root xmlns:cac=\"urn:cac\"><cac:Item>1</cac:Item><cac:Item>2</cac:Item></cac:Root>",
+      "expr": "sum(cac:Item/xs:decimal(.))",
+      "expect": { "string": "3" }
+    },
+
+    {
+      "id": "round-half-up",
+      "xml": "<r/>",
+      "expr": "round(2.5)",
+      "expect": { "string": "3" },
+      "note": "XPath rounds half UP, towards positive infinity - not to even."
+    },
+    { "id": "abs", "xml": "<r/>", "expr": "abs(-5)", "expect": { "string": "5" } },
+
+    {
+      "id": "matches-substring",
+      "xml": "<r/>",
+      "expr": "matches('abracadabra', 'bra')",
+      "expect": { "boolean": true },
+      "note": "⚠️ `fn:matches()` is a SUBSTRING test, not a whole-string one. The opposite was asserted until 21.09.2026 and survived because nearly every pattern in the corpus is written with explicit ^…$, where anchoring twice changes nothing. Romania's BR-RO-010 exposed it: anchored, \"does the invoice number contain a digit\" demanded a number of exactly one digit, and the rule fired on all eleven Romanian samples while the reference validator reported none."
+    },
+    { "id": "matches-anchored-both",  "xml": "<r/>", "expr": "matches('abracadabra', '^a.*a$')", "expect": { "boolean": true } },
+    { "id": "matches-anchored-start", "xml": "<r/>", "expr": "matches('abracadabra', '^bra')",   "expect": { "boolean": false } },
+    { "id": "matches-plain",          "xml": "<r/>", "expr": "matches('abc', 'bc')",             "expect": { "boolean": true } },
+    { "id": "matches-dot",            "xml": "<r/>", "expr": "matches('abc', 'a.c')",            "expect": { "boolean": true } },
+    { "id": "matches-digits",         "xml": "<r/>", "expr": "matches('12345', '\\d+')",         "expect": { "boolean": true } },
+    { "id": "matches-ro-010-hit",     "xml": "<r/>", "expr": "matches('123456XX', '([0-9])')",   "expect": { "boolean": true } },
+    { "id": "matches-ro-010-miss",    "xml": "<r/>", "expr": "matches('ABCDEF', '([0-9])')",     "expect": { "boolean": false } },
+
+    {
+      "id": "matches-huge-quantifier",
+      "xml": "<r/>",
+      "expr": "matches('irgendein Text', '^(.{1,6826666})$')",
+      "expect": { "ebv": true },
+      "note": "⚠️ CIUS-PT 2.1.1 really contains this pattern. PCRE caps a {n,m} upper bound at 65535 and refuses to compile beyond it; preg_match() then returns false, which fn:matches() would report as \"does not match\" for EVERY document - the rule fires on perfectly fine invoices and nothing says why. A JavaScript port has its own limits here and needs its own answer."
+    },
+    { "id": "matches-huge-quantifier-lower-bound", "xml": "<r/>", "expr": "matches('', '^(.{1,6826666})$')", "expect": { "ebv": false } },
+    { "id": "matches-large-quantifier-short",      "xml": "<r/>", "expr": "matches('abcd', '^(.{1,70000})$')", "expect": { "ebv": true } },
+
+    {
+      "id": "index-of-one-based",
+      "xml": "<r/>",
+      "expr": "index-of(('a', 'b', 'a'), 'a')",
+      "expect": { "strings": [ "1", "3" ] },
+      "note": "1-based, and a SEQUENCE of every position. Called by CIUS-PT."
+    },
+    {
+      "id": "index-of-no-hit",
+      "xml": "<r/>",
+      "expr": "index-of(('a', 'b', 'a'), 'z')",
+      "expect": { "empty": true },
+      "note": "No hit is the empty sequence - not 0, not -1."
+    },
+
+    {
+      "id": "data-atomises",
+      "xml": "<r><a>1</a><a>2</a></r>",
+      "expr": "data(a)",
+      "expect": { "strings": [ "1", "2" ] }
+    },
+
+    { "id": "replace",  "xml": "<r/>", "expr": "replace('2024-01-15', '-', '/')", "expect": { "string": "2024/01/15" } },
+    { "id": "tokenize", "xml": "<r/>", "expr": "tokenize('a b  c', '\\s+')",      "expect": { "strings": [ "a", "b", "c" ] } },
+
+    { "id": "distinct-values", "xml": "<r/>", "expr": "distinct-values(('a', 'b', 'a'))", "expect": { "count": 2 } },
+
+    { "id": "unknown-function-error", "xml": "<r/>", "expr": "no-such-function('x')", "expect": { "error": true } },
+
+    {
+      "id": "number-non-numeric-is-empty",
+      "xml": "<r/>",
+      "expr": "number('not a number')",
+      "expect": { "empty": true, "ebv": false },
+      "note": "⚠️ The empty sequence, not NaN and not 0 - and its effective boolean value is false, so a rule built on it does not fire."
+    },
+    { "id": "number-decimal-string", "xml": "<r/>", "expr": "number('42.5')", "expect": { "string": "42.5" } },
+
+    {
+      "id": "floor-positive",
+      "xml": "<r/>",
+      "expr": "floor(2.9)",
+      "expect": { "string": "2" },
+      "note": "⚠️ floor() and ceiling() round towards minus and plus infinity, NOT towards zero - see floor-negative and ceiling-negative."
+    },
+    { "id": "floor-negative",      "xml": "<r/>", "expr": "floor(-2.1)",   "expect": { "string": "-3" } },
+    { "id": "floor-integer",       "xml": "<r/>", "expr": "floor(2)",      "expect": { "string": "2" } },
+    { "id": "ceiling-positive",    "xml": "<r/>", "expr": "ceiling(2.1)",  "expect": { "string": "3" } },
+    { "id": "ceiling-negative",    "xml": "<r/>", "expr": "ceiling(-2.9)", "expect": { "string": "-2" } },
+    { "id": "ceiling-integer",     "xml": "<r/>", "expr": "ceiling(2)",    "expect": { "string": "2" } },
+    { "id": "ceiling-untyped-node","xml": "<r><a>4.01</a></r>", "expr": "ceiling(a)", "expect": { "string": "5" } },
+    { "id": "floor-empty",         "xml": "<r/>", "expr": "floor(a)",      "expect": { "empty": true } },
+    { "id": "ceiling-empty",       "xml": "<r/>", "expr": "ceiling(a)",    "expect": { "empty": true } },
+
+    { "id": "min",                 "xml": "<r/>", "expr": "min((3, -1.5, 2))", "expect": { "string": "-1.5" } },
+    { "id": "max",                 "xml": "<r/>", "expr": "max((3, -1.5, 2))", "expect": { "string": "3" } },
+    {
+      "id": "max-numeric-not-lexical",
+      "xml": "<r/>",
+      "expr": "max(('9', '10'))",
+      "expect": { "string": "10" },
+      "note": "Both engines read every item as xs:decimal; \"10\" is larger than \"9\" although it sorts before it as a string."
+    },
+    { "id": "min-single",          "xml": "<r/>", "expr": "min(7)",            "expect": { "string": "7" } },
+    { "id": "min-empty",           "xml": "<r/>", "expr": "min(a)",            "expect": { "empty": true } },
+    { "id": "max-empty",           "xml": "<r/>", "expr": "max(a)",            "expect": { "empty": true } },
+
+    { "id": "empty-of-empty",      "xml": "<r/>", "expr": "empty(a)",  "expect": { "boolean": true } },
+    {
+      "id": "empty-of-empty-string",
+      "xml": "<r/>",
+      "expr": "empty('')",
+      "expect": { "boolean": false },
+      "note": "An empty STRING is still one item."
+    },
+    { "id": "empty-of-node",       "xml": "<r/>", "expr": "empty(.)",  "expect": { "boolean": false } },
+
+    { "id": "lower-case",          "xml": "<r/>", "expr": "lower-case('AbC')", "expect": { "string": "abc" } },
+    { "id": "lower-case-umlauts",  "xml": "<r/>", "expr": "lower-case('ÄÖÜ')", "expect": { "string": "äöü" } },
+    { "id": "lower-case-empty",    "xml": "<r/>", "expr": "lower-case(a)",     "expect": { "string": "" } },
+
+    { "id": "namespace-uri-element",      "xml": "<cac:Root xmlns:cac=\"urn:cac\" plain=\"1\"><child/></cac:Root>", "expr": "namespace-uri(.)",           "expect": { "string": "urn:cac" } },
+    { "id": "namespace-uri-no-namespace", "xml": "<cac:Root xmlns:cac=\"urn:cac\" plain=\"1\"><child/></cac:Root>", "expr": "namespace-uri(child)",       "expect": { "string": "" } },
+    { "id": "namespace-uri-empty",        "xml": "<cac:Root xmlns:cac=\"urn:cac\" plain=\"1\"><child/></cac:Root>", "expr": "namespace-uri(cac:Missing)", "expect": { "string": "" } },
+    {
+      "id": "namespace-uri-context",
+      "xml": "<cac:Root xmlns:cac=\"urn:cac\" plain=\"1\"><child/></cac:Root>",
+      "expr": "namespace-uri()",
+      "expect": { "string": "urn:cac" },
+      "note": "Without an argument the function reads the context node."
+    },
+    { "id": "namespace-uri-attribute",    "xml": "<cac:Root xmlns:cac=\"urn:cac\" plain=\"1\"><child/></cac:Root>", "expr": "namespace-uri(@plain)",      "expect": { "string": "" } },
+
+    { "id": "codepoints-to-string",       "xml": "<r/>", "expr": "codepoints-to-string((72, 105))", "expect": { "string": "Hi" } },
+    { "id": "codepoints-to-string-empty", "xml": "<r/>", "expr": "codepoints-to-string(a)",          "expect": { "string": "" } },
+    {
+      "id": "codepoints-to-string-astral",
+      "xml": "<r/>",
+      "expr": "codepoints-to-string(119070)",
+      "expect": { "string": "𝄞" },
+      "note": "One codepoint above the Basic Multilingual Plane is one character, not two halves."
+    },
+    { "id": "codepoints-to-string-too-large-error", "xml": "<r/>", "expr": "codepoints-to-string(1114112)", "expect": { "error": true } },
+    { "id": "codepoints-to-string-fraction-error",  "xml": "<r/>", "expr": "codepoints-to-string(65.5)",    "expect": { "error": true } },
+    {
+      "id": "codepoints-to-string-surrogate-error",
+      "xml": "<r/>",
+      "expr": "codepoints-to-string(55296)",
+      "expect": { "error": true },
+      "note": "⚠️ U+D800 is a surrogate, not a character ( err:FOCH0001 ). JavaScript's String.fromCodePoint() accepts it and returns half a character; VAMPIRE JS did so until 09.10.2026."
+    }
+
+  ]
+}

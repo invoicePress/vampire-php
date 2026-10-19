@@ -1,0 +1,8 @@
+{
+    "file": "invoices/zugferd-en16931/E04_01_Betriebskostenabrechnung_NEU.XML",
+    "scenario": "EN16931 (CII)",
+    "accept": true,
+    "rules": [],
+    "mustNotBlock": [],
+    "note": "Offizielle XRechnung-3.0.2-Testsuite, Gruppe zugferd-en16931 - gueltiger Beleg, muss angenommen werden."
+}

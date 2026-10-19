@@ -1,0 +1,240 @@
+{
+  "schemaVersion": 1,
+  "id": "xpath-node-operators",
+  "title": "Node comparison is, intersect / except, the kind tests element() and attribute(), position() and last() in predicates",
+  "source": "tests/Unit/Xpath/InterpreterNodeOperatorsTest.php",
+  "namespaces": { "cac": "urn:cac", "cbc": "urn:cbc" },
+
+  "vectors": [
+
+    {
+      "id": "is-same-node",
+      "xml": "<cac:Root xmlns:cac=\"urn:cac\" xmlns:cbc=\"urn:cbc\"><cac:Item id=\"a\"><cbc:ID>1</cbc:ID></cac:Item><cac:Item id=\"b\"><cbc:ID>2</cbc:ID></cac:Item><cac:Item id=\"c\"><cbc:ID>3</cbc:ID></cac:Item><cac:Other><cbc:ID>2</cbc:ID></cac:Other><cac:Other><cbc:ID>3</cbc:ID></cac:Other></cac:Root>",
+      "expr": "cac:Item[1] is cac:Item[1]",
+      "expect": { "count": 1, "boolean": true }
+    },
+    {
+      "id": "is-different-node",
+      "xml": "<cac:Root xmlns:cac=\"urn:cac\" xmlns:cbc=\"urn:cbc\"><cac:Item id=\"a\"><cbc:ID>1</cbc:ID></cac:Item><cac:Item id=\"b\"><cbc:ID>2</cbc:ID></cac:Item><cac:Item id=\"c\"><cbc:ID>3</cbc:ID></cac:Item><cac:Other><cbc:ID>2</cbc:ID></cac:Other><cac:Other><cbc:ID>3</cbc:ID></cac:Other></cac:Root>",
+      "expr": "cac:Item[1] is cac:Item[2]",
+      "expect": { "count": 1, "boolean": false }
+    },
+    {
+      "id": "is-same-node-on-two-paths",
+      "xml": "<cac:Root xmlns:cac=\"urn:cac\" xmlns:cbc=\"urn:cbc\"><cac:Item id=\"a\"><cbc:ID>1</cbc:ID></cac:Item><cac:Item id=\"b\"><cbc:ID>2</cbc:ID></cac:Item><cac:Item id=\"c\"><cbc:ID>3</cbc:ID></cac:Item><cac:Other><cbc:ID>2</cbc:ID></cac:Other><cac:Other><cbc:ID>3</cbc:ID></cac:Other></cac:Root>",
+      "expr": "cac:Item[2]/preceding-sibling::cac:Item[1] is cac:Item[1]",
+      "expect": { "boolean": true }
+    },
+    {
+      "id": "general-comparison-equal-value",
+      "xml": "<cac:Root xmlns:cac=\"urn:cac\" xmlns:cbc=\"urn:cbc\"><cac:Item id=\"a\"><cbc:ID>1</cbc:ID></cac:Item><cac:Item id=\"b\"><cbc:ID>2</cbc:ID></cac:Item><cac:Item id=\"c\"><cbc:ID>3</cbc:ID></cac:Item><cac:Other><cbc:ID>2</cbc:ID></cac:Other><cac:Other><cbc:ID>3</cbc:ID></cac:Other></cac:Root>",
+      "expr": "cac:Item[2]/cbc:ID = cac:Other[1]/cbc:ID",
+      "expect": { "boolean": true }
+    },
+    {
+      "id": "is-equal-value-different-nodes",
+      "xml": "<cac:Root xmlns:cac=\"urn:cac\" xmlns:cbc=\"urn:cbc\"><cac:Item id=\"a\"><cbc:ID>1</cbc:ID></cac:Item><cac:Item id=\"b\"><cbc:ID>2</cbc:ID></cac:Item><cac:Item id=\"c\"><cbc:ID>3</cbc:ID></cac:Item><cac:Other><cbc:ID>2</cbc:ID></cac:Other><cac:Other><cbc:ID>3</cbc:ID></cac:Other></cac:Root>",
+      "expr": "cac:Item[2]/cbc:ID is cac:Other[1]/cbc:ID",
+      "expect": { "boolean": false },
+      "note": "⚠️ Equal string value, different nodes: `=` says true ( see general-comparison-equal-value ), `is` must say false."
+    },
+
+    {
+      "id": "is-empty-left",
+      "xml": "<cac:Root xmlns:cac=\"urn:cac\"><cac:Item/></cac:Root>",
+      "expr": "cac:Missing is .",
+      "expect": { "empty": true },
+      "note": "⚠️ XPath 2.0 §3.5.3: an empty operand gives the EMPTY SEQUENCE, not false. VAMPIRE JS answered false until 09.10.2026."
+    },
+    { "id": "is-empty-right",      "xml": "<cac:Root xmlns:cac=\"urn:cac\"><cac:Item/></cac:Root>", "expr": ". is cac:Missing",        "expect": { "empty": true } },
+    { "id": "is-empty-inside-not", "xml": "<cac:Root xmlns:cac=\"urn:cac\"><cac:Item/></cac:Root>", "expr": "not(cac:Missing is .)",   "expect": { "boolean": true } },
+    {
+      "id": "is-empty-compared-as-value",
+      "xml": "<cac:Root xmlns:cac=\"urn:cac\"><cac:Item/></cac:Root>",
+      "expr": "(cac:Missing is .) = false()",
+      "expect": { "boolean": false },
+      "note": "⚠️ The one shape where the empty sequence and false read differently: a general comparison with an empty operand is false. An engine that answers false for the empty operand says true here."
+    },
+
+    {
+      "id": "is-more-than-one-node-left-error",
+      "xml": "<cac:Root xmlns:cac=\"urn:cac\" xmlns:cbc=\"urn:cbc\"><cac:Item id=\"a\"><cbc:ID>1</cbc:ID></cac:Item><cac:Item id=\"b\"><cbc:ID>2</cbc:ID></cac:Item><cac:Item id=\"c\"><cbc:ID>3</cbc:ID></cac:Item></cac:Root>",
+      "expr": "cac:Item is cac:Item[1]",
+      "expect": { "error": true },
+      "note": "⚠️ err:XPTY0004. VAMPIRE JS took the first node until 09.10.2026 and answered true here."
+    },
+    {
+      "id": "is-more-than-one-node-right-error",
+      "xml": "<cac:Root xmlns:cac=\"urn:cac\" xmlns:cbc=\"urn:cbc\"><cac:Item id=\"a\"><cbc:ID>1</cbc:ID></cac:Item><cac:Item id=\"b\"><cbc:ID>2</cbc:ID></cac:Item><cac:Item id=\"c\"><cbc:ID>3</cbc:ID></cac:Item></cac:Root>",
+      "expr": "cac:Item[1] is cac:Item",
+      "expect": { "error": true }
+    },
+    { "id": "is-atomic-operand-error", "xml": "<cac:Root xmlns:cac=\"urn:cac\"/>", "expr": "'a' is 'a'", "expect": { "error": true } },
+
+    {
+      "id": "zugferd-extended-shape-other-line",
+      "xml": "<cac:Root xmlns:cac=\"urn:cac\" xmlns:cbc=\"urn:cbc\"><cac:Item id=\"a\"><cbc:ID>1</cbc:ID></cac:Item><cac:Item id=\"b\"><cbc:ID>2</cbc:ID></cac:Item><cac:Item id=\"c\"><cbc:ID>3</cbc:ID></cac:Item><cac:Other><cbc:ID>2</cbc:ID></cac:Other><cac:Other><cbc:ID>3</cbc:ID></cac:Other></cac:Root>",
+      "expr": "cac:Item[2]/boolean(some $other in ../cac:Item satisfies (not($other is .) and $other/cbc:ID = 3))",
+      "expect": { "count": 1, "boolean": true },
+      "note": "The shape ZUGFeRD 2.4 and 2.5 EXTENDED really use, evaluated from the second line: is there ANOTHER line with ID 3."
+    },
+    {
+      "id": "zugferd-extended-shape-context-line-excluded",
+      "xml": "<cac:Root xmlns:cac=\"urn:cac\" xmlns:cbc=\"urn:cbc\"><cac:Item id=\"a\"><cbc:ID>1</cbc:ID></cac:Item><cac:Item id=\"b\"><cbc:ID>2</cbc:ID></cac:Item><cac:Item id=\"c\"><cbc:ID>3</cbc:ID></cac:Item><cac:Other><cbc:ID>2</cbc:ID></cac:Other><cac:Other><cbc:ID>3</cbc:ID></cac:Other></cac:Root>",
+      "expr": "cac:Item[2]/boolean(some $other in ../cac:Item satisfies (not($other is .) and $other/cbc:ID = 2))",
+      "expect": { "count": 1, "boolean": false },
+      "note": "Only the context line itself has ID 2, and `is` is what keeps it out."
+    },
+    {
+      "id": "zugferd-extended-shape-single-line",
+      "xml": "<cac:Root xmlns:cac=\"urn:cac\"><cac:Item/></cac:Root>",
+      "expr": "cac:Item/boolean(some $other in ../cac:Item satisfies not($other is .))",
+      "expect": { "count": 1, "boolean": false }
+    },
+
+    {
+      "id": "intersect-one",
+      "xml": "<cac:Root xmlns:cac=\"urn:cac\" xmlns:cbc=\"urn:cbc\"><cac:Item id=\"a\"><cbc:ID>1</cbc:ID></cac:Item><cac:Item id=\"b\"><cbc:ID>2</cbc:ID></cac:Item><cac:Item id=\"c\"><cbc:ID>3</cbc:ID></cac:Item></cac:Root>",
+      "expr": "string-join(for $n in (cac:Item intersect cac:Item[2]) return string($n/@id), ',')",
+      "expect": { "string": "b" }
+    },
+    {
+      "id": "intersect-positional",
+      "xml": "<cac:Root xmlns:cac=\"urn:cac\" xmlns:cbc=\"urn:cbc\"><cac:Item id=\"a\"><cbc:ID>1</cbc:ID></cac:Item><cac:Item id=\"b\"><cbc:ID>2</cbc:ID></cac:Item><cac:Item id=\"c\"><cbc:ID>3</cbc:ID></cac:Item></cac:Root>",
+      "expr": "string-join(for $n in (cac:Item intersect cac:Item[position() > 1]) return string($n/@id), ',')",
+      "expect": { "string": "b,c" }
+    },
+    {
+      "id": "intersect-disjoint",
+      "xml": "<cac:Root xmlns:cac=\"urn:cac\" xmlns:cbc=\"urn:cbc\"><cac:Item id=\"a\"><cbc:ID>1</cbc:ID></cac:Item><cac:Item id=\"b\"><cbc:ID>2</cbc:ID></cac:Item><cac:Item id=\"c\"><cbc:ID>3</cbc:ID></cac:Item></cac:Root>",
+      "expr": "cac:Item[1] intersect cac:Item[3]",
+      "expect": { "empty": true }
+    },
+    {
+      "id": "except-one",
+      "xml": "<cac:Root xmlns:cac=\"urn:cac\" xmlns:cbc=\"urn:cbc\"><cac:Item id=\"a\"><cbc:ID>1</cbc:ID></cac:Item><cac:Item id=\"b\"><cbc:ID>2</cbc:ID></cac:Item><cac:Item id=\"c\"><cbc:ID>3</cbc:ID></cac:Item></cac:Root>",
+      "expr": "string-join(for $n in (cac:Item except cac:Item[2]) return string($n/@id), ',')",
+      "expect": { "string": "a,c" }
+    },
+    {
+      "id": "except-all",
+      "xml": "<cac:Root xmlns:cac=\"urn:cac\" xmlns:cbc=\"urn:cbc\"><cac:Item id=\"a\"><cbc:ID>1</cbc:ID></cac:Item><cac:Item id=\"b\"><cbc:ID>2</cbc:ID></cac:Item><cac:Item id=\"c\"><cbc:ID>3</cbc:ID></cac:Item></cac:Root>",
+      "expr": "cac:Item except cac:Item",
+      "expect": { "empty": true }
+    },
+    { "id": "intersect-empty-left",  "xml": "<cac:Root xmlns:cac=\"urn:cac\"><cac:Item id=\"a\"/><cac:Item id=\"b\"/><cac:Item id=\"c\"/></cac:Root>", "expr": "cac:Missing intersect cac:Item", "expect": { "empty": true } },
+    { "id": "intersect-empty-right", "xml": "<cac:Root xmlns:cac=\"urn:cac\"><cac:Item id=\"a\"/><cac:Item id=\"b\"/><cac:Item id=\"c\"/></cac:Root>", "expr": "cac:Item intersect cac:Missing", "expect": { "empty": true } },
+    { "id": "except-empty-left",     "xml": "<cac:Root xmlns:cac=\"urn:cac\"><cac:Item id=\"a\"/><cac:Item id=\"b\"/><cac:Item id=\"c\"/></cac:Root>", "expr": "cac:Missing except cac:Item",    "expect": { "empty": true } },
+    {
+      "id": "except-empty-right",
+      "xml": "<cac:Root xmlns:cac=\"urn:cac\"><cac:Item id=\"a\"/><cac:Item id=\"b\"/><cac:Item id=\"c\"/></cac:Root>",
+      "expr": "string-join(for $n in (cac:Item except cac:Missing) return string($n/@id), ',')",
+      "expect": { "string": "a,b,c" }
+    },
+    {
+      "id": "except-removes-duplicates",
+      "xml": "<cac:Root xmlns:cac=\"urn:cac\"><cac:Item id=\"a\"/><cac:Item id=\"b\"/><cac:Item id=\"c\"/></cac:Root>",
+      "expr": "string-join(for $n in ((cac:Item[1], cac:Item[1]) except cac:Item[2]) return string($n/@id), ',')",
+      "expect": { "string": "a" },
+      "note": "⚠️ The result is a node SET: a node named twice on the left appears once."
+    },
+    {
+      "id": "intersect-removes-duplicates",
+      "xml": "<cac:Root xmlns:cac=\"urn:cac\"><cac:Item id=\"a\"/><cac:Item id=\"b\"/><cac:Item id=\"c\"/></cac:Root>",
+      "expr": "string-join(for $n in ((cac:Item[1], cac:Item[1]) intersect cac:Item) return string($n/@id), ',')",
+      "expect": { "string": "a" }
+    },
+    {
+      "id": "intersect-atomic-operand-error",
+      "xml": "<cac:Root xmlns:cac=\"urn:cac\"><cac:Item id=\"a\"/></cac:Root>",
+      "expr": "(1, 2) intersect cac:Item",
+      "expect": { "error": true },
+      "note": "⚠️ err:XPTY0004. VAMPIRE JS answered the empty sequence until 09.10.2026."
+    },
+    {
+      "id": "except-atomic-operand-error",
+      "xml": "<cac:Root xmlns:cac=\"urn:cac\"><cac:Item id=\"a\"/></cac:Root>",
+      "expr": "cac:Item except 'x'",
+      "expect": { "error": true },
+      "note": "⚠️ err:XPTY0004. VAMPIRE JS answered the item on the left until 09.10.2026."
+    },
+
+    { "id": "kind-node",                     "xml": "<r xmlns:p=\"urn:p\" a=\"1\" p:b=\"2\">text<x/><!-- c --><p:y/>more</r>", "expr": "count(node())",                       "expect": { "string": "5" } },
+    { "id": "kind-element",                  "xml": "<r xmlns:p=\"urn:p\" a=\"1\" p:b=\"2\">text<x/><!-- c --><p:y/>more</r>", "expr": "count(element())",                    "expect": { "string": "2" } },
+    { "id": "kind-element-child-axis",       "xml": "<r xmlns:p=\"urn:p\" a=\"1\" p:b=\"2\">text<x/><!-- c --><p:y/>more</r>", "expr": "count(child::element())",             "expect": { "string": "2" } },
+    {
+      "id": "kind-attribute",
+      "xml": "<r xmlns:p=\"urn:p\" a=\"1\" p:b=\"2\">text<x/><!-- c --><p:y/>more</r>",
+      "expr": "count(@attribute())",
+      "expect": { "string": "2" },
+      "note": "⚠️ The namespace declaration xmlns:p is NOT an attribute in the XPath data model. A browser DOM and @xmldom/xmldom list it in `attributes`; VAMPIRE JS counted three here until 09.10.2026."
+    },
+    { "id": "kind-attribute-attribute-axis", "xml": "<r xmlns:p=\"urn:p\" a=\"1\" p:b=\"2\">text<x/><!-- c --><p:y/>more</r>", "expr": "count(attribute::attribute())",       "expect": { "string": "2" } },
+    { "id": "kind-attribute-wildcard",       "xml": "<r xmlns:p=\"urn:p\" a=\"1\" p:b=\"2\">text<x/><!-- c --><p:y/>more</r>", "expr": "count(@*)",                           "expect": { "string": "2" } },
+    { "id": "kind-attribute-default-ns",     "xml": "<r xmlns=\"urn:x\" a=\"1\"/>",                                              "expr": "count(@*)",                           "expect": { "string": "1" } },
+    { "id": "kind-attribute-on-child-axis",  "xml": "<r xmlns:p=\"urn:p\" a=\"1\" p:b=\"2\">text<x/><!-- c --><p:y/>more</r>", "expr": "count(child::attribute())",           "expect": { "string": "0" } },
+    { "id": "kind-element-on-attribute-axis","xml": "<r xmlns:p=\"urn:p\" a=\"1\" p:b=\"2\">text<x/><!-- c --><p:y/>more</r>", "expr": "count(@element())",                   "expect": { "string": "0" } },
+    {
+      "id": "kind-element-ancestor-or-self",
+      "xml": "<r xmlns:p=\"urn:p\" a=\"1\" p:b=\"2\">text<x/><!-- c --><p:y/>more</r>",
+      "expr": "count(ancestor-or-self::element())",
+      "expect": { "string": "1" },
+      "note": "The document node is not an element: from the root element up there is exactly one."
+    },
+    {
+      "id": "kind-processing-instruction",
+      "xml": "<r><?pi data?><x/></r>",
+      "expr": "count(processing-instruction())",
+      "expect": { "string": "1" },
+      "note": "VAMPIRE JS matched no processing instruction until 09.10.2026."
+    },
+
+    {
+      "id": "name-test-element",
+      "xml": "<r><element/><attribute/><other/></r>",
+      "expr": "count(element)",
+      "expect": { "string": "1" },
+      "note": "⚠️ `element` and `attribute` are kind tests only when a `(` follows. Without it they are plain element names."
+    },
+    { "id": "name-test-attribute",      "xml": "<r><element/><attribute/><other/></r>", "expr": "count(attribute)", "expect": { "string": "1" } },
+    { "id": "kind-element-three-names", "xml": "<r><element/><attribute/><other/></r>", "expr": "count(element())", "expect": { "string": "3" } },
+
+    { "id": "predicate-last",              "xml": "<cac:Root xmlns:cac=\"urn:cac\"><cac:Item id=\"a\"/><cac:Item id=\"b\"/><cac:Item id=\"c\"/></cac:Root>", "expr": "string(cac:Item[last()]/@id)",              "expect": { "string": "c" } },
+    { "id": "predicate-last-minus-one",    "xml": "<cac:Root xmlns:cac=\"urn:cac\"><cac:Item id=\"a\"/><cac:Item id=\"b\"/><cac:Item id=\"c\"/></cac:Root>", "expr": "string(cac:Item[last() - 1]/@id)",          "expect": { "string": "b" } },
+    { "id": "predicate-position-eq-last",  "xml": "<cac:Root xmlns:cac=\"urn:cac\"><cac:Item id=\"a\"/><cac:Item id=\"b\"/><cac:Item id=\"c\"/></cac:Root>", "expr": "string(cac:Item[position() = last()]/@id)", "expect": { "string": "c" } },
+    { "id": "predicate-position-gt",       "xml": "<cac:Root xmlns:cac=\"urn:cac\"><cac:Item id=\"a\"/><cac:Item id=\"b\"/><cac:Item id=\"c\"/></cac:Root>", "expr": "string-join(for $n in cac:Item[position() > 1] return string($n/@id), ',')",  "expect": { "string": "b,c" } },
+    { "id": "predicate-position-ne",       "xml": "<cac:Root xmlns:cac=\"urn:cac\"><cac:Item id=\"a\"/><cac:Item id=\"b\"/><cac:Item id=\"c\"/></cac:Root>", "expr": "string-join(for $n in cac:Item[position() != 2] return string($n/@id), ',')", "expect": { "string": "a,c" } },
+    { "id": "predicate-last-in-step",      "xml": "<cac:Root xmlns:cac=\"urn:cac\"><cac:Item id=\"a\"/><cac:Item id=\"b\"/><cac:Item id=\"c\"/></cac:Root>", "expr": "cac:Item[1]/count(../cac:Item[last()]/preceding-sibling::cac:Item) + 1", "expect": { "string": "3" } },
+
+    {
+      "id": "second-predicate-own-size",
+      "xml": "<cac:Root xmlns:cac=\"urn:cac\"><cac:Item id=\"a\"/><cac:Item id=\"b\"/><cac:Item id=\"c\"/></cac:Root>",
+      "expr": "string(cac:Item[position() > 1][last()]/@id)",
+      "expect": { "string": "c" },
+      "note": "⚠️ A SECOND PREDICATE COUNTS OVER WHAT THE FIRST ONE LEFT, not over the whole axis."
+    },
+    { "id": "second-predicate-first",       "xml": "<cac:Root xmlns:cac=\"urn:cac\"><cac:Item id=\"a\"/><cac:Item id=\"b\"/><cac:Item id=\"c\"/></cac:Root>", "expr": "string(cac:Item[position() > 1][1]/@id)",                       "expect": { "string": "b" } },
+    { "id": "second-predicate-last-minus",  "xml": "<cac:Root xmlns:cac=\"urn:cac\"><cac:Item id=\"a\"/><cac:Item id=\"b\"/><cac:Item id=\"c\"/></cac:Root>", "expr": "string(cac:Item[position() > 1][position() = last() - 1]/@id)", "expect": { "string": "b" } },
+
+    {
+      "id": "nested-predicate-restores-focus",
+      "xml": "<cac:Root xmlns:cac=\"urn:cac\" xmlns:cbc=\"urn:cbc\"><cac:Item id=\"a\"><cbc:ID>1</cbc:ID></cac:Item><cac:Item id=\"b\"><cbc:ID>2</cbc:ID></cac:Item><cac:Item id=\"c\"><cbc:ID>3</cbc:ID></cac:Item><cac:Other><cbc:ID>2</cbc:ID></cac:Other><cac:Other><cbc:ID>3</cbc:ID></cac:Other></cac:Root>",
+      "expr": "string-join(for $n in cac:Item[cbc:ID = ../cac:Other[last()]/cbc:ID and position() = 3 and last() = 3] return string($n/@id), ',')",
+      "expect": { "string": "c" },
+      "note": "⚠️ AN INNER PREDICATE MUST NOT LEAVE ITS FOCUS BEHIND. The literal 3 tells the outer focus ( 3, 3 ) from the leaked inner one ( 2, 2 )."
+    },
+    {
+      "id": "nested-predicate-restores-focus-swapped",
+      "xml": "<cac:Root xmlns:cac=\"urn:cac\" xmlns:cbc=\"urn:cbc\"><cac:Item id=\"a\"><cbc:ID>1</cbc:ID></cac:Item><cac:Item id=\"b\"><cbc:ID>2</cbc:ID></cac:Item><cac:Item id=\"c\"><cbc:ID>3</cbc:ID></cac:Item><cac:Other><cbc:ID>2</cbc:ID></cac:Other><cac:Other><cbc:ID>3</cbc:ID></cac:Other></cac:Root>",
+      "expr": "string-join(for $n in cac:Item[position() = last() - 1 or cbc:ID = ../cac:Other[last()]/cbc:ID] return string($n/@id), ',')",
+      "expect": { "string": "b,c" }
+    },
+
+    { "id": "last-outside-predicate",     "xml": "<cac:Root xmlns:cac=\"urn:cac\"><cac:Item/></cac:Root>", "expr": "last()",     "expect": { "string": "1" } },
+    { "id": "position-outside-predicate", "xml": "<cac:Root xmlns:cac=\"urn:cac\"><cac:Item/></cac:Root>", "expr": "position()", "expect": { "string": "1" } },
+
+    { "id": "tokenize-last",               "xml": "<r/>", "expr": "tokenize('a#b#c', '#')[last()]",                 "expect": { "string": "c" } },
+    { "id": "tokenize-position-last-minus", "xml": "<r/>", "expr": "tokenize('a#b#c', '#')[position() = last() - 1]", "expect": { "string": "b" } }
+
+  ]
+}

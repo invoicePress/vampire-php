@@ -1,0 +1,7 @@
+{
+    "file": "invoices/phive-en16931-ubl/BIS3_Invoice_negativ.XML",
+    "scenario": "Peppol Billing BIS 3 - UBL Invoice",
+    "accept": true,
+    "messages": [],
+    "engine": "KoSIT Validator 1.6.3"
+}

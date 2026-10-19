@@ -1,0 +1,7 @@
+{
+    "file": "invoices/phive-peppol-billing/vat-category-E.xml",
+    "scenario": "Peppol Billing BIS 3 - UBL Invoice",
+    "accept": true,
+    "messages": [],
+    "engine": "KoSIT Validator 1.6.3"
+}
